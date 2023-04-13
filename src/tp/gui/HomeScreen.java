@@ -17,6 +17,8 @@ import javax.swing.border.EmptyBorder;
 import tp.logic.ConnectingCities;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 
 public class HomeScreen extends JFrame {
@@ -33,7 +35,7 @@ public class HomeScreen extends JFrame {
 		
 		setTitle("Programacion III - Conectando Ciudades");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 582, 461);
+		setBounds(100, 100, 582, 530);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -43,7 +45,7 @@ public class HomeScreen extends JFrame {
 		
 		ConnectingCities connectingCities = new ConnectingCities();
 		
-		JComboBox<String> comboBox = new JComboBox();
+		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setBounds(32, 52, 220, 22);
 		contentPane.add(comboBox);
 		
@@ -60,44 +62,47 @@ public class HomeScreen extends JFrame {
 		lblNewLabel.setBounds(44, 27, 196, 14);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblAgregarCiudadQue = new JLabel("Agregar ciudad que no est\u00E9 listada");
+		JLabel lblAgregarCiudadQue = new JLabel("Agregar ciudad no listada");
 		lblAgregarCiudadQue.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAgregarCiudadQue.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblAgregarCiudadQue.setBounds(10, 116, 253, 22);
+		lblAgregarCiudadQue.setBounds(10, 168, 253, 22);
 		contentPane.add(lblAgregarCiudadQue);
 		
 		JLabel lblName = new JLabel("Nombre de la ciudad");
 		lblName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblName.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblName.setBounds(32, 149, 220, 22);
+		lblName.setBounds(32, 201, 220, 22);
 		contentPane.add(lblName);
 		
 		textFieldName = new JTextField();
-		textFieldName.setBounds(32, 182, 220, 20);
+		textFieldName.setBounds(32, 247, 220, 20);
 		contentPane.add(textFieldName);
 		textFieldName.setColumns(10);
 		
 		JLabel lblLatitud = new JLabel("Latitud");
 		lblLatitud.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLatitud.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblLatitud.setBounds(32, 221, 220, 22);
+		lblLatitud.setBounds(-13, 292, 126, 22);
 		contentPane.add(lblLatitud);
+		
 		
 		textFieldLatitude = new JTextField();
 		textFieldLatitude.setColumns(10);
-		textFieldLatitude.setBounds(32, 254, 220, 20);
+		textFieldLatitude.setBounds(195, 294, 57, 20);
 		contentPane.add(textFieldLatitude);
+		entryValidation(textFieldLatitude);
 		
 		JLabel lblNombreDeLa_1_1 = new JLabel("Longitud");
 		lblNombreDeLa_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNombreDeLa_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNombreDeLa_1_1.setBounds(32, 288, 220, 22);
+		lblNombreDeLa_1_1.setBounds(-51, 337, 220, 22);
 		contentPane.add(lblNombreDeLa_1_1);
 		
 		textFieldLongitude = new JTextField();
 		textFieldLongitude.setColumns(10);
-		textFieldLongitude.setBounds(32, 329, 220, 20);
+		textFieldLongitude.setBounds(195, 339, 57, 20);
 		contentPane.add(textFieldLongitude);
+		entryValidation(textFieldLongitude);
 		
 		JLabel lblListaDeCiudades = new JLabel("Lista de ciudades seleccionadas");
 		lblListaDeCiudades.setHorizontalAlignment(SwingConstants.CENTER);
@@ -120,7 +125,46 @@ public class HomeScreen extends JFrame {
 			}
 		});
 		btnAddCity.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAddCity.setBounds(92, 360, 126, 36);
+		btnAddCity.setBounds(74, 428, 126, 36);
 		contentPane.add(btnAddCity);
+		
+		JButton btnAddListedCity = new JButton("Agregar Ciudad");
+		btnAddListedCity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String selectedCity = (String)comboBox.getSelectedItem();
+				JLabel lblCity = new JLabel(selectedCity);
+				lblCity.setHorizontalAlignment(SwingConstants.CENTER);
+				lblCity.setFont(new Font("Tahoma", Font.BOLD, 14));
+				lblCity.setBounds(377, 52, 133, 29);
+				contentPane.add(lblCity);
+				contentPane.revalidate();
+
+			}
+		});
+		
+		btnAddListedCity.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAddListedCity.setBounds(74, 110, 126, 36);
+		contentPane.add(btnAddListedCity);
+		
+		JButton btnMST = new JButton("Generar AGM");
+		btnMST.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnMST.setBounds(394, 428, 126, 36);
+		contentPane.add(btnMST);
+		
+		
 	}
+	
+	//validador de entradas en las casillas
+		private void entryValidation(JTextField jText) {
+			jText.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+					int key = e.getKeyChar();
+					boolean numeros = key >= 48 && key <= 57;
+					if ((!numeros || jText.getText().trim().length() == 2) || (key == 48 && jText.getText().trim().length() == 0)){
+					    e.consume();
+					}
+				}
+			});
+		}
 }
