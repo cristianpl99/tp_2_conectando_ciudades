@@ -6,10 +6,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.openstreetmap.gui.jmapviewer.JMapViewer;
+import org.openstreetmap.gui.jmapviewer.JMapViewerTree;
+
 public class MapScreen extends JFrame {
 
 	private JPanel contentPane;
-	//private jMapViewer map;
+	private JMapViewer map;
 
 	
 	public MapScreen() {
