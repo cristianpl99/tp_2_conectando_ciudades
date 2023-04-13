@@ -104,11 +104,11 @@ public class HomeScreen extends JFrame {
 		contentPane.add(textFieldLongitude);
 		entryValidation(textFieldLongitude);
 		
-		JLabel lblListaDeCiudades = new JLabel("Lista de ciudades seleccionadas");
-		lblListaDeCiudades.setHorizontalAlignment(SwingConstants.CENTER);
-		lblListaDeCiudades.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblListaDeCiudades.setBounds(336, 28, 196, 14);
-		contentPane.add(lblListaDeCiudades);
+		JLabel lblTitle = new JLabel("Lista de ciudades seleccionadas");
+		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblTitle.setBounds(336, 28, 196, 14);
+		contentPane.add(lblTitle);
 		
 		JButton btnAddCity = new JButton("Agregar Ciudad");
 		btnAddCity.addActionListener(new ActionListener() {
@@ -132,13 +132,13 @@ public class HomeScreen extends JFrame {
 		btnAddListedCity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String selectedCity = (String)comboBox.getSelectedItem();
+				
+				
 				JLabel lblCity = new JLabel(selectedCity);
 				lblCity.setHorizontalAlignment(SwingConstants.CENTER);
-				lblCity.setFont(new Font("Tahoma", Font.BOLD, 14));
-				lblCity.setBounds(377, 52, 133, 29);
+				lblCity.setFont(new Font("Tahoma", Font.BOLD, 30));
+				lblCity.setBounds(380, 50, 140, 30);
 				contentPane.add(lblCity);
-				contentPane.revalidate();
-
 			}
 		});
 		
