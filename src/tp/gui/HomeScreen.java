@@ -8,12 +8,16 @@ import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import tp.logic.ConnectingCities;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class HomeScreen extends JFrame {
 
@@ -29,7 +33,7 @@ public class HomeScreen extends JFrame {
 		
 		setTitle("Programacion III - Conectando Ciudades");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 582, 434);
+		setBounds(100, 100, 582, 461);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -37,12 +41,14 @@ public class HomeScreen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		ConnectingCities connectingCities = new ConnectingCities();
+		
 		JComboBox<String> comboBox = new JComboBox();
 		comboBox.setBounds(32, 52, 220, 22);
 		contentPane.add(comboBox);
 		
 		
-		ConnectingCities connectingCities = new ConnectingCities();
+		
 		cities = connectingCities.fetchCities();
 		for (String[] e: cities) {
 		    comboBox.addItem(e[0]);
@@ -98,5 +104,23 @@ public class HomeScreen extends JFrame {
 		lblListaDeCiudades.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblListaDeCiudades.setBounds(336, 28, 196, 14);
 		contentPane.add(lblListaDeCiudades);
+		
+		JButton btnAddCity = new JButton("Agregar Ciudad");
+		btnAddCity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String[] city = new String[3];
+				city[0] = textFieldName.getText();
+				city[1] = textFieldLatitude.getText();
+				city[2] = textFieldLongitude.getText();
+				connectingCities.addCity(city);
+				
+				JOptionPane.showMessageDialog(null, "Ciudad agregada con exito", 
+						"Mensaje", JOptionPane.INFORMATION_MESSAGE);
+				
+			}
+		});
+		btnAddCity.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAddCity.setBounds(92, 360, 126, 36);
+		contentPane.add(btnAddCity);
 	}
 }
