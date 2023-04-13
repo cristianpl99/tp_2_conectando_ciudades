@@ -1,15 +1,19 @@
 package tp.gui;
 
 import java.awt.Color;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import tp.logic.ConnectingCities;
 
 public class HomeScreen extends JFrame {
 
@@ -17,6 +21,8 @@ public class HomeScreen extends JFrame {
 	private JTextField textFieldName;
 	private JTextField textFieldLatitude;
 	private JTextField textFieldLongitude;
+	
+	private List<String[]> cities;
 
 	
 	public HomeScreen() {
@@ -31,9 +37,16 @@ public class HomeScreen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<String> comboBox = new JComboBox();
 		comboBox.setBounds(32, 52, 220, 22);
 		contentPane.add(comboBox);
+		
+		
+		ConnectingCities connectingCities = new ConnectingCities();
+		cities = connectingCities.fetchCities();
+		for (String[] e: cities) {
+		    comboBox.addItem(e[0]);
+		}
 		
 		JLabel lblNewLabel = new JLabel("Seleccione una ciudad de la lista");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -47,11 +60,11 @@ public class HomeScreen extends JFrame {
 		lblAgregarCiudadQue.setBounds(10, 116, 253, 22);
 		contentPane.add(lblAgregarCiudadQue);
 		
-		JLabel lblNombreDeLa = new JLabel("Nombre de la ciudad");
-		lblNombreDeLa.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNombreDeLa.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNombreDeLa.setBounds(32, 149, 220, 22);
-		contentPane.add(lblNombreDeLa);
+		JLabel lblName = new JLabel("Nombre de la ciudad");
+		lblName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblName.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblName.setBounds(32, 149, 220, 22);
+		contentPane.add(lblName);
 		
 		textFieldName = new JTextField();
 		textFieldName.setBounds(32, 182, 220, 20);

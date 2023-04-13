@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
 public class MapScreen extends JFrame {
 
 	private JPanel contentPane;
-	private jMapViewer map;
+	//private jMapViewer map;
 
 	
 	public MapScreen() {
