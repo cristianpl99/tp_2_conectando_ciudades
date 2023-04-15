@@ -33,7 +33,7 @@ public class Persistence {
 
 			while ((line = buffer.readLine()) != null) {
 				String[] parts = line.split(",");
-				cities.add(new String[] {parts[0],parts[1],parts[2]});	
+				cities.add(new String[] {parts[0],parts[1],parts[2],parts[3]});	
 			}
 			reader.close();
 		} catch (IOException e) {

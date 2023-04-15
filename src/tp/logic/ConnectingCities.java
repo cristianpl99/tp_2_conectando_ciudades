@@ -32,6 +32,11 @@ public class ConnectingCities {
 
 	    return R * c; 
 	}
+	
+	//este es el metodo que recibe las ciudades y retorna el AGM
+	public List<String[]> minimumSpanningTree(List<String[]> selectedCities) {
+		return selectedCities;
+	}
 
 
 }
