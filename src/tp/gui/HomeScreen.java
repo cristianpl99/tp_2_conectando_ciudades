@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -16,6 +17,8 @@ import javax.swing.border.EmptyBorder;
 
 import tp.gui.MapScreen;
 import tp.logic.ConnectingCities;
+import tp.logic.Edge;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -162,7 +165,9 @@ public class HomeScreen extends JFrame {
 		JButton btnMST = new JButton("Generar AGM");
 		btnMST.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				List<String[]> mst = connectingCities.minimumSpanningTree(selectedCities);
+				//llama a un metodo que no esta implementado que devuelde el AGM
+				Map<String[], List<Edge>> mst = connectingCities.minimumSpanningTree(selectedCities);
+				//pasa como parametro el AGM
 				MapScreen mapScreen = new MapScreen(mst);
 				mapScreen.setResizable(false);
 				mapScreen.setVisible(true);
@@ -200,7 +205,7 @@ public class HomeScreen extends JFrame {
 			});
 		}
 		
-		//labels de ciudades elegidas NO FUNCIONA
+		//labels de ciudades elegidas FUNCIONA PERO NO SE VISUALIZA.
 		private void createLblCity(String cityName, int lblCityVertical) {
 			JLabel lblCity = new JLabel();
 			lblCity.setText(cityName);

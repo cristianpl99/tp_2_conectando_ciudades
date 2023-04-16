@@ -1,18 +1,22 @@
 package tp.gui;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import org.openstreetmap.gui.jmapviewer.JMapViewer;
-import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
+import org.openstreetmap.gui.jmapviewer.*;
+
+
 import org.openstreetmap.gui.jmapviewer.Coordinate;
-import org.openstreetmap.gui.jmapviewer.MapPolygonImpl;
+import org.openstreetmap.gui.jmapviewer.JMapViewer;
+
+
+import tp.logic.Edge;
 
 
 public class MapScreen extends JFrame {
@@ -20,7 +24,7 @@ public class MapScreen extends JFrame {
 	private JPanel contentPane;
 	private JMapViewer map;
 
-	public MapScreen(List<String[]> mstCities) {
+	public MapScreen(Map<String[], List<Edge>> mst) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(200, 200, 450, 750);
 		setLocationRelativeTo(null);
@@ -36,27 +40,80 @@ public class MapScreen extends JFrame {
 		map.setDisplayPosition(coordinate, 4);
 
 		List<Coordinate> coords = new ArrayList<>();
+		/*
+		for (List<Edge> edges : mst.values()) {
+		    for (Edge edge : edges) {
+		        String[] origin = edge.getOrigin();
+		        String[] destination = edge.getDestination();
+		    
+		        double originLat = Double.parseDouble(origin[2]);
+		        double originLon = Double.parseDouble(origin[3]);
+		        double destLat = Double.parseDouble(destination[2]);
+		        double destLon = Double.parseDouble(destination[3]);
+		        
+		        String originName = origin[0];
+		        String destName = destination[0];
+		        
+		        MapMarkerDot originMarker = new MapMarkerDot(new Coordinate(originLat, originLon));
+		        originMarker.setName(originName);
+		        originMarker.getStyle().setBackColor(Color.red);
+		        originMarker.getStyle().setColor(Color.blue);
+		        map.addMapMarker(originMarker);
+		        
+		        MapMarkerDot destMarker = new MapMarkerDot(new Coordinate(destLat, destLon));
+		        destMarker.setName(destName);
+		        destMarker.getStyle().setBackColor(Color.red);
+		        destMarker.getStyle().setColor(Color.blue);
+		        map.addMapMarker(destMarker);
 
-		for (String[] city : mstCities) {
-			String name = city[0];
-			double lat = Double.parseDouble(city[2]);
-			double lon = Double.parseDouble(city[3]);
+		        
+		        coords.add(new Coordinate(originLat, originLon));
+		        coords.add(new Coordinate(destLat, destLon));
+		    }
+		}
+		        
+		        MapPolygonImpl line = new MapPolygonImpl(coords);
+		        line.setColor(Color.red);
+		        map.addMapPolygon(line);
+		    }
+		*/
+		
+		
+		String[] firstVertex = mst.keySet().iterator().next();
 
-			MapMarkerDot marker = new MapMarkerDot(new Coordinate(lat, lon));
-			marker.setName(name);
-			marker.getStyle().setBackColor(Color.red);
-			marker.getStyle().setColor(Color.blue);
-			map.addMapMarker(marker);
-
-			coords.add(new Coordinate(lat, lon));
+		for (Edge edge : mst.get(firstVertex)) {
+		    String[] origin = edge.getOrigin();
+		    String[] destination = edge.getDestination();
+		    
+		    double originLat = Double.parseDouble(origin[2]);
+		    double originLon = Double.parseDouble(origin[3]);
+		    double destLat = Double.parseDouble(destination[2]);
+		    double destLon = Double.parseDouble(destination[3]);
+		    
+		    String originName = origin[0];
+		    String destName = destination[0];
+		    
+		    MapMarkerDot originMarker = new MapMarkerDot(new Coordinate(originLat, originLon));
+		    originMarker.setName(originName);
+		    originMarker.getStyle().setBackColor(Color.red);
+		    originMarker.getStyle().setColor(Color.blue);
+		    map.addMapMarker(originMarker);
+		    
+		    MapMarkerDot destMarker = new MapMarkerDot(new Coordinate(destLat, destLon));
+		    destMarker.setName(destName);
+		    destMarker.getStyle().setBackColor(Color.red);
+		    destMarker.getStyle().setColor(Color.blue);
+		    map.addMapMarker(destMarker);
+		    
+		    coords.add(new Coordinate(originLat, originLon));
+		    coords.add(new Coordinate(destLat, destLon));
 		}
 
-		MapPolygonImpl polygon = new MapPolygonImpl(coords);
-		polygon.setBackColor(new Color(0, 0, 255, 50));
-		polygon.setColor(new Color(0, 0, 255));
+		MapPolygonImpl line = new MapPolygonImpl(coords);
+		line.setColor(Color.red);
+		map.addMapPolygon(line);
 
-		map.addMapPolygon(polygon);
-	}
+}
 }
 
 
