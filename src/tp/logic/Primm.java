@@ -1,59 +1,56 @@
 package tp.logic;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.Set;
 
 public class Primm {
-	
-	public Map<String[], List<Edge>> findMST(Map<String[], List<Edge>> grafo) {
-	    Map<String[], List<Edge>> mst = new HashMap<>(); // árbol generador mínimo
-	    Map<String, Boolean> visited = new HashMap<>(); // vértices visitados
-	    String[] initialVertex = grafo.keySet().iterator().next(); // vértice inicial
-	    visited.put(Arrays.toString(initialVertex), true);// marcamos el vértice inicial como visitado
-	    Queue<String[]> queue = new LinkedList<>(); // cola para BFS
-	    
-	    queue.add(initialVertex); // agregamos el vértice inicial a la cola de BFS
-	    
-	    // Recorremos el grafo hasta que hayamos visitado todos los vértices
-	    while (!queue.isEmpty() && mst.size() < grafo.size()) {
-	        String[] vertex = queue.remove(); // sacamos un vértice de la cola
-	        
-	        // Recorremos las aristas del vértice actual
-	        for (Edge edge : grafo.get(vertex)) {
-	            String[] dest = edge.getDestination();
-	            if (!visited.containsKey(dest)) { // si el vértice no ha sido visitado
-	                visited.put(Arrays.toString(dest), true); // lo marcamos como visitado
-	                queue.add(dest); // lo agregamos a la cola de BFS
-	                
-	                // Agregamos la arista al árbol generador mínimo
-	                if (!mst.containsKey(edge.getOrigin())) {
-	                    mst.put(edge.getOrigin(), new ArrayList<>());
-	                }
-	                mst.get(edge.getOrigin()).add(edge);
-	            }
-	        }
-	    }
-	    
-	    printMst(mst);
 
-	    
-	    return mst;
+	private static List<Integer> verticesMarcados;
+
+	public static GrafoConPeso recorridoPrimm(GrafoConPeso grafoCompleto) {
+		if (!BFS.esConexo(grafoCompleto)) {
+			throw new IllegalArgumentException("el grafo es invalido por que no es conexo");
+		}
+		GrafoConPeso grafoAgm = new GrafoConPeso(grafoCompleto.tamano());
+		int i = 1;
+		verticesMarcados = new ArrayList<Integer>();
+		verticesMarcados.add(0);
+		while (i <= grafoCompleto.tamano() - 1) {
+			Arista aristaMinima = elegirMinimaArista(grafoCompleto, grafoAgm);
+			grafoAgm.agregarArista(aristaMinima.getVert1(), aristaMinima.getVert2(), aristaMinima.getPeso());
+			i++;
+		}
+		return grafoAgm;
 	}
 
-	private void printMst(Map<String[], List<Edge>> mst) {
-		for (Map.Entry<String[], List<Edge>> entry : mst.entrySet()) {
-	        String[] key = entry.getKey();
-	        List<Edge> value = entry.getValue();
-	        System.out.print(Arrays.toString(key) + ": ");
-	        for (Edge edge : value) {
-	            System.out.print(Arrays.toString(edge.getDestination()) + " ");
-	        }
-	        System.out.println();
-	    }
+	private static Arista elegirMinimaArista(GrafoConPeso grafoCompleto, GrafoConPeso grafoAgm) {
+		int verticeNoMarcadoMinimo = 0;
+		Arista minimaArista = null;
+
+		minimaArista = new Arista(0, 1, Float.POSITIVE_INFINITY);
+
+		for (Integer vertice : verticesMarcados) {
+			Set<Integer> vecinos = grafoCompleto.vecinos(vertice);
+			Iterator<Integer> iter = vecinos.iterator();
+
+			while (iter.hasNext()) {
+				int verticeActual = iter.next();
+				if (!BFS.alcanzables(grafoAgm, vertice).contains(verticeActual)) {
+					if (grafoCompleto.getPesoArista(vertice, verticeActual) < minimaArista.getPeso()) {
+						if (!grafoAgm.existeArista(vertice, verticeActual)) {
+							verticeNoMarcadoMinimo = verticeActual;
+							minimaArista = new Arista(vertice, verticeNoMarcadoMinimo,
+									grafoCompleto.getPesoArista(vertice, verticeNoMarcadoMinimo));
+						}
+					}
+				}
+			}
+		}
+
+		verticesMarcados.add(verticeNoMarcadoMinimo);
+		return minimaArista;
 	}
+
 }
