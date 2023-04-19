@@ -1,16 +1,17 @@
 package tp.logic;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GrafoConPeso extends GrafoListaVecinos {
 	ArrayList<Arista> aristas;
 
-	public GrafoConPeso(int vertices) {
-		super(vertices);
+	public GrafoConPeso(int vertices, List<String[]> selectedCities) {
+		super(vertices, selectedCities);
 		aristas = new ArrayList<Arista>();
 	}
 
-	public void agregarArista(int vertice1, int vertice2, double peso) {
+	public void agregarArista(String[] vertice1, String[] vertice2, double peso) {
 		super.agregarArista(vertice1, vertice2);
 
 		Arista nuevo = new Arista(vertice1, vertice2, peso);
@@ -19,7 +20,7 @@ public class GrafoConPeso extends GrafoListaVecinos {
 		}
 	}
 
-	public void eliminarArista(int vertice1, int vertice2) {
+	public void eliminarArista(String[] vertice1, String[] vertice2) {
 		super.eliminarArista(vertice1, vertice2);
 
 		for (int i = 0; i < aristas.size(); i++) {
@@ -30,7 +31,7 @@ public class GrafoConPeso extends GrafoListaVecinos {
 		}
 	}
 
-	public double getPesoArista(int vertice1, int vertice2) {
+	public double getPesoArista(String[] vertice1, String[] vertice2) {
 		for (int i = 0; i < aristas.size(); i++) {
 			if ((aristas.get(i).getVert1() == vertice1 && aristas.get(i).getVert2() == vertice2)
 					|| (aristas.get(i).getVert1() == vertice2 && aristas.get(i).getVert2() == vertice1)) {
@@ -43,10 +44,13 @@ public class GrafoConPeso extends GrafoListaVecinos {
 	public String toString() {
 		StringBuilder st = new StringBuilder();
 		for (int i = 0; i < aristas.size(); i++) {
-			st.append("vertices: " + aristas.get(i).getVert1() + ", " + aristas.get(i).getVert2() + ", peso = "
-					+ aristas.get(i).getPeso() + "\n");
+			st.append(aristas.get(i).toString() + "\n");
 		}
 		return st.toString();
+	}
+
+	public ArrayList<Arista> getAristas() {
+		return aristas;
 	}
 
 }

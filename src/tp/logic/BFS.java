@@ -8,7 +8,7 @@ import java.util.Set;
 public class BFS {
 
 	private static boolean[] marcados;
-	private static List<Integer> L;
+	private static List<String[]> L;
 
 	public static boolean esConexo(GrafoListaVecinos g) {
 		if (g == null) {
@@ -17,16 +17,16 @@ public class BFS {
 		if (g.tamano() == 0) {
 			return true;
 		}
-		return (alcanzables(g, 0).size() == g.tamano());
+		return (alcanzables(g, g.getVertice(0)).size() == g.tamano());
 	}
 
-	public static Set<Integer> alcanzables(GrafoListaVecinos g, int origen) {
-		Set<Integer> ret = new HashSet<Integer>();
+	public static Set<String[]> alcanzables(GrafoListaVecinos g, String[] vertice) {
+		Set<String[]> ret = new HashSet<String[]>();
 
-		inicializarBusqueda(g, origen);
+		inicializarBusqueda(g, vertice);
 
 		while (L.size() > 0) {
-			int seleccionado = seleccionarYMarcar();
+			String[] seleccionado = seleccionarYMarcar(g);
 			ret.add(seleccionado);
 
 			agregarVecinosNoMarcados(g, seleccionado);
@@ -41,23 +41,23 @@ public class BFS {
 		L.remove(0);
 	}
 
-	private static int seleccionarYMarcar() {
-		int seleccionado = L.get(0);
-		marcados[seleccionado] = true;
+	private static String[] seleccionarYMarcar(GrafoListaVecinos g) {
+		String[] seleccionado = L.get(0);
+		marcados[g.getCiudades().indexOf(seleccionado)] = true;
 		return seleccionado;
 	}
 
-	private static void agregarVecinosNoMarcados(GrafoListaVecinos g, int seleccionado) {
-		for (int vecino : g.vecinos(seleccionado)) {
-			if (!marcados[vecino] && !L.contains(vecino)) {
+	private static void agregarVecinosNoMarcados(GrafoListaVecinos g, String[] seleccionado) {
+		for (String[] vecino : g.vecinos(seleccionado)) {
+			if (!marcados[g.getCiudades().indexOf(vecino)] && !L.contains(vecino)) {
 				L.add(vecino);
 			}
 		}
 	}
 
-	private static void inicializarBusqueda(GrafoListaVecinos g, int origen) {
-		L = new LinkedList<Integer>();
-		L.add(origen);
+	private static void inicializarBusqueda(GrafoListaVecinos g, String[] vertice) {
+		L = new LinkedList<String[]>();
+		L.add(vertice);
 		marcados = new boolean[g.tamano()];
 	}
 

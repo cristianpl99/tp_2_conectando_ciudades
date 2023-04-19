@@ -1,45 +1,30 @@
 package tp.logic;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import tp.logic.Edge;
 
 public class CompleteGraph {
 
-    public  Map<String[], List<Edge>> createCompleteGraph(List<String[]> selectedCities) {
-    	
-        Map<String[], List<Edge>> graph = new HashMap<>();
+	public GrafoConPeso createCompleteGraph(List<String[]> selectedCities) {
 
-        // Crea un mapa vacío para cada vértice en la lista de vértices
-        for (String[] vertex : selectedCities) {
-            graph.put(vertex, new ArrayList<>());
-        }
+		GrafoConPeso graph = new GrafoConPeso(selectedCities.size(), selectedCities);
 
-        // Agrega una arista entre cada par de vértices
-        for (int i = 0; i < selectedCities.size(); i++) {
-            for (int j = i + 1; j < selectedCities.size(); j++) {
-                String[] vertex1 = selectedCities.get(i);
-                String[] vertex2 = selectedCities.get(j);
-        // Parsea los datos de latitud y longitud a double
-                double peso = distanceInKilometers(
-                		Double.parseDouble(vertex1[2]),Double.parseDouble (vertex1[3]),
-                		Double.parseDouble(vertex2[2]), Double.parseDouble(vertex2[3]));
-                
-                Edge edge = new Edge(vertex1, vertex2, peso);
-                graph.get(vertex1).add(edge);
-                Edge edge2 = new Edge(vertex2, vertex1, peso);
-                graph.get(vertex2).add(edge2);
-            }
-        }
-        Primm primm = new Primm();
-        return primm.findMST(graph);
-    }
-    
-  // Metodo para calcular distancia
-    
-  	private static double distanceInKilometers(double lat1, double lon1, double lat2, double lon2) {
+		// Agrega una arista entre cada par de vértices
+		for (int i = 0; i < selectedCities.size(); i++) {
+			for (int j = i + 1; j < selectedCities.size(); j++) {
+				String[] vertex1 = selectedCities.get(i);
+				String[] vertex2 = selectedCities.get(j);
+				// Parsea los datos de latitud y longitud a double
+				double peso = distanceInKilometers(Double.parseDouble(vertex1[2]), Double.parseDouble(vertex1[3]),
+						Double.parseDouble(vertex2[2]), Double.parseDouble(vertex2[3]));
+
+				Arista edge = new Arista(vertex1, vertex2, peso);
+				graph.agregarArista(edge.vertice1, edge.vertice2, edge.peso);
+			}
+		}
+		return Primm.recorridoPrimm(graph,  selectedCities);
+	}
+	
+	private static double distanceInKilometers(double lat1, double lon1, double lat2, double lon2) {
   	    final int R = 6371; 
 
   	    double latDistance = Math.toRadians(lat2 - lat1);
@@ -51,5 +36,5 @@ public class CompleteGraph {
 
   	    return R * c; 
   	}
-  	
+
 }

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -15,9 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import tp.gui.MapScreen;
 import tp.logic.ConnectingCities;
-import tp.logic.Edge;
+import tp.logic.GrafoConPeso;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -50,7 +48,7 @@ public class HomeScreen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		List<String[]> selectedCities = new ArrayList<>();
+		selectedCities = new ArrayList<>();
 		
 		ConnectingCities connectingCities = new ConnectingCities();
 		
@@ -95,7 +93,6 @@ public class HomeScreen extends JFrame {
 		lblLat.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblLat.setBounds(-14, 338, 126, 22);
 		contentPane.add(lblLat);
-		
 		
 		textFieldLatitude = new JTextField();
 		textFieldLatitude.setColumns(10);
@@ -166,7 +163,7 @@ public class HomeScreen extends JFrame {
 		btnMST.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//llama a un metodo que no esta implementado que devuelde el AGM
-				Map<String[], List<Edge>> mst = connectingCities.minimumSpanningTree(selectedCities);
+				GrafoConPeso mst = connectingCities.minimumSpanningTree(selectedCities);
 				//pasa como parametro el AGM
 				MapScreen mapScreen = new MapScreen(mst);
 				mapScreen.setResizable(false);

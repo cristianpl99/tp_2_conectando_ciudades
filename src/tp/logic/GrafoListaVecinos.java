@@ -2,50 +2,53 @@ package tp.logic;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class GrafoListaVecinos {
 
 	// Representamos el grafo por su lista de vecinos
-	protected ArrayList<HashSet<Integer>> vecinos;
+	protected ArrayList<HashSet<String[]>> vecinos;
+	protected List<String[]> ciudades;
 
 	// La cantidad de vertices esta predeterminada desde el constructor
-	public GrafoListaVecinos(int vertices) {
-		vecinos = new ArrayList<HashSet<Integer>>();
+	public GrafoListaVecinos(int vertices, List<String[]> selectedCities) {
+		vecinos = new ArrayList<HashSet<String[]>>();
 		for (int i = 0; i < vertices; i++) {
-			vecinos.add(new HashSet<Integer>());
+			vecinos.add(new HashSet<String[]>());
 		}
+		ciudades = selectedCities;
 	}
 
 	// Agregado de aristas
-	public void agregarArista(int i, int j) {
+	public void agregarArista(String[] i, String[] j) {
 		verificarVertice(i);
 		verificarVertice(j);
 		verificarDistintos(i, j);
 
 		if (!existeArista(i, j)) {
-			vecinos.get(i).add(j);
-			vecinos.get(j).add(i);
+			vecinos.get(ciudades.indexOf(i)).add(j);
+			vecinos.get(ciudades.indexOf(j)).add(i);
 		}
 	}
 
 	// Eliminacion de aristas
-	public void eliminarArista(int i, int j) {
+	public void eliminarArista(String[] i, String[] j) {
 		verificarVertice(i);
 		verificarVertice(j);
 		verificarDistintos(i, j);
 
-		vecinos.get(i).remove(j);
-		vecinos.get(j).remove(i);
+		vecinos.get(ciudades.indexOf(i)).remove(j);
+		vecinos.get(ciudades.indexOf(j)).remove(i);
 	}
 
 	// Informa si existe la arista especificada
-	public boolean existeArista(int i, int j) {
+	public boolean existeArista(String[] i, String[] j) {
 		verificarVertice(i);
 		verificarVertice(j);
 		verificarDistintos(i, j);
 
-		return vecinos.get(i).contains(j) && vecinos.get(j).contains(i);
+		return vecinos.get(ciudades.indexOf(i)).contains(j) && vecinos.get(ciudades.indexOf(j)).contains(i);
 	}
 
 	// Cantidad de vertices
@@ -54,25 +57,30 @@ public class GrafoListaVecinos {
 	}
 
 	// Vecinos de un vertice
-	public Set<Integer> vecinos(int i) {
+	public Set<String[]> vecinos(String[] i) {
 		verificarVertice(i);
 
-		return vecinos.get(i);
+		return vecinos.get(ciudades.indexOf(i));
 	}
 
 	// Verifica que sea un vertice valido
-	public void verificarVertice(int i) {
-		if (i < 0)
-			throw new IllegalArgumentException("El vertice no puede ser negativo: " + i);
-
-		if (i >= vecinos.size())
-			throw new IllegalArgumentException("Los vertices deben estar entre 0 y |V|-1: " + i);
+	public void verificarVertice(String i[]) {
+		if (i.equals(""))
+			throw new IllegalArgumentException("El vertice no puede ser vacio: " + i);
 	}
 
 	// Verifica que i y j sean distintos
-	public void verificarDistintos(int i, int j) {
-		if (i == j)
+	public void verificarDistintos(String[] i, String j[]) {
+		if (i.equals(j))
 			throw new IllegalArgumentException("No se permiten loops: (" + i + ", " + j + ")");
+	}
+
+	public String[] getVertice(int i) {
+		return ciudades.get(i);
+	}
+
+	public List<String[]> getCiudades() {
+		return ciudades;
 	}
 
 }

@@ -1,0 +1,17 @@
+LISTA DE TAREAS:
+
+-Crear objeto vertice
+-Refactorizar todo con vertice para que quede entendible 
+
+-Hacer la funcion que calcule el costo en plata del agm
+
+-Mostrar la lista de ciudades elegidas en el frame
+
+-Hacer test de todas las clases de negocio
+-Arreglar test BFS y Primm
+
+PROBLEMAS PARA INFORME:
+
+-La creacion del algoritmo PRIMM = SOLUCIONADO CON UNA ARITSA AUX DE PESO INFINITO
+-El agm en el mapa se crea bien, pero dibuja lineas extras por como es el obj MapPolygon = SOLUCIONADO AÑADIENDO POLYGONOS EN FORMA DE RUTA
+-No muestra la lista de ciudades seleccionadas = SIN SOLUCION AUN
