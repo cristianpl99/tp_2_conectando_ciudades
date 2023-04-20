@@ -11,25 +11,24 @@ import java.util.List;
 import tp.logic.City;
 
 public class Persistence {
-	/*
+
 	String fileLocation = "src" + File.separator + "tp" + File.separator + "persistence" + File.separator
 			+ "citiesList.txt";;
 	File file = new File(fileLocation);
-	*/
-	
-	String file = new File("C:\\Users\\crist\\eclipse-workspace\\tp_2_conectando_ciudades\\tp_2_conectando_ciudades\\src\\tp\\persistence\\citiesList.txt").getAbsolutePath();
-	
-	public void saveCity(String[]city) {
+
+	// String file = new
+	// File("C:\\Users\\crist\\eclipse-workspace\\tp_2_conectando_ciudades\\tp_2_conectando_ciudades\\src\\tp\\persistence\\citiesList.txt").getAbsolutePath();
+
+	public void saveCity(String[] city) {
 		try {
 			FileWriter writer = new FileWriter(file, true);
-			writer.write(city[0] + "," + city[0] + "," +
-					city[0] + "\n");
+			writer.write(city[0] + "," + city[0] + "," + city[0] + "\n");
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public List<City> fetchCities() {
 		List<City> cities = new ArrayList<>();
 		try {
@@ -39,7 +38,7 @@ public class Persistence {
 
 			while ((line = buffer.readLine()) != null) {
 				String[] parts = line.split(",");
-				cities.add(new City (parts[0],parts[1], Double.parseDouble(parts[2]), Double.parseDouble(parts[3])));	
+				cities.add(new City(parts[0], parts[1], Double.parseDouble(parts[2]), Double.parseDouble(parts[3])));
 			}
 			reader.close();
 		} catch (IOException e) {

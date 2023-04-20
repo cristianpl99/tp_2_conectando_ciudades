@@ -39,79 +39,39 @@ public class MapScreen extends JFrame {
 		Coordinate coordinate = new Coordinate(-38, -66);
 		map.setDisplayPosition(coordinate, 4);
 
-		/*
-		for (List<Edge> edges : mst.values()) {
-		    for (Edge edge : edges) {
-		        String[] origin = edge.getOrigin();
-		        String[] destination = edge.getDestination();
-		    
-		        double originLat = Double.parseDouble(origin[2]);
-		        double originLon = Double.parseDouble(origin[3]);
-		        double destLat = Double.parseDouble(destination[2]);
-		        double destLon = Double.parseDouble(destination[3]);
-		        
-		        String originName = origin[0];
-		        String destName = destination[0];
-		        
-		        MapMarkerDot originMarker = new MapMarkerDot(new Coordinate(originLat, originLon));
-		        originMarker.setName(originName);
-		        originMarker.getStyle().setBackColor(Color.red);
-		        originMarker.getStyle().setColor(Color.blue);
-		        map.addMapMarker(originMarker);
-		        
-		        MapMarkerDot destMarker = new MapMarkerDot(new Coordinate(destLat, destLon));
-		        destMarker.setName(destName);
-		        destMarker.getStyle().setBackColor(Color.red);
-		        destMarker.getStyle().setColor(Color.blue);
-		        map.addMapMarker(destMarker);
-
-		        
-		        coords.add(new Coordinate(originLat, originLon));
-		        coords.add(new Coordinate(destLat, destLon));
-		    }
-		}
-		        
-		        MapPolygonImpl line = new MapPolygonImpl(coords);
-		        line.setColor(Color.red);
-		        map.addMapPolygon(line);
-		    }
-		*/
-
 		for (Edge edge : mst.getAristas()) {
-		    City origin = edge.getCity1();
-		    City destination = edge.getCity2();
-		    
-		    double originLat = origin.getLatitude();
-		    double originLon = origin.getLongitude();
-		    double destLat = destination.getLatitude();
-		    double destLon = destination.getLongitude();
-		    
-		    String originName = origin.getName();
-		    String destName = destination.getName();
-		    
-		    MapMarkerDot originMarker = new MapMarkerDot(new Coordinate(originLat, originLon));
-		    originMarker.setName(originName);
-		    originMarker.getStyle().setBackColor(Color.red);
-		    originMarker.getStyle().setColor(Color.blue);
-		    map.addMapMarker(originMarker);
-		    
-		    MapMarkerDot destMarker = new MapMarkerDot(new Coordinate(destLat, destLon));
-		    destMarker.setName(destName);
-		    destMarker.getStyle().setBackColor(Color.red);
-		    destMarker.getStyle().setColor(Color.blue);
-		    map.addMapMarker(destMarker);
-		    
-		    Coordinate c1 = new Coordinate(originLat, originLon);
-		    Coordinate c2 = new Coordinate(destLat, destLon);
-		    List<Coordinate> coords = new ArrayList<Coordinate>(Arrays.asList(c1,c2,c2));
-		    MapPolygonImpl line = new MapPolygonImpl(coords);
+			City origin = edge.getCity1();
+			City destination = edge.getCity2();
+
+			double originLat = origin.getLatitude();
+			double originLon = origin.getLongitude();
+			double destLat = destination.getLatitude();
+			double destLon = destination.getLongitude();
+
+			String originName = origin.getName();
+			String destName = destination.getName();
+
+			MapMarkerDot originMarker = new MapMarkerDot(new Coordinate(originLat, originLon));
+			originMarker.setName(originName);
+			originMarker.getStyle().setBackColor(Color.red);
+			originMarker.getStyle().setColor(Color.blue);
+			map.addMapMarker(originMarker);
+
+			MapMarkerDot destMarker = new MapMarkerDot(new Coordinate(destLat, destLon));
+			destMarker.setName(destName);
+			destMarker.getStyle().setBackColor(Color.red);
+			destMarker.getStyle().setColor(Color.blue);
+			map.addMapMarker(destMarker);
+
+			Coordinate c1 = new Coordinate(originLat, originLon);
+			Coordinate c2 = new Coordinate(destLat, destLon);
+			List<Coordinate> coords = new ArrayList<Coordinate>(Arrays.asList(c1, c2, c2));
+			MapPolygonImpl line = new MapPolygonImpl(coords);
 			line.setColor(Color.red);
 			map.addMapPolygon(line);
 		}
-		
+
 		System.out.println(mst);
 
+	}
 }
-}
-
-

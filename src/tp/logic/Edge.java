@@ -3,7 +3,7 @@ package tp.logic;
 public class Edge {
 
 	City city1;
-	City city2 ;
+	City city2;
 	double peso;
 
 	public Edge(City city1, City city2, double peso) {
@@ -26,6 +26,6 @@ public class Edge {
 
 	@Override
 	public String toString() {
-		return "vertices: " + city1.toString() + ", " + city2.toString() + ", peso: " + peso;
+		return "Ciudades: " + city1.getName() + ", " + city2.getName() + ", Costo de la Conexion: " + peso;
 	}
 }

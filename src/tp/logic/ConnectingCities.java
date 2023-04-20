@@ -14,15 +14,14 @@ public class ConnectingCities {
 
 	public void addCity(String[] city) {
 		Persistence persistence = new Persistence();
-		persistence.saveCity(city);	
+		persistence.saveCity(city);
 	}
-	
+
 	// Recibe las ciudades y retorna el AGM
-	
+
 	public WeightedGraph minimumSpanningTree(List<City> selectedCities) {
 		CompleteGraph completeGraph = new CompleteGraph();
 		return completeGraph.createCompleteGraph(selectedCities);
 	}
-
 
 }

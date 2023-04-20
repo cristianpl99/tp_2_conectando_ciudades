@@ -1,9 +1,9 @@
 LISTA DE TAREAS:
 
--Crear objeto vertice
--Refactorizar todo con vertice para que quede entendible 
+-pasar las cosas del grafoListaVecinos a grafoConPeso para eliminar la clase Lista
+-arreglar bfs luego del cambio
 
--Hacer la funcion que calcule el costo en plata del agm
+-Hacer que la funcion calcular plata redonde decimales
 
 -Mostrar la lista de ciudades elegidas en el frame
 
@@ -15,3 +15,4 @@ PROBLEMAS PARA INFORME:
 -La creacion del algoritmo PRIMM = SOLUCIONADO CON UNA ARITSA AUX DE PESO INFINITO
 -El agm en el mapa se crea bien, pero dibuja lineas extras por como es el obj MapPolygon = SOLUCIONADO AÑADIENDO POLYGONOS EN FORMA DE RUTA
 -No muestra la lista de ciudades seleccionadas = SIN SOLUCION AUN
+-Redondeo del monto de las conexiones = SIN SOLUCION AUN
