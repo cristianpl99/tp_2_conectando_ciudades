@@ -15,15 +15,16 @@ import org.openstreetmap.gui.jmapviewer.*;
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
 
-import tp.logic.Arista;
-import tp.logic.GrafoConPeso;
+import tp.logic.City;
+import tp.logic.Edge;
+import tp.logic.WeightedGraph;
 
 public class MapScreen extends JFrame {
 
 	private JPanel contentPane;
 	private JMapViewer map;
 
-	public MapScreen(GrafoConPeso mst) {
+	public MapScreen(WeightedGraph mst) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(200, 200, 450, 750);
 		setLocationRelativeTo(null);
@@ -76,17 +77,17 @@ public class MapScreen extends JFrame {
 		    }
 		*/
 
-		for (Arista edge : mst.getAristas()) {
-		    String[] origin = edge.getVert1();
-		    String[] destination = edge.getVert2();
+		for (Edge edge : mst.getAristas()) {
+		    City origin = edge.getCity1();
+		    City destination = edge.getCity2();
 		    
-		    double originLat = Double.parseDouble(origin[2]);
-		    double originLon = Double.parseDouble(origin[3]);
-		    double destLat = Double.parseDouble(destination[2]);
-		    double destLon = Double.parseDouble(destination[3]);
+		    double originLat = origin.getLatitude();
+		    double originLon = origin.getLongitude();
+		    double destLat = destination.getLatitude();
+		    double destLon = destination.getLongitude();
 		    
-		    String originName = origin[0];
-		    String destName = destination[0];
+		    String originName = origin.getName();
+		    String destName = destination.getName();
 		    
 		    MapMarkerDot originMarker = new MapMarkerDot(new Coordinate(originLat, originLon));
 		    originMarker.setName(originName);

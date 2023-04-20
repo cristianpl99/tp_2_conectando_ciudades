@@ -7,58 +7,58 @@ import java.util.Set;
 
 public class BFS {
 
-	private static boolean[] marcados;
-	private static List<String[]> L;
+	private static boolean[] marked;
+	private static List<City> L;
 
-	public static boolean esConexo(GrafoListaVecinos g) {
-		if (g == null) {
-			throw new IllegalArgumentException("Tiene que pasar un grafo como valor" + g);
+	public static boolean isConnected(NeighborListGraph graph) {
+		if (graph == null) {
+			throw new IllegalArgumentException("Tiene que pasar un grafo como valor" + graph);
 		}
-		if (g.tamano() == 0) {
+		if (graph.size() == 0) {
 			return true;
 		}
-		return (alcanzables(g, g.getVertice(0)).size() == g.tamano());
+		return (reachables(graph, graph.getVertex(0)).size() == graph.size());
 	}
 
-	public static Set<String[]> alcanzables(GrafoListaVecinos g, String[] vertice) {
-		Set<String[]> ret = new HashSet<String[]>();
+	public static Set<City> reachables(NeighborListGraph g, City vertice) {
+		Set<City> ret = new HashSet<City>();
 
-		inicializarBusqueda(g, vertice);
+		initializeSearch(g, vertice);
 
 		while (L.size() > 0) {
-			String[] seleccionado = seleccionarYMarcar(g);
+			City seleccionado = selectAndMark(g);
 			ret.add(seleccionado);
 
-			agregarVecinosNoMarcados(g, seleccionado);
+			addNonMarkedNeighbors(g, seleccionado);
 
-			removerSeleccionado();
+			removeMarked();
 		}
 
 		return ret;
 	}
 
-	private static void removerSeleccionado() {
+	private static void removeMarked() {
 		L.remove(0);
 	}
 
-	private static String[] seleccionarYMarcar(GrafoListaVecinos g) {
-		String[] seleccionado = L.get(0);
-		marcados[g.getCiudades().indexOf(seleccionado)] = true;
-		return seleccionado;
+	private static City selectAndMark(NeighborListGraph g) {
+		City selected = L.get(0);
+		marked[g.getVertexes().indexOf(selected)] = true;
+		return selected;
 	}
 
-	private static void agregarVecinosNoMarcados(GrafoListaVecinos g, String[] seleccionado) {
-		for (String[] vecino : g.vecinos(seleccionado)) {
-			if (!marcados[g.getCiudades().indexOf(vecino)] && !L.contains(vecino)) {
-				L.add(vecino);
+	private static void addNonMarkedNeighbors(NeighborListGraph g, City seleccionado) {
+		for (City neighbor : g.neighbors(seleccionado)) {
+			if (!marked[g.getVertexes().indexOf(neighbor)] && !L.contains(neighbor)) {
+				L.add(neighbor);
 			}
 		}
 	}
 
-	private static void inicializarBusqueda(GrafoListaVecinos g, String[] vertice) {
-		L = new LinkedList<String[]>();
-		L.add(vertice);
-		marcados = new boolean[g.tamano()];
+	private static void initializeSearch(NeighborListGraph g, City city) {
+		L = new LinkedList<City>();
+		L.add(city);
+		marked = new boolean[g.size()];
 	}
 
 }

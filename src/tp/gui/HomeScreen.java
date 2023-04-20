@@ -14,14 +14,16 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import tp.logic.City;
 import tp.logic.ConnectingCities;
-import tp.logic.GrafoConPeso;
+import tp.logic.WeightedGraph;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
+
 
 public class HomeScreen extends JFrame {
 
@@ -30,8 +32,8 @@ public class HomeScreen extends JFrame {
 	private JTextField textFieldLatitude;
 	private JTextField textFieldLongitude;
 	
-	private List<String[]> cities;
-	private List<String[]> selectedCities;
+	private List<City> cities;
+	private List<City> selectedCities;
 	private JTextField textFieldProvince;
 	
 	
@@ -59,8 +61,8 @@ public class HomeScreen extends JFrame {
 		
 		
 		cities = connectingCities.fetchCities();
-		for (String[] e: cities) {
-		    comboBox.addItem(e[0] +" , "+ e[1]);
+		for (City city: cities) {
+		    comboBox.addItem(city.getName() +" , "+ city.getProvince());
 		}
 		
 
@@ -120,20 +122,22 @@ public class HomeScreen extends JFrame {
 		
 		JButton btnAddListedCity = new JButton("Agregar Ciudad");
 		btnAddListedCity.addActionListener(new ActionListener() {
-			int lblCityVertical = 50;
 			public void actionPerformed(ActionEvent e) {
 				int indexCity = comboBox.getSelectedIndex();
 				selectedCities.add(cities.get(indexCity));
 				//aux visualizacion
 				
-				for (String[] city : selectedCities) {
-				    System.out.println(city[0]);
+				for (City city : selectedCities) {
+				    System.out.println(city.getName());
 				}
+				//labels de ciudades elegidas FUNCIONA PERO NO SE VISUALIZA.
+				JLabel cityLabel = new JLabel(cities.get(comboBox.getSelectedIndex()).getName());
+				cityLabel.setBounds(44, 60, 196, 14);
+				contentPane.add(cityLabel);
+
 				
-				String cityName = cities.get(indexCity)[0];
-				createLblCity(cityName, lblCityVertical);
-				lblCityVertical +=50;
 			}
+			
 		});
 		
 		btnAddListedCity.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -143,17 +147,18 @@ public class HomeScreen extends JFrame {
 		JButton btnAddUnlistedCity = new JButton("Agregar Ciudad");
 		btnAddUnlistedCity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String[] city = new String[4];
-				city[0] = textFieldName.getText();
-				city[1] = textFieldProvince.getText();
-				city[2] = textFieldLatitude.getText();
-				city[3] = textFieldLongitude.getText();
+				City city = new City();
+				city.setName(textFieldName.getText());
+				city.setProvince(textFieldProvince.getText());
+				city.setLatitude(Double.parseDouble(textFieldLatitude.getText()));
+				city.setLongitude(Double.parseDouble(textFieldLongitude.getText()));
 				selectedCities.add(city);
 				
 				JOptionPane.showMessageDialog(null, "Ciudad agregada con exito", 
 						"Mensaje", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
+			
 		});
 		btnAddUnlistedCity.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAddUnlistedCity.setBounds(74, 428, 126, 36);
@@ -163,7 +168,7 @@ public class HomeScreen extends JFrame {
 		btnMST.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//llama a un metodo que no esta implementado que devuelde el AGM
-				GrafoConPeso mst = connectingCities.minimumSpanningTree(selectedCities);
+				WeightedGraph mst = connectingCities.minimumSpanningTree(selectedCities);
 				//pasa como parametro el AGM
 				MapScreen mapScreen = new MapScreen(mst);
 				mapScreen.setResizable(false);
@@ -184,7 +189,9 @@ public class HomeScreen extends JFrame {
 		textFieldProvince.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldProvince.setColumns(10);
 		textFieldProvince.setBounds(32, 299, 220, 20);
-		contentPane.add(textFieldProvince);		
+		contentPane.add(textFieldProvince);
+		
+		
 	}
 	
 	//validador de entradas en las casillas
@@ -202,13 +209,5 @@ public class HomeScreen extends JFrame {
 			});
 		}
 		
-		//labels de ciudades elegidas FUNCIONA PERO NO SE VISUALIZA.
-		private void createLblCity(String cityName, int lblCityVertical) {
-			JLabel lblCity = new JLabel();
-			lblCity.setText(cityName);
-			lblCity.setHorizontalAlignment(SwingConstants.CENTER);
-			lblCity.setFont(new Font("Tahoma", Font.BOLD, 20));
-			lblCity.setBounds(380, lblCityVertical , 140, 30);
-			contentPane.add(lblCity);
-		}
+		
 }

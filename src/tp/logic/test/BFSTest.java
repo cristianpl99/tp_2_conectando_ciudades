@@ -11,17 +11,17 @@ public class BFSTest {
 
 	@Test
 	public void grafoVacioTest() {
-		assertTrue(BFS.esConexo(new GrafoListaVecinos(0)));
+		assertTrue(BFS.isConnected(new GrafoListaVecinos(0)));
 	}
 
 	@Test
 	public void grafoUnVerticeTest() {
-		assertTrue(BFS.esConexo(new GrafoListaVecinos(1)));
+		assertTrue(BFS.isConnected(new GrafoListaVecinos(1)));
 	}
 
 	@Test
 	public void grafoDosVerticesAisladosTest() {
-		assertFalse(BFS.esConexo(new GrafoListaVecinos(2)));
+		assertFalse(BFS.isConnected(new GrafoListaVecinos(2)));
 	}
 
 	@Test
@@ -29,14 +29,14 @@ public class BFSTest {
 		GrafoListaVecinos g = new GrafoListaVecinos(2);
 		g.agreagarArista(0, 1);
 
-		assertTrue(BFS.esConexo(g));
+		assertTrue(BFS.isConnected(g));
 	}
 
 	@Test
 	public void grafoInconexoTest() {
 		GrafoListaVecinos g = crearGrafoInconexo();
 
-		assertFalse(BFS.esConexo(g));
+		assertFalse(BFS.isConnected(g));
 	}
 
 	private GrafoListaVecinos crearGrafoInconexo() {
@@ -55,7 +55,7 @@ public class BFSTest {
 	public void grafoConexoTest() {
 		GrafoListaVecinos g = crearGrafoConexo();
 
-		assertTrue(BFS.esConexo(g));
+		assertTrue(BFS.isConnected(g));
 	}
 
 	private GrafoListaVecinos crearGrafoConexo() {

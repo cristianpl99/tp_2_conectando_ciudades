@@ -8,10 +8,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import tp.logic.City;
+
 public class Persistence {
+	/*
 	String fileLocation = "src" + File.separator + "tp" + File.separator + "persistence" + File.separator
 			+ "citiesList.txt";;
 	File file = new File(fileLocation);
+	*/
+	
+	String file = new File("C:\\Users\\crist\\eclipse-workspace\\tp_2_conectando_ciudades\\tp_2_conectando_ciudades\\src\\tp\\persistence\\citiesList.txt").getAbsolutePath();
 	
 	public void saveCity(String[]city) {
 		try {
@@ -24,8 +30,8 @@ public class Persistence {
 		}
 	}
 	
-	public List<String[]> fetchCities() {
-		List<String[]> cities = new ArrayList<>();
+	public List<City> fetchCities() {
+		List<City> cities = new ArrayList<>();
 		try {
 			FileReader reader = new FileReader(file);
 			BufferedReader buffer = new BufferedReader(reader);
@@ -33,7 +39,7 @@ public class Persistence {
 
 			while ((line = buffer.readLine()) != null) {
 				String[] parts = line.split(",");
-				cities.add(new String[] {parts[0],parts[1],parts[2],parts[3]});	
+				cities.add(new City (parts[0],parts[1], Double.parseDouble(parts[2]), Double.parseDouble(parts[3])));	
 			}
 			reader.close();
 		} catch (IOException e) {

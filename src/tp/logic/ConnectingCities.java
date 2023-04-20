@@ -7,7 +7,7 @@ import tp.persistence.*;
 public class ConnectingCities {
 	private Persistence persistence;
 
-	public List<String[]> fetchCities() {
+	public List<City> fetchCities() {
 		persistence = new Persistence();
 		return persistence.fetchCities();
 	}
@@ -19,7 +19,7 @@ public class ConnectingCities {
 	
 	// Recibe las ciudades y retorna el AGM
 	
-	public GrafoConPeso minimumSpanningTree(List<String[]> selectedCities) {
+	public WeightedGraph minimumSpanningTree(List<City> selectedCities) {
 		CompleteGraph completeGraph = new CompleteGraph();
 		return completeGraph.createCompleteGraph(selectedCities);
 	}
