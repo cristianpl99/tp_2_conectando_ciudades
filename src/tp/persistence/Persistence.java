@@ -11,13 +11,13 @@ import java.util.List;
 import tp.logic.City;
 
 public class Persistence {
-
+/*
 	String fileLocation = "src" + File.separator + "tp" + File.separator + "persistence" + File.separator
 			+ "citiesList.txt";;
 	File file = new File(fileLocation);
+	*/
 
-	// String file = new
-	// File("C:\\Users\\crist\\eclipse-workspace\\tp_2_conectando_ciudades\\tp_2_conectando_ciudades\\src\\tp\\persistence\\citiesList.txt").getAbsolutePath();
+	String file = new File("C:\\Users\\crist\\eclipse-workspace\\tp_2_conectando_ciudades\\tp_2_conectando_ciudades\\src\\tp\\persistence\\citiesList.txt").getAbsolutePath();
 
 	public void saveCity(String[] city) {
 		try {

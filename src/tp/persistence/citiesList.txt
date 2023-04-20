@@ -47,4 +47,52 @@ Gualeguaychú, Entre Ríos, -33.013230, -58.516209
 Zapala, Neuquén, -38.901211, -70.067909
 Mercedes, Buenos Aires, -34.654072, -59.436500
 Azul, Buenos Aires, -36.779579, -59.858261
+La Calera, Córdoba, -31.294722, -64.357500
+Bell Ville, Córdoba, -32.625556, -62.688611
+Cutral Co, Neuquén, -38.942778, -69.236389
+Tres Arroyos, Buenos Aires, -38.374167, -60.273611
+Villa Regina, Río Negro, -39.094167, -67.062222
+Jesús María, Córdoba, -30.976667, -64.090833
+San José de Jáchal, San Juan, -30.236111, -68.741667
+Gualeguaychú, Entre Ríos, -33.014444, -58.514722
+El Calafate, Santa Cruz, -50.340833, -72.276944
+San Lorenzo, Santa Fe, -32.758056, -60.717222
+San Ramón de la Nueva Orán, Salta, -23.134167, -64.325833
+Puerto Iguazú, Misiones, -25.600000, -54.566667
+Presidencia Roque Sáenz Peña, Chaco, -26.785833, -60.444167
+General Pico, La Pampa, -35.659167, -63.756389
+Villa Constitución, Santa Fe, -33.227222, -60.329444
+Cipolletti, Río Negro, -38.935833, -68.056389
+San Luis del Palmar, Corrientes, -27.507222, -58.523611
+Avellaneda, Buenos Aires, -34.674444, -58.365278
+Gobernador Galvez, Santa Fe, -33.023889, -60.625833
+Comodoro Rivadavia, Chubut, -45.863056, -67.486389
+San Justo, Santa Fe, -30.785833, -60.583611
+Villa María, Córdoba, -32.408333, -63.240556
+Puerto Rico, Misiones, -26.792778, -55.024444
+San Vicente, Buenos Aires, -35.066667, -58.433333
+Villa Allende, Córdoba, -31.294722, -64.296389
+Caleta Olivia, Santa Cruz, -46.438889, -67.525278
+Pérez, Santa Fe, -32.998611, -60.814167
+Villa Mercedes, San Luis, -33.666667, -65.466667
+Tartagal, Salta, -22.525833, -63.801389
+General José de San Martín, Chaco, -26.537778, -59.336667
+Villa Ángela, Chaco, -27.583333, -60.716667
+Olavarría, Buenos Aires, -36.890556, -60.322222
+San Jorge, Santa Fe, -31.896111, -61.864167
+General Güemes, Salta, -24.666667, -65.050000
+San Antonio Oeste, Río Negro, -40.733333, -64.933333
+Federal, Entre Ríos, -30.954722, -58.783056
 Chajarí, Entre Ríos, -30.750929, -57.982441
+Plottier, Neuquén, -38.950278, -68.233611
+Morteros, Córdoba, -30.711389, -62.009722
+Villa Dolores, Córdoba, -31.944722, -65.193611
+Charata, Chaco, -27.216667, -61.166667
+San Luis, San Luis, -33.300000, -66.350000
+Cruz del Eje, Córdoba, -30.700000, -64.433333
+Las Heras, Mendoza, -32.825278, -68.864444
+Tanti, Córdoba, -31.315833, -64.502222
+Chilecito, La Rioja, -29.161944, -67.499444
+General Cabrera, Córdoba, -32.816667, -63.983333
+General Ramírez, Entre Ríos, -32.166667, -59.666667
+Hernando, Córdoba, -32.427500, -63.684444
