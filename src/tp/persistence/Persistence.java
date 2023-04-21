@@ -3,7 +3,6 @@ package tp.persistence;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,16 +17,6 @@ public class Persistence {
 
 	// String file = new
 	// File("C:\\Users\\crist\\eclipse-workspace\\tp_2_conectando_ciudades\\tp_2_conectando_ciudades\\src\\tp\\persistence\\citiesList.txt").getAbsolutePath();
-
-	public void saveCity(String[] city) {
-		try {
-			FileWriter writer = new FileWriter(file, true);
-			writer.write(city[0] + "," + city[0] + "," + city[0] + "\n");
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public List<City> fetchCities() {
 		List<City> cities = new ArrayList<>();

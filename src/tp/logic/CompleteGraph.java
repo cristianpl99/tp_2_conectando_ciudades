@@ -1,7 +1,6 @@
 package tp.logic;
 
 import java.util.List;
-import java.text.DecimalFormat;
 
 public class CompleteGraph {
 

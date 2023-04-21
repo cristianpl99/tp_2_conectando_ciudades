@@ -1,5 +1,7 @@
 package tp.logic;
 
+import java.util.Objects;
+
 public class City {
 	private String name;
 	private String province;
@@ -48,4 +50,24 @@ public class City {
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(latitude, longitude, name, province);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		City other = (City) obj;
+		return Double.doubleToLongBits(latitude) == Double.doubleToLongBits(other.latitude)
+				&& Double.doubleToLongBits(longitude) == Double.doubleToLongBits(other.longitude)
+				&& Objects.equals(name, other.name) && Objects.equals(province, other.province);
+	}
+
 }

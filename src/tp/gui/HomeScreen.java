@@ -2,6 +2,7 @@ package tp.gui;
 
 import java.awt.Color;
 import java.awt.Font;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +14,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
 
 import tp.logic.City;
 import tp.logic.ConnectingCities;
 import tp.logic.WeightedGraph;
 
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -28,12 +29,16 @@ public class HomeScreen extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldName;
+	private JTextField textFieldProvince;
 	private JTextField textFieldLatitude;
 	private JTextField textFieldLongitude;
 
 	private List<City> cities;
 	private List<City> selectedCities;
-	private JTextField textFieldProvince;
+
+	private List<JLabel> cityLabels;
+	private int valorDeBajada;
+	private int PosicionEnLasSelecionadas;
 
 	public HomeScreen() {
 
@@ -49,6 +54,9 @@ public class HomeScreen extends JFrame {
 
 		selectedCities = new ArrayList<>();
 
+		PosicionEnLasSelecionadas = 0;
+		valorDeBajada = 45;
+
 		ConnectingCities connectingCities = new ConnectingCities();
 
 		JComboBox<String> comboBox = new JComboBox<String>();
@@ -58,6 +66,12 @@ public class HomeScreen extends JFrame {
 		cities = connectingCities.fetchCities();
 		for (City city : cities) {
 			comboBox.addItem(city.getName() + " , " + city.getProvince());
+		}
+
+		cityLabels = new ArrayList<JLabel>();
+		for (int i = 0; i < cities.size() - 1; i++) {
+			cityLabels.add(new JLabel("."));
+			contentPane.add(cityLabels.get(i));
 		}
 
 		JLabel lblTitle1 = new JLabel("Seleccione una ciudad de la lista");
@@ -83,6 +97,18 @@ public class HomeScreen extends JFrame {
 		textFieldName.setBounds(32, 234, 220, 20);
 		contentPane.add(textFieldName);
 		textFieldName.setColumns(10);
+
+		JLabel lblProvinceName = new JLabel("Provincia");
+		lblProvinceName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblProvinceName.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblProvinceName.setBounds(32, 266, 220, 22);
+		contentPane.add(lblProvinceName);
+
+		textFieldProvince = new JTextField();
+		textFieldProvince.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldProvince.setColumns(10);
+		textFieldProvince.setBounds(32, 299, 220, 20);
+		contentPane.add(textFieldProvince);
 
 		JLabel lblLat = new JLabel("Latitud");
 		lblLat.setHorizontalAlignment(SwingConstants.CENTER);
@@ -118,21 +144,30 @@ public class HomeScreen extends JFrame {
 		btnAddListedCity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int indexCity = comboBox.getSelectedIndex();
-				selectedCities.add(cities.get(indexCity));
-				// aux visualizacion
+				if (selectedCities.contains(cities.get(indexCity))) {
+					JOptionPane.showMessageDialog(null, "Ya agrego esta ciudad, agregue otra", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					selectedCities.add(cities.get(indexCity));
 
-				for (City city : selectedCities) {
-					System.out.println(city.getName());
+					// aux visualizacion
+					for (City city : selectedCities) {
+						System.out.println(city.getName());
+					}
+
+					if (selectedCities.size() != 0 && cityLabels.size() != 0) {
+						cityLabels.get(PosicionEnLasSelecionadas)
+								.setText(selectedCities.get(PosicionEnLasSelecionadas).getName());
+						cityLabels.get(PosicionEnLasSelecionadas).setHorizontalAlignment(SwingConstants.CENTER);
+						cityLabels.get(PosicionEnLasSelecionadas).setFont(new Font("Tahoma", Font.BOLD, 12));
+						cityLabels.get(PosicionEnLasSelecionadas).setBounds(336, valorDeBajada, 196, 14);
+						valorDeBajada += 16;
+						PosicionEnLasSelecionadas += 1;
+					}
 				}
-				// labels de ciudades elegidas FUNCIONA PERO NO SE VISUALIZA.
-				JLabel cityLabel = new JLabel(cities.get(comboBox.getSelectedIndex()).getName());
-				cityLabel.setBounds(44, 60, 196, 14);
-				contentPane.add(cityLabel);
-
 			}
 
 		});
-
 		btnAddListedCity.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAddListedCity.setBounds(74, 110, 126, 36);
 		contentPane.add(btnAddListedCity);
@@ -140,16 +175,41 @@ public class HomeScreen extends JFrame {
 		JButton btnAddUnlistedCity = new JButton("Agregar Ciudad");
 		btnAddUnlistedCity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				City city = new City();
-				city.setName(textFieldName.getText());
-				city.setProvince(textFieldProvince.getText());
-				city.setLatitude(Double.parseDouble(textFieldLatitude.getText()));
-				city.setLongitude(Double.parseDouble(textFieldLongitude.getText()));
-				selectedCities.add(city);
+				City newCity = new City();
+				if (textFieldName.getText().equals("") || textFieldProvince.getText().equals("")
+						|| textFieldLatitude.getText().equals("") || textFieldLongitude.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Agregue los datos faltantes", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					newCity.setName(textFieldName.getText());
+					newCity.setProvince(textFieldProvince.getText());
+					newCity.setLatitude(Double.parseDouble(textFieldLatitude.getText()));
+					newCity.setLongitude(Double.parseDouble(textFieldLongitude.getText()));
+					if (selectedCities.contains(newCity)) {
+						JOptionPane.showMessageDialog(null, "Ya agrego esta ciudad, agregue otra", "Mensaje",
+								JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						selectedCities.add(newCity);
 
-				JOptionPane.showMessageDialog(null, "Ciudad agregada con exito", "Mensaje",
-						JOptionPane.INFORMATION_MESSAGE);
+						// aux visualizacion
+						for (City city : selectedCities) {
+							System.out.println(city.getName());
+						}
 
+						if (selectedCities.size() != 0 && cityLabels.size() != 0) {
+							cityLabels.get(PosicionEnLasSelecionadas)
+									.setText(selectedCities.get(PosicionEnLasSelecionadas).getName());
+							cityLabels.get(PosicionEnLasSelecionadas).setHorizontalAlignment(SwingConstants.CENTER);
+							cityLabels.get(PosicionEnLasSelecionadas).setFont(new Font("Tahoma", Font.BOLD, 12));
+							cityLabels.get(PosicionEnLasSelecionadas).setBounds(336, valorDeBajada, 196, 14);
+							valorDeBajada += 16;
+							PosicionEnLasSelecionadas += 1;
+
+							JOptionPane.showMessageDialog(null, "Ciudad agregada con exito", "Mensaje",
+									JOptionPane.INFORMATION_MESSAGE);
+						}
+					}
+				}
 			}
 
 		});
@@ -167,22 +227,11 @@ public class HomeScreen extends JFrame {
 				mapScreen.setResizable(false);
 				mapScreen.setVisible(true);
 			}
+
 		});
 		btnMST.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnMST.setBounds(394, 428, 126, 36);
 		contentPane.add(btnMST);
-
-		JLabel lblProvinceName = new JLabel("Provincia");
-		lblProvinceName.setHorizontalAlignment(SwingConstants.CENTER);
-		lblProvinceName.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblProvinceName.setBounds(32, 266, 220, 22);
-		contentPane.add(lblProvinceName);
-
-		textFieldProvince = new JTextField();
-		textFieldProvince.setHorizontalAlignment(SwingConstants.CENTER);
-		textFieldProvince.setColumns(10);
-		textFieldProvince.setBounds(32, 299, 220, 20);
-		contentPane.add(textFieldProvince);
 
 	}
 

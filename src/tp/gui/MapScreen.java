@@ -1,7 +1,7 @@
 package tp.gui;
 
 import java.awt.Color;
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,9 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import org.openstreetmap.gui.jmapviewer.*;
-
-import org.openstreetmap.gui.jmapviewer.Coordinate;
-import org.openstreetmap.gui.jmapviewer.JMapViewer;
 
 import tp.logic.City;
 import tp.logic.Edge;
@@ -71,6 +68,7 @@ public class MapScreen extends JFrame {
 			map.addMapPolygon(line);
 		}
 
+		// aux de visualizacion, deberia estar en una pantalla alado del mapa
 		System.out.println(mst);
 
 	}

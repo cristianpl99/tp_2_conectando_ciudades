@@ -20,7 +20,6 @@ public class NeighborListGraph {
 		vertexes = selectedCities;
 	}
 
-	// Agregado de arista
 	public void addEdge(City i, City j) {
 		verifyVertex(i);
 		verifyVertex(j);
@@ -32,7 +31,6 @@ public class NeighborListGraph {
 		}
 	}
 
-	// Eliminacion de aristas
 	public void deleteEdge(City i, City j) {
 		verifyVertex(i);
 		verifyVertex(j);
@@ -42,7 +40,6 @@ public class NeighborListGraph {
 		neighbors.get(vertexes.indexOf(j)).remove(i);
 	}
 
-	// Informa si existe la arista especificada
 	public boolean existsEdge(City i, City j) {
 		verifyVertex(i);
 		verifyVertex(j);
@@ -51,25 +48,21 @@ public class NeighborListGraph {
 		return neighbors.get(vertexes.indexOf(i)).contains(j) && neighbors.get(vertexes.indexOf(j)).contains(i);
 	}
 
-	// Cantidad de vertices
 	public int size() {
 		return neighbors.size();
 	}
 
-	// Vecinos de un vertice
 	public Set<City> neighbors(City i) {
 		verifyVertex(i);
 
 		return neighbors.get(vertexes.indexOf(i));
 	}
 
-	// Verifica que sea un vertice valido
 	public void verifyVertex(City i) {
-		if (i.equals(""))
-			throw new IllegalArgumentException("El vertice no puede ser vacio: " + i);
+		if (i.equals(null))
+			throw new IllegalArgumentException("El vertice no puede ser null: " + i);
 	}
 
-	// Verifica que i y j sean distintos
 	public void verifyDistinct(City i, City j) {
 		if (i.equals(j))
 			throw new IllegalArgumentException("No se permiten loops: (" + i + ", " + j + ")");

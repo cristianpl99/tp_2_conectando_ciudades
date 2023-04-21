@@ -5,14 +5,16 @@ LISTA DE TAREAS:
 
 -Hacer que la funcion calcular plata redonde decimales
 
--Mostrar la lista de ciudades elegidas en el frame
+-Mostrar la lista de conexiones y el costo del agm en una ventanita junto al mapa 
 
 -Hacer test de todas las clases de negocio
 -Arreglar test BFS y Primm
+
+-Hacer que salte alerta si no esta la ciudad en ARG o alrededores
 
 PROBLEMAS PARA INFORME:
 
 -La creacion del algoritmo PRIMM = SOLUCIONADO CON UNA ARITSA AUX DE PESO INFINITO
 -El agm en el mapa se crea bien, pero dibuja lineas extras por como es el obj MapPolygon = SOLUCIONADO AÑADIENDO POLYGONOS EN FORMA DE RUTA
--No muestra la lista de ciudades seleccionadas = SIN SOLUCION AUN
+-No muestra la lista de ciudades seleccionadas = SOLUCIONADO CREANDO UN ARRAY DE LABELS Y LUEGO SETEANDO EL TEXO CON EL NOMBRE DE LA CIUDAD
 -Redondeo del monto de las conexiones = SIN SOLUCION AUN
