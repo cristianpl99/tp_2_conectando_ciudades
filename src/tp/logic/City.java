@@ -66,9 +66,10 @@ public class City {
 		if (getClass() != obj.getClass())
 			return false;
 		City other = (City) obj;
-		return Double.doubleToLongBits(latitude) == Double.doubleToLongBits(other.latitude)
-				&& Double.doubleToLongBits(longitude) == Double.doubleToLongBits(other.longitude)
-				&& Objects.equals(name, other.name) && Objects.equals(province, other.province);
+	
+		return (Double.doubleToLongBits(latitude) == Double.doubleToLongBits(other.latitude)
+				&& Double.doubleToLongBits(longitude) == Double.doubleToLongBits(other.longitude))
+				|| (Objects.equals(name, other.name) && Objects.equals(province, other.province));
 	}
 	
 	
