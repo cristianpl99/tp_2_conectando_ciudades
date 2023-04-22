@@ -3,10 +3,11 @@ package tp;
 import javax.swing.UIManager;
 
 import tp.gui.HomeScreen;
+import tp.logic.DolarAPI;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");

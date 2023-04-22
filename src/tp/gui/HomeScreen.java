@@ -40,7 +40,7 @@ public class HomeScreen extends JFrame {
 	private int valorDeBajada;
 	private int PosicionEnLasSelecionadas;
 
-	public HomeScreen() {
+	public HomeScreen() throws Exception {
 
 		setTitle("Programacion III - Conectando Ciudades");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -117,6 +117,7 @@ public class HomeScreen extends JFrame {
 		contentPane.add(lblLat);
 
 		textFieldLatitude = new JTextField();
+		textFieldLatitude.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldLatitude.setColumns(10);
 		textFieldLatitude.setBounds(195, 340, 57, 20);
 		contentPane.add(textFieldLatitude);
@@ -129,6 +130,7 @@ public class HomeScreen extends JFrame {
 		contentPane.add(lblLong);
 
 		textFieldLongitude = new JTextField();
+		textFieldLongitude.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldLongitude.setColumns(10);
 		textFieldLongitude.setBounds(195, 373, 57, 20);
 		contentPane.add(textFieldLongitude);
@@ -136,8 +138,8 @@ public class HomeScreen extends JFrame {
 
 		JLabel lblTitle = new JLabel("Lista de ciudades seleccionadas");
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblTitle.setBounds(336, 28, 196, 14);
+		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblTitle.setBounds(299, 28, 257, 14);
 		contentPane.add(lblTitle);
 
 		JButton btnAddListedCity = new JButton("Agregar Ciudad");
@@ -175,19 +177,20 @@ public class HomeScreen extends JFrame {
 		JButton btnAddUnlistedCity = new JButton("Agregar Ciudad");
 		btnAddUnlistedCity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				City newCity = new City();
-				if (textFieldName.getText().equals("") || textFieldProvince.getText().equals("")
-						|| textFieldLatitude.getText().equals("") || textFieldLongitude.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "Agregue los datos faltantes", "Mensaje",
+				
+				if (missingCityData() || !areValidCoordinates(textFieldLatitude.getText(), textFieldLongitude.getText())) {
+					JOptionPane.showMessageDialog(null, "Faltan datos o la latitud y/o longitud no es válida", "Mensaje",
 							JOptionPane.INFORMATION_MESSAGE);
+				}
+				if (!isProvince(textFieldProvince.getText())) {
+						JOptionPane.showMessageDialog(null, "La provincia no existe", "Mensaje",
+								JOptionPane.INFORMATION_MESSAGE);
 				} else {
-					newCity.setName(textFieldName.getText());
-					newCity.setProvince(textFieldProvince.getText());
-					newCity.setLatitude(Double.parseDouble(textFieldLatitude.getText()));
-					newCity.setLongitude(Double.parseDouble(textFieldLongitude.getText()));
+					City newCity = createCity();
 					if (selectedCities.contains(newCity)) {
 						JOptionPane.showMessageDialog(null, "Ya agrego esta ciudad, agregue otra", "Mensaje",
 								JOptionPane.INFORMATION_MESSAGE);
+					
 					} else {
 						selectedCities.add(newCity);
 
@@ -211,7 +214,47 @@ public class HomeScreen extends JFrame {
 					}
 				}
 			}
+			
 
+			private City createCity() {
+				City newCity = new City();
+				newCity.setName(textFieldName.getText());
+				newCity.setProvince(textFieldProvince.getText());
+				newCity.setLatitude(Double.parseDouble(textFieldLatitude.getText()));
+				newCity.setLongitude(Double.parseDouble(textFieldLongitude.getText()));
+				return newCity;
+			}
+			
+			//PREGUNTAR DONDE VALIDAR ESTA DATA
+			private boolean missingCityData() {
+				return textFieldName.getText().equals("") || textFieldProvince.getText().equals("")
+						|| textFieldLatitude.getText().equals("") || textFieldLongitude.getText().equals("");
+			}
+			private boolean areValidCoordinates(String latitudeStr, String longitudeStr) {
+			    boolean valid = true;
+			        double latitude = Double.parseDouble(latitudeStr);
+			        double longitude = Double.parseDouble(longitudeStr);
+
+			        if (latitude < -55 || latitude > -22) {
+			            valid = false;
+			        }
+			        if (longitude < -26 || longitude > -23) {
+			            valid = false;
+			        }
+			    return valid;
+			}
+			    
+			    private boolean isProvince(String input) {
+			        String[] provinces = {"Buenos Aires", "Catamarca", "Chaco", "Chubut", "Ciudad Autónoma de Buenos Aires", "Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquén", "Río Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego, Antártida e Islas del Atlántico Sur", "Tucumán"};
+
+			        for (String province : provinces) {
+			            if (input.equalsIgnoreCase(province)) {
+			                return true;
+			            }
+			        }
+			        return false;
+			}
+		
 		});
 		btnAddUnlistedCity.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAddUnlistedCity.setBounds(74, 428, 126, 36);
@@ -221,7 +264,13 @@ public class HomeScreen extends JFrame {
 		btnMST.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// llama a un metodo que no esta implementado que devuelde el AGM
-				WeightedGraph mst = connectingCities.minimumSpanningTree(selectedCities);
+				WeightedGraph mst = null;
+				try {
+					mst = connectingCities.minimumSpanningTree(selectedCities);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				// pasa como parametro el AGM
 				MapScreen mapScreen = new MapScreen(mst);
 				mapScreen.setResizable(false);

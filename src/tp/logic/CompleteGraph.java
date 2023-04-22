@@ -1,10 +1,12 @@
 package tp.logic;
 
 import java.util.List;
+import java.text.DecimalFormat;
+
 
 public class CompleteGraph {
 
-	public WeightedGraph createCompleteGraph(List<City> selectedCities) {
+	public WeightedGraph createCompleteGraph(List<City> selectedCities) throws Exception {
 
 		WeightedGraph graph = new WeightedGraph(selectedCities.size(), selectedCities);
 
@@ -23,21 +25,24 @@ public class CompleteGraph {
 	}
 
 	// no esta bien que este calculo este acá. montos inventados
-	private double calculateWeight(City city1, City city2) {
-		double totalCost = 0;
-		double costPerKilometer = distanceInKilometers(city1.getLatitude(), city1.getLongitude(), city2.getLatitude(),
+	private double calculateWeight(City city1, City city2) throws Exception {
+		ConnectingCities connectingCities = new ConnectingCities();
+		double costPerKilometer = connectingCities.costPerKilometer();
+		double distance  = distanceInKilometers(city1.getLatitude(), city1.getLongitude(), city2.getLatitude(),
 				city2.getLongitude());
-		totalCost = costPerKilometer;
+		double edgeCost = distance * costPerKilometer;
 
-		if (costPerKilometer > 300) {
-			totalCost = costPerKilometer * 1.1;
+		if (distance > 300) {
+			edgeCost = edgeCost * 1.1;
 		}
 
 		if (!city1.getProvince().equals(city2.getProvince())) {
-			totalCost += 300;
+			edgeCost += 300;
 		}
-		return totalCost;
+		edgeCost = Math.floor(edgeCost);
+		return edgeCost;
 	}
+
 
 	private double distanceInKilometers(double lat1, double lon1, double lat2, double lon2) {
 		final int R = 6371;
