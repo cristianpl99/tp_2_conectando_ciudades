@@ -30,5 +30,4 @@ public class ConnectingCities {
 	public  double costPerKilometer(){
 		return costPerKilometerInUSD * dolarBlueValue;
 	}
-
 }
