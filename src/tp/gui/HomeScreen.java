@@ -55,6 +55,8 @@ public class HomeScreen extends JFrame {
 
 		selectedCities = new ArrayList<>();
 
+		connectingCities = new ConnectingCities();
+
 		PosicionEnLasSelecionadas = 0;
 		valorDeBajada = 45;
 
