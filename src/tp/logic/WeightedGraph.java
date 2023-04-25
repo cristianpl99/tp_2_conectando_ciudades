@@ -39,8 +39,9 @@ public class WeightedGraph extends NeighborListGraph {
 				return edges.get(i).getPeso();
 			}
 		}
-		throw new RuntimeException("No se encontro un peso entre " + city1 + " y " + city2);
+		throw new RuntimeException("No se encontro un peso entre " + city1.getName() + " y " + city2.getName());
 	}
+
 
 	@Override
 	public String toString() {

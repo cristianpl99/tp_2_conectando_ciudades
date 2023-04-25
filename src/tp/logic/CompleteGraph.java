@@ -5,23 +5,27 @@ import java.util.List;
 public class CompleteGraph {
 
 	public WeightedGraph createCompleteGraph(List<City> selectedCities) throws Exception {
+	    if (selectedCities.isEmpty()) {
+	        throw new IllegalArgumentException("La lista de ciudades no puede ser vacía");
+	    }
 
-		WeightedGraph graph = new WeightedGraph(selectedCities.size(), selectedCities);
+	    WeightedGraph graph = new WeightedGraph(selectedCities.size(), selectedCities);
 
-		for (int i = 0; i < selectedCities.size(); i++) {
-			for (int j = i + 1; j < selectedCities.size(); j++) {
-				City city1 = selectedCities.get(i);
-				City city2 = selectedCities.get(j);
-				double weight = calculateWeight(city1, city2);
+	    for (int i = 0; i < selectedCities.size(); i++) {
+	        for (int j = i + 1; j < selectedCities.size(); j++) {
+	            City city1 = selectedCities.get(i);
+	            City city2 = selectedCities.get(j);
+	            double weight = calculateWeight(city1, city2);
 
-				Edge edge = new Edge(city1, city2, weight);
-				graph.addEdge(edge.city1, edge.city2, edge.peso);
-			}
-		}
-		return graph;
+	            Edge edge = new Edge(city1, city2, weight);
+	            graph.addEdge(edge.city1, edge.city2, edge.peso);
+	        }
+	    }
+	    return graph;
 	}
 
-	private double calculateWeight(City city1, City city2) throws Exception {
+
+	public double calculateWeight(City city1, City city2) throws Exception {
 		ConnectingCities connectingCities = new ConnectingCities();
 		double costPerKilometer = connectingCities.costPerKilometer();
 		double distance = distanceInKilometers(city1.getLatitude(), city1.getLongitude(), city2.getLatitude(),
@@ -40,7 +44,7 @@ public class CompleteGraph {
 		return edgeCost;
 	}
 
-	private double distanceInKilometers(double lat1, double lon1, double lat2, double lon2) {
+	public double distanceInKilometers(double lat1, double lon1, double lat2, double lon2) {
 		final int R = 6371;
 
 		double latDistance = Math.toRadians(lat2 - lat1);

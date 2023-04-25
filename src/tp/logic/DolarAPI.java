@@ -10,13 +10,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DolarAPI {
-	private static final String API_URL = "https://api.bluelytics.com.ar/v2/latest";
-	private static double defaultValue = 440;
+	public static String API_URL = "https://api.bluelytics.com.ar/v2/latest";
+	public static double defaultValue = 440;
 
 	public static double getDolarBlueValue() {
 		double dolarBlueValue = 0;
 		try {
-			URL url = new URL(API_URL);
+			URL url = new URL(getApiUrl());
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
 
@@ -34,7 +34,7 @@ public class DolarAPI {
 			System.err.println(
 					"Error al obtener el valor del dólar blue de la API, se utilizará un default de $400 como valor: "
 							+ e.getMessage());
-			dolarBlueValue = defaultValue;
+			dolarBlueValue = getDefaultValue();
 		}
 		return dolarBlueValue;
 	}
@@ -49,5 +49,13 @@ public class DolarAPI {
 			e.printStackTrace();
 		}
 		return dolarBlueValue;
+	}
+
+	public static double getDefaultValue() {
+		return defaultValue;
+	}
+
+	public static String getApiUrl() {
+		return API_URL;
 	}
 }

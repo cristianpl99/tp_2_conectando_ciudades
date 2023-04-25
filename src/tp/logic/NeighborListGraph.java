@@ -63,8 +63,9 @@ public class NeighborListGraph {
 	}
 
 	public void verifyVertex(City i) {
-		if (i.equals(null))
+		if (i == null){
 			throw new IllegalArgumentException("El vertice no puede ser null: " + i);
+	}
 	}
 
 	public void verifyDistinct(City i, City j) {
