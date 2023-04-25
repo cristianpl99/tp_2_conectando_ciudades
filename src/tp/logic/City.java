@@ -16,7 +16,6 @@ public class City {
 	}
 
 	public City() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getName() {
@@ -50,7 +49,6 @@ public class City {
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
-	
 
 	@Override
 	public int hashCode() {
@@ -66,12 +64,10 @@ public class City {
 		if (getClass() != obj.getClass())
 			return false;
 		City other = (City) obj;
-	
-		return (Double.doubleToLongBits(latitude) == Double.doubleToLongBits(other.latitude)
-				&& Double.doubleToLongBits(longitude) == Double.doubleToLongBits(other.longitude))
-				|| (Objects.equals(name, other.name) && Objects.equals(province, other.province));
+
+		return Double.doubleToLongBits(latitude) == Double.doubleToLongBits(other.latitude)
+				&& Double.doubleToLongBits(longitude) == Double.doubleToLongBits(other.longitude)
+				&& Objects.equals(name, other.name) && Objects.equals(province, other.province);
 	}
-	
-	
 
 }

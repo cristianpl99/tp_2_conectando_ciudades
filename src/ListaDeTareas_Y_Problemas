@@ -1,10 +1,10 @@
 LISTA DE TAREAS:
 
--pasar las cosas del grafoListaVecinos a grafoConPeso para eliminar la clase Lista
--arreglar bfs luego del cambio
+-Hacer test de todas las clases de negocio (excepto city y edge)
 
--Hacer test de todas las clases de negocio
--Arreglar test BFS y Primm
+-Hacer que el usuario no pueda editar la tabla de valores
+
+-Arreglar error de input sin punto en lat y long
 
 PROBLEMAS PARA INFORME:
 
@@ -12,3 +12,4 @@ PROBLEMAS PARA INFORME:
 -El agm en el mapa se crea bien, pero dibuja lineas extras por como es el obj MapPolygon = SOLUCIONADO AÑADIENDO POLYGONOS EN FORMA DE RUTA
 -No muestra la lista de ciudades seleccionadas = SOLUCIONADO CREANDO UN ARRAY DE LABELS Y LUEGO SETEANDO EL TEXO CON EL NOMBRE DE LA CIUDAD
 -Redondeo del monto de las conexiones = SOLUCIONADO USANDO UN VALOR DE DOLAR, UN COSTE EN DOLARES POR KILOMETRO, Y MULTIPLICANDOLO POR LOS KILOMETROS PARA LUEGO REDONDEAR
+-Al agregarse la lat y long de una ciudad nueva, si no se pone . algo en el numero, el calculo de plata falla = SIN SOLUCION AUN

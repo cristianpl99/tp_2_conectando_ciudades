@@ -2,116 +2,81 @@ package tp.logic.test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
-import tp.logic.GrafoConPeso;
-import tp.logic.Primm;
+import tp.logic.City;
+import tp.logic.Prim;
+import tp.logic.WeightedGraph;
 
 public class PrimmTest {
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void grafoNoConexoTest() {
-		GrafoConPeso g = new GrafoConPeso(4);
-		g.addEdge(0, 1, 234);
-		g.addEdge(0, 2, 34);
-		Primm.recorridoPrimm(g);
-	}
-
-	private static GrafoConPeso crearGrafoCompleto1() {
-		GrafoConPeso grafo = new GrafoConPeso(6);
-		grafo.addEdge(0, 1, 1);
-		grafo.addEdge(0, 2, 100);
-		grafo.addEdge(0, 3, 100);
-		grafo.addEdge(0, 4, 100);
-		grafo.addEdge(0, 5, 100);
-		grafo.addEdge(1, 2, 100);
-		grafo.addEdge(1, 3, 4);
-		grafo.addEdge(1, 4, 100);
-		grafo.addEdge(1, 5, 100);
-		grafo.addEdge(2, 3, 5);
-		grafo.addEdge(2, 4, 100);
-		grafo.addEdge(2, 5, 100);
-		grafo.addEdge(3, 4, 27);
-		grafo.addEdge(3, 5, 100);
-		grafo.addEdge(4, 5, 15);
-		return grafo;
+		WeightedGraph g = crearGrafoInconexo();
+		Prim.primTraversal(g);
 	}
 
 	@Test
-	public void happy1Test() {
-		GrafoConPeso g = crearGrafoCompleto1();
-		GrafoConPeso agm = Primm.recorridoPrimm(g);
+	public void happyTest() {
+		WeightedGraph g = crearGrafoConexo();
+		WeightedGraph agm = Prim.primTraversal(g);
 		System.out.println(agm);
 		boolean acum = true;
-		acum = acum && agm.existsEdge(0, 1);
-		acum = acum && agm.existsEdge(1, 3);
-		acum = acum && agm.existsEdge(2, 3);
-		acum = acum && agm.existsEdge(3, 4);
-		acum = acum && agm.existsEdge(4, 5);
+		acum = acum && agm.existsEdge(agm.getVertex(0), agm.getVertex(1));
+		acum = acum && agm.existsEdge(agm.getVertex(1), agm.getVertex(2));
+		acum = acum && agm.existsEdge(agm.getVertex(2), agm.getVertex(4));
+		acum = acum && agm.existsEdge(agm.getVertex(4), agm.getVertex(3));
+		acum = acum && agm.existsEdge(agm.getVertex(4), agm.getVertex(5));
 		assertEquals(true, acum);
 	}
-	
-	private static GrafoConPeso crearGrafoCompleto2() {
-		GrafoConPeso grafo = new GrafoConPeso(4);
-		grafo.addEdge(0, 1, 100);
-		grafo.addEdge(0, 2, 100);
-		grafo.addEdge(0, 3, 12);
-		grafo.addEdge(1, 2, 100);
-		grafo.addEdge(1, 3, 9);
-		grafo.addEdge(2, 3, 9);
-		return grafo;
-	}
-	
-	@Test
-	public void happy2Test() {
-		GrafoConPeso g = crearGrafoCompleto2();
-		GrafoConPeso agm = Primm.recorridoPrimm(g);
-		System.out.println(agm);
-		boolean acum = true;
-		acum = acum && agm.existsEdge(0, 3);
-		acum = acum && agm.existsEdge(1, 3);
-		acum = acum && agm.existsEdge(2, 3);
-		assertEquals(true, acum);
-	}
-	
+
 	@Test
 	public void noAGMTest() {
-		GrafoConPeso g = crearGrafoCompleto2();
-		GrafoConPeso agm = Primm.recorridoPrimm(g);
+		WeightedGraph g = crearGrafoConexo();
+		WeightedGraph agm = Prim.primTraversal(g);
 		System.out.println(agm);
 		boolean acum = true;
-		acum = acum && agm.existsEdge(0, 3);
-		acum = acum && agm.existsEdge(1, 2);
-		acum = acum && agm.existsEdge(2, 3);
+		acum = acum && agm.existsEdge(agm.getVertex(0), agm.getVertex(1));
+		acum = acum && agm.existsEdge(agm.getVertex(1), agm.getVertex(2));
+		acum = acum && agm.existsEdge(agm.getVertex(1), agm.getVertex(3));
 		assertEquals(false, acum);
 	}
-	
-	private static GrafoConPeso crearGrafoCompleto3() {
-		GrafoConPeso grafo = new GrafoConPeso(5);
-		grafo.addEdge(0, 1, 100);
-		grafo.addEdge(0, 2, 100);
-		grafo.addEdge(0, 3, 100);
-		grafo.addEdge(0, 4, 100);
-		grafo.addEdge(1, 2, 100);
-		grafo.addEdge(1, 3, 100);
-		grafo.addEdge(1, 4, 100);
-		grafo.addEdge(2, 3, 100);
-		grafo.addEdge(2, 4, 100);
-		grafo.addEdge(3, 4, 100);
-		return grafo;
-	}
-	
-	@Test
-	public void happy3Test() {
-		GrafoConPeso g = crearGrafoCompleto3();
-		GrafoConPeso agm = Primm.recorridoPrimm(g);
-		System.out.println(agm);
-		boolean acum = true;
-		acum = acum && agm.existsEdge(0, 1);
-		acum = acum && agm.existsEdge(0, 2);
-		acum = acum && agm.existsEdge(0, 3);
-		acum = acum && agm.existsEdge(0, 4);
-		assertEquals(true, acum);
+
+	private static List<City> crearListaDeCiudades() {
+		List<City> cities = new ArrayList<>();
+		cities.add(new City("a", "a", 23, 34));
+		cities.add(new City("b", "b", 24, 33));
+		cities.add(new City("c", "c", 25, 32));
+		cities.add(new City("d", "d", 26, 31));
+		cities.add(new City("e", "e", 27, 30));
+		cities.add(new City("f", "f", 28, 39));
+		return cities;
 	}
 
+	private static WeightedGraph crearGrafoConexo() {
+		WeightedGraph ret = new WeightedGraph(6, crearListaDeCiudades());
+		ret.addEdge(ret.getVertex(0), ret.getVertex(1), 1);
+		ret.addEdge(ret.getVertex(0), ret.getVertex(2), 100);
+		ret.addEdge(ret.getVertex(1), ret.getVertex(2), 3);
+		ret.addEdge(ret.getVertex(1), ret.getVertex(3), 100);
+		ret.addEdge(ret.getVertex(1), ret.getVertex(5), 100);
+		ret.addEdge(ret.getVertex(2), ret.getVertex(4), 34);
+		ret.addEdge(ret.getVertex(4), ret.getVertex(3), 21);
+		ret.addEdge(ret.getVertex(4), ret.getVertex(5), 45);
+		return ret;
+	}
+
+	private static WeightedGraph crearGrafoInconexo() {
+		WeightedGraph ret = new WeightedGraph(6, crearListaDeCiudades());
+		ret.addEdge(ret.getVertex(0), ret.getVertex(1), 23);
+		ret.addEdge(ret.getVertex(0), ret.getVertex(2), 100);
+		ret.addEdge(ret.getVertex(1), ret.getVertex(2), 93);
+		ret.addEdge(ret.getVertex(1), ret.getVertex(3), 12);
+		ret.addEdge(ret.getVertex(2), ret.getVertex(4), 14);
+		ret.addEdge(ret.getVertex(3), ret.getVertex(4), 27);
+		return ret;
+	}
 }

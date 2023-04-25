@@ -1,8 +1,6 @@
 package tp.logic;
 
 import java.util.List;
-import java.text.DecimalFormat;
-
 
 public class CompleteGraph {
 
@@ -10,7 +8,6 @@ public class CompleteGraph {
 
 		WeightedGraph graph = new WeightedGraph(selectedCities.size(), selectedCities);
 
-		// Agrega una arista entre cada par de vértices
 		for (int i = 0; i < selectedCities.size(); i++) {
 			for (int j = i + 1; j < selectedCities.size(); j++) {
 				City city1 = selectedCities.get(i);
@@ -21,14 +18,13 @@ public class CompleteGraph {
 				graph.addEdge(edge.city1, edge.city2, edge.peso);
 			}
 		}
-		return Prim.primTraversal(graph, selectedCities);
+		return graph;
 	}
 
-	// no esta bien que este calculo este acá. montos inventados
 	private double calculateWeight(City city1, City city2) throws Exception {
 		ConnectingCities connectingCities = new ConnectingCities();
 		double costPerKilometer = connectingCities.costPerKilometer();
-		double distance  = distanceInKilometers(city1.getLatitude(), city1.getLongitude(), city2.getLatitude(),
+		double distance = distanceInKilometers(city1.getLatitude(), city1.getLongitude(), city2.getLatitude(),
 				city2.getLongitude());
 		double edgeCost = distance * costPerKilometer;
 
@@ -39,10 +35,10 @@ public class CompleteGraph {
 		if (!city1.getProvince().equals(city2.getProvince())) {
 			edgeCost += 300;
 		}
+
 		edgeCost = Math.floor(edgeCost);
 		return edgeCost;
 	}
-
 
 	private double distanceInKilometers(double lat1, double lon1, double lat2, double lon2) {
 		final int R = 6371;

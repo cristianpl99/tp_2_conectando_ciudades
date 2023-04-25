@@ -37,8 +37,9 @@ public class HomeScreen extends JFrame {
 	private List<City> selectedCities;
 
 	private List<JLabel> cityLabels;
-	private int valorDeBajada;
-	private int PosicionEnLasSelecionadas;
+	private int dropValue;
+	private int positionInTheSelected;
+
 	private ConnectingCities connectingCities;
 
 	public HomeScreen() throws Exception {
@@ -57,8 +58,8 @@ public class HomeScreen extends JFrame {
 
 		connectingCities = new ConnectingCities();
 
-		PosicionEnLasSelecionadas = 0;
-		valorDeBajada = 45;
+		positionInTheSelected = 0;
+		dropValue = 45;
 
 		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setBounds(32, 52, 220, 22);
@@ -152,9 +153,6 @@ public class HomeScreen extends JFrame {
 				} else {
 					selectedCities.add(cities.get(indexCity));
 
-					// aux visualizacion
-					printCities();
-
 					if (selectedCities.size() != 0 && cityLabels.size() != 0) {
 						addCityLbl();
 					}
@@ -176,13 +174,11 @@ public class HomeScreen extends JFrame {
 					showMessageDialog("La provincia no existe");
 				} else {
 					City newCity = createCity();
+
 					if (selectedCities.contains(newCity)) {
 						showMessageDialog("Ya agrego esta ciudad, agregue otra");
 					} else {
 						selectedCities.add(newCity);
-
-						// aux visualizacion
-						printCities();
 
 						if (selectedCities.size() != 0 && cityLabels.size() != 0) {
 							addCityLbl();
@@ -218,24 +214,17 @@ public class HomeScreen extends JFrame {
 
 	}
 
-	// validaciones varias
-	private void printCities() {
-		for (City city : selectedCities) {
-			System.out.println(city.getName());
-		}
-	}
-
 	private void showMessageDialog(String message) {
 		JOptionPane.showMessageDialog(null, message, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	private void addCityLbl() {
-		cityLabels.get(PosicionEnLasSelecionadas).setText(selectedCities.get(PosicionEnLasSelecionadas).getName());
-		cityLabels.get(PosicionEnLasSelecionadas).setHorizontalAlignment(SwingConstants.CENTER);
-		cityLabels.get(PosicionEnLasSelecionadas).setFont(new Font("Tahoma", Font.BOLD, 12));
-		cityLabels.get(PosicionEnLasSelecionadas).setBounds(336, valorDeBajada, 196, 14);
-		valorDeBajada += 16;
-		PosicionEnLasSelecionadas += 1;
+		cityLabels.get(positionInTheSelected).setText(selectedCities.get(positionInTheSelected).getName());
+		cityLabels.get(positionInTheSelected).setHorizontalAlignment(SwingConstants.CENTER);
+		cityLabels.get(positionInTheSelected).setFont(new Font("Tahoma", Font.BOLD, 12));
+		cityLabels.get(positionInTheSelected).setBounds(336, dropValue, 196, 14);
+		dropValue += 16;
+		positionInTheSelected += 1;
 
 		JOptionPane.showMessageDialog(null, "Ciudad agregada con exito", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 	}
@@ -249,7 +238,6 @@ public class HomeScreen extends JFrame {
 		return newCity;
 	}
 
-	// PREGUNTAR DONDE VALIDAR ESTA DATA
 	private boolean missingCityData() {
 		return textFieldName.getText().equals("") || textFieldProvince.getText().equals("")
 				|| textFieldLatitude.getText().equals("") || textFieldLongitude.getText().equals("");
@@ -260,20 +248,20 @@ public class HomeScreen extends JFrame {
 		double latitude = Double.parseDouble(latitudeStr);
 		double longitude = Double.parseDouble(longitudeStr);
 
-		if (latitude < -55 || latitude > -22) {
+		if (latitude < -54 || latitude > -22) {
 			valid = false;
 		}
-		if (longitude < -26 || longitude > -23) {
+		if (longitude < -70 || longitude > -53) {
 			valid = false;
 		}
 		return valid;
 	}
 
 	private boolean isProvince(String input) {
-		String[] provinces = { "Buenos Aires", "Catamarca", "Chaco", "Chubut", "Ciudad Autónoma de Buenos Aires",
-				"Córdoba", "Corrientes", "Entre Ríos", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza",
-				"Misiones", "Neuquén", "Río Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe",
-				"Santiago del Estero", "Tierra del Fuego, Antártida e Islas del Atlántico Sur", "Tucumán" };
+		String[] provinces = { "Buenos Aires", "Catamarca", "Chaco", "Chubut", "Cordoba", "Corrientes", "Entre Rios",
+				"Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquen", "Rio Negro", "Salta",
+				"San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego",
+				"Tucuman" };
 
 		for (String province : provinces) {
 			if (input.equalsIgnoreCase(province)) {
@@ -289,9 +277,9 @@ public class HomeScreen extends JFrame {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				int key = e.getKeyChar();
-				// valida que la entrada sea un valor numeral o "-" o "." y de maxima longitud 6
+				// valida que la entrada sea un valor numeral o "-" o "." y de maxima longitud 7
 				boolean numeros = (key >= 48 && key <= 57) || key == 45 | key == 46;
-				if ((!numeros || jText.getText().trim().length() == 6)) {
+				if ((!numeros || jText.getText().trim().length() == 8)) {
 					e.consume();
 				}
 			}

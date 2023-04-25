@@ -20,6 +20,7 @@ public class WeightedGraph extends NeighborListGraph {
 		}
 	}
 
+	@Override
 	public void deleteEdge(City city1, City city2) {
 		super.deleteEdge(city1, city2);
 
@@ -41,6 +42,7 @@ public class WeightedGraph extends NeighborListGraph {
 		throw new RuntimeException("No se encontro un peso entre " + city1 + " y " + city2);
 	}
 
+	@Override
 	public String toString() {
 		StringBuilder st = new StringBuilder();
 		for (int i = 0; i < edges.size(); i++) {

@@ -7,12 +7,16 @@ import java.util.Set;
 
 public class NeighborListGraph {
 
-	// Representamos el grafo por su lista de vecinos
 	protected ArrayList<HashSet<City>> neighbors;
 	protected List<City> vertexes;
 
-	// La cantidad de vertices esta predeterminada desde el constructor
 	public NeighborListGraph(int numVertexes, List<City> selectedCities) {
+		if (selectedCities == null) {
+			throw new IllegalArgumentException("no hay una lista con ciudades creada");
+		}
+		if (selectedCities.size() != numVertexes) {
+			throw new IllegalArgumentException("no hay las suficientes ciudades para cubrir cada vertice del grafo");
+		}
 		neighbors = new ArrayList<HashSet<City>>();
 		for (int i = 0; i < numVertexes; i++) {
 			neighbors.add(new HashSet<City>());

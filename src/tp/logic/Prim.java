@@ -9,31 +9,30 @@ public class Prim {
 
 	private static List<City> markedVertexes;
 
-	public static WeightedGraph primTraversal(WeightedGraph completeGraph, List<City> selectedCities) {
+	public static WeightedGraph primTraversal(WeightedGraph completeGraph) {
 		if (!BFS.isConnected(completeGraph)) {
 			throw new IllegalArgumentException("el grafo es invalido por que no es conexo");
 		}
-		WeightedGraph mstGraph = new WeightedGraph(completeGraph.size(), selectedCities);
+		WeightedGraph mstGraph = new WeightedGraph(completeGraph.size(), completeGraph.vertexes);
 		int i = 1;
 		markedVertexes = new ArrayList<City>();
 		markedVertexes.add(completeGraph.getVertex(0));
 		while (i <= completeGraph.size() - 1) {
-			Edge minimumEdge = selectMinimumEdge(completeGraph, mstGraph, selectedCities);
+			Edge minimumEdge = selectMinimumEdge(completeGraph, mstGraph);
 			mstGraph.addEdge(minimumEdge.getCity1(), minimumEdge.getCity2(), minimumEdge.getPeso());
 			i++;
 		}
 		return mstGraph;
 	}
 
-	private static Edge selectMinimumEdge(WeightedGraph completeGraph, WeightedGraph mstGraph,
-			List<City> selectedCities) {
+	private static Edge selectMinimumEdge(WeightedGraph completeGraph, WeightedGraph mstGraph) {
 		City nonMarkedminimumVertex = completeGraph.getVertex(0);
 		Edge minimumEdge = null;
 
 		minimumEdge = new Edge(completeGraph.getVertex(0), completeGraph.getVertex(1), Float.POSITIVE_INFINITY);
 
 		for (City vertex : markedVertexes) {
-			Set<City> vertexes = completeGraph.neighbors(completeGraph.getVertex(selectedCities.indexOf(vertex)));
+			Set<City> vertexes = completeGraph.neighbors(vertex);
 			Iterator<City> iter = vertexes.iterator();
 
 			while (iter.hasNext()) {

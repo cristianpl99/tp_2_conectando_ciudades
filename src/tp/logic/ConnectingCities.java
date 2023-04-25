@@ -8,26 +8,24 @@ public class ConnectingCities {
 	private Persistence persistence;
 	private Double dolarBlueValue;
 	private Double costPerKilometerInUSD;
-	
-	public ConnectingCities() throws Exception{
-		this.dolarBlueValue =  DolarAPI.getDolarBlueValue();
-		this.costPerKilometerInUSD = 15.0;
+
+	public ConnectingCities() throws Exception {
+		this.dolarBlueValue = DolarAPI.getDolarBlueValue();
+		this.costPerKilometerInUSD = 8.0;
 	}
-	
 
 	public List<City> fetchCities() {
 		persistence = new Persistence();
 		return persistence.fetchCities();
 	}
 
-	// Recibe las ciudades y retorna el AGM
-
 	public WeightedGraph minimumSpanningTree(List<City> selectedCities) throws Exception {
 		CompleteGraph completeGraph = new CompleteGraph();
-		return completeGraph.createCompleteGraph(selectedCities);
+		WeightedGraph Gcomplete = completeGraph.createCompleteGraph(selectedCities);
+		return Prim.primTraversal(Gcomplete);
 	}
-	
-	public  double costPerKilometer(){
+
+	public double costPerKilometer() {
 		return costPerKilometerInUSD * dolarBlueValue;
 	}
 }

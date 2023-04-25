@@ -3,7 +3,6 @@ package tp;
 import javax.swing.UIManager;
 
 import tp.gui.HomeScreen;
-import tp.logic.DolarAPI;
 
 public class Main {
 
