@@ -155,7 +155,7 @@ public class HomeScreen extends JFrame {
 
 					if (selectedCities.size() != 0) {
 						addCityLbl();
-						//updateCityLbl();
+						// updateCityLbl();
 					}
 				}
 			}
@@ -164,25 +164,23 @@ public class HomeScreen extends JFrame {
 		btnAddListedCity.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAddListedCity.setBounds(10, 107, 126, 36);
 		contentPane.add(btnAddListedCity);
-		
+
 		JButton btnDelListedCity = new JButton("Quitar Ciudad");
 		btnDelListedCity.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        int indexCity = comboBox.getSelectedIndex();
-		        if (selectedCities.contains(cities.get(indexCity))) {
-		            selectedCities.remove(cities.get(indexCity));
-		            showMessageDialog("Ciudad eliminada de la lista con éxito");
-		            updateCityLbl();
-		        } else {
-		            showMessageDialog("La ciudad seleccionada no está en la lista");
-		        }
-		    }
+			public void actionPerformed(ActionEvent e) {
+				int indexCity = comboBox.getSelectedIndex();
+				if (selectedCities.contains(cities.get(indexCity))) {
+					selectedCities.remove(cities.get(indexCity));
+					showMessageDialog("Ciudad eliminada de la lista con éxito");
+					updateCityLbl();
+				} else {
+					showMessageDialog("La ciudad seleccionada no está en la lista");
+				}
+			}
 		});
 		btnDelListedCity.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnDelListedCity.setBounds(166, 107, 126, 36);
 		contentPane.add(btnDelListedCity);
-
-		
 
 		JButton btnAddUnlistedCity = new JButton("Agregar Ciudad");
 		btnAddUnlistedCity.addActionListener(new ActionListener() {
@@ -201,7 +199,7 @@ public class HomeScreen extends JFrame {
 						selectedCities.add(newCity);
 
 						if (selectedCities.size() != 0) {
-							//updateCityLbl();
+							// updateCityLbl();
 							addCityLbl();
 						}
 					}
@@ -212,10 +210,6 @@ public class HomeScreen extends JFrame {
 		btnAddUnlistedCity.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAddUnlistedCity.setBounds(74, 428, 126, 36);
 		contentPane.add(btnAddUnlistedCity);
-		
-		
-		
-		
 
 		JButton btnMST = new JButton("Generar AGM");
 		btnMST.addActionListener(new ActionListener() {
@@ -236,14 +230,13 @@ public class HomeScreen extends JFrame {
 		btnMST.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnMST.setBounds(394, 428, 126, 36);
 		contentPane.add(btnMST);
-		
 
 	}
 
 	private void showMessageDialog(String message) {
 		JOptionPane.showMessageDialog(null, message, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 	}
-	 
+
 	private void addCityLbl() {
 		cityLabels.get(positionInTheSelected).setText(selectedCities.get(positionInTheSelected).getName());
 		cityLabels.get(positionInTheSelected).setHorizontalAlignment(SwingConstants.CENTER);
@@ -254,22 +247,21 @@ public class HomeScreen extends JFrame {
 
 		JOptionPane.showMessageDialog(null, "Ciudad agregada con exito", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 	}
-	
 
 	private void updateCityLbl() {
-	    for (int i = 0; i < selectedCities.size(); i++) {
-	        JLabel label = new JLabel(selectedCities.get(i).getName());
-	        label.setHorizontalAlignment(SwingConstants.CENTER);
-	        label.setFont(new Font("Tahoma", Font.BOLD, 12));
-	        label.setBounds(336, dropValue, 196, 14);
-	        cityLabels.add(label);
-	        dropValue += 16;
-	    }
-	    positionInTheSelected += selectedCities.size();
-	    
-	    JOptionPane.showMessageDialog(null, "Ciudad(es) agregada(s) con éxito", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-	}
+		for (int i = 0; i < selectedCities.size(); i++) {
+			JLabel label = new JLabel(selectedCities.get(i).getName());
+			label.setHorizontalAlignment(SwingConstants.CENTER);
+			label.setFont(new Font("Tahoma", Font.BOLD, 12));
+			label.setBounds(336, dropValue, 196, 14);
+			cityLabels.add(label);
+			dropValue += 16;
+		}
+		positionInTheSelected += selectedCities.size();
 
+		JOptionPane.showMessageDialog(null, "Ciudad(es) agregada(s) con éxito", "Mensaje",
+				JOptionPane.INFORMATION_MESSAGE);
+	}
 
 	private City createCity() {
 		City newCity = new City();
@@ -319,7 +311,7 @@ public class HomeScreen extends JFrame {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				int key = e.getKeyChar();
-				// valida que la entrada sea un valor numeral o "-" o "." y de maxima longitud 7
+				// valida que la entrada sea un valor numeral o "-" o "." y de maxima longitud 8
 				boolean numeros = (key >= 48 && key <= 57) || key == 45 | key == 46;
 				if ((!numeros || jText.getText().trim().length() == 8)) {
 					e.consume();

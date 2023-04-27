@@ -6,6 +6,10 @@ LISTA DE TAREAS:
 
 -Arreglar error de input sin punto en lat y long
 
+-Arreglar lo de quitar ciudad de la lista
+
+-No dejar que se pueda crear agm sin ciudades en la lista
+
 PROBLEMAS PARA INFORME:
 
 -La creacion del algoritmo PRIMM = SOLUCIONADO CON UNA ARITSA AUX DE PESO INFINITO
