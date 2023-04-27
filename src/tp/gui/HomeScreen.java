@@ -72,7 +72,7 @@ public class HomeScreen extends JFrame {
 
 		cityLabels = new ArrayList<JLabel>();
 		for (int i = 0; i < cities.size() - 1; i++) {
-			cityLabels.add(new JLabel("."));
+			cityLabels.add(new JLabel(""));
 			contentPane.add(cityLabels.get(i));
 		}
 
@@ -128,7 +128,7 @@ public class HomeScreen extends JFrame {
 		JLabel lblLong = new JLabel("Longitud");
 		lblLong.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLong.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblLong.setBounds(-55, 371, 220, 22);
+		lblLong.setBounds(-26, 371, 159, 22);
 		contentPane.add(lblLong);
 
 		textFieldLongitude = new JTextField();
@@ -151,36 +151,22 @@ public class HomeScreen extends JFrame {
 				if (selectedCities.contains(cities.get(indexCity))) {
 					showMessageDialog("Ya agrego esta ciudad, agregue otra");
 				} else {
-					selectedCities.add(cities.get(indexCity));
+					if (selectedCities.size() == 23) {
+						showMessageDialog("Ya agrego el limite de ciudades permitidas");
+					} else {
+						selectedCities.add(cities.get(indexCity));
 
-					if (selectedCities.size() != 0) {
-						addCityLbl();
-						// updateCityLbl();
+						if (selectedCities.size() != 0) {
+							addCityLbl();
+						}
 					}
 				}
 			}
 
 		});
 		btnAddListedCity.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAddListedCity.setBounds(10, 107, 126, 36);
+		btnAddListedCity.setBounds(74, 107, 126, 36);
 		contentPane.add(btnAddListedCity);
-
-		JButton btnDelListedCity = new JButton("Quitar Ciudad");
-		btnDelListedCity.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int indexCity = comboBox.getSelectedIndex();
-				if (selectedCities.contains(cities.get(indexCity))) {
-					selectedCities.remove(cities.get(indexCity));
-					showMessageDialog("Ciudad eliminada de la lista con éxito");
-					updateCityLbl();
-				} else {
-					showMessageDialog("La ciudad seleccionada no está en la lista");
-				}
-			}
-		});
-		btnDelListedCity.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnDelListedCity.setBounds(166, 107, 126, 36);
-		contentPane.add(btnDelListedCity);
 
 		JButton btnAddUnlistedCity = new JButton("Agregar Ciudad");
 		btnAddUnlistedCity.addActionListener(new ActionListener() {
@@ -196,11 +182,14 @@ public class HomeScreen extends JFrame {
 					if (selectedCities.contains(newCity)) {
 						showMessageDialog("Ya agrego esta ciudad, agregue otra");
 					} else {
-						selectedCities.add(newCity);
+						if (selectedCities.size() == 23) {
+							showMessageDialog("Ya agrego el limite de ciudades permitidas");
+						} else {
+							selectedCities.add(newCity);
 
-						if (selectedCities.size() != 0) {
-							// updateCityLbl();
-							addCityLbl();
+							if (selectedCities.size() != 0) {
+								addCityLbl();
+							}
 						}
 					}
 				}
@@ -214,22 +203,38 @@ public class HomeScreen extends JFrame {
 		JButton btnMST = new JButton("Generar AGM");
 		btnMST.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				WeightedGraph mst = null;
-				try {
-					mst = connectingCities.minimumSpanningTree(selectedCities);
-				} catch (Exception e1) {
-					e1.printStackTrace();
+				if (selectedCities.size() == 0) {
+					showMessageDialog("Seleccione almenos una ciudad");
+				} else {
+					WeightedGraph mst = null;
+					try {
+						mst = connectingCities.minimumSpanningTree(selectedCities);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					// pasa como parametro el AGM
+					MapScreen mapScreen = new MapScreen(mst);
+					mapScreen.setResizable(false);
+					mapScreen.setVisible(true);
 				}
-				// pasa como parametro el AGM
-				MapScreen mapScreen = new MapScreen(mst);
-				mapScreen.setResizable(false);
-				mapScreen.setVisible(true);
 			}
 
 		});
 		btnMST.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnMST.setBounds(394, 428, 126, 36);
 		contentPane.add(btnMST);
+
+		JLabel limLatitude = new JLabel("-54 < x < -22");
+		limLatitude.setHorizontalAlignment(SwingConstants.CENTER);
+		limLatitude.setFont(new Font("Tahoma", Font.BOLD, 11));
+		limLatitude.setBounds(92, 336, 96, 26);
+		contentPane.add(limLatitude);
+
+		JLabel limLongitude = new JLabel("-70 < x < -53");
+		limLongitude.setHorizontalAlignment(SwingConstants.CENTER);
+		limLongitude.setFont(new Font("Tahoma", Font.BOLD, 11));
+		limLongitude.setBounds(92, 370, 96, 26);
+		contentPane.add(limLongitude);
 
 	}
 
@@ -245,22 +250,6 @@ public class HomeScreen extends JFrame {
 		dropValue += 16;
 		positionInTheSelected += 1;
 
-		JOptionPane.showMessageDialog(null, "Ciudad agregada con exito", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-	}
-
-	private void updateCityLbl() {
-		for (int i = 0; i < selectedCities.size(); i++) {
-			JLabel label = new JLabel(selectedCities.get(i).getName());
-			label.setHorizontalAlignment(SwingConstants.CENTER);
-			label.setFont(new Font("Tahoma", Font.BOLD, 12));
-			label.setBounds(336, dropValue, 196, 14);
-			cityLabels.add(label);
-			dropValue += 16;
-		}
-		positionInTheSelected += selectedCities.size();
-
-		JOptionPane.showMessageDialog(null, "Ciudad(es) agregada(s) con éxito", "Mensaje",
-				JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	private City createCity() {

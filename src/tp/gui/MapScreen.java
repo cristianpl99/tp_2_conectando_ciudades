@@ -20,12 +20,14 @@ import org.openstreetmap.gui.jmapviewer.*;
 
 import tp.logic.City;
 import tp.logic.Edge;
+import tp.logic.MyTableModel;
 import tp.logic.WeightedGraph;
 
 public class MapScreen extends JFrame {
 
 	private JPanel contentPane;
 	private JMapViewer map;
+	private MyTableModel modelTable;
 
 	public MapScreen(WeightedGraph mst) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,7 +65,9 @@ public class MapScreen extends JFrame {
 		rowData[i][0] = "COSTO DEL TENDIDO";
 		rowData[i][4] = "$ " + mstCost;
 
-		JTable table = new JTable(new DefaultTableModel(rowData, columnNames));
+		modelTable = new MyTableModel(rowData, columnNames);
+
+		JTable table = new JTable(modelTable);
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 		table.setDefaultRenderer(Object.class, centerRenderer);
