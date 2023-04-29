@@ -23,6 +23,7 @@ import tp.logic.WeightedGraph;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.security.InvalidParameterException;
 import java.awt.event.ActionEvent;
 
 public class HomeScreen extends JFrame {
@@ -155,14 +156,12 @@ public class HomeScreen extends JFrame {
 						showMessageDialog("Ya agrego el limite de ciudades permitidas");
 					} else {
 						selectedCities.add(cities.get(indexCity));
-
 						if (selectedCities.size() != 0) {
 							addCityLbl();
 						}
 					}
 				}
 			}
-
 		});
 		btnAddListedCity.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAddListedCity.setBounds(74, 107, 126, 36);
@@ -171,28 +170,27 @@ public class HomeScreen extends JFrame {
 		JButton btnAddUnlistedCity = new JButton("Agregar Ciudad");
 		btnAddUnlistedCity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (missingCityData()
-						|| !areValidCoordinates(textFieldLatitude.getText(), textFieldLongitude.getText())) {
-					showMessageDialog("Faltan datos o la latitud y/o longitud no es válida");
-				} else if (!isProvince(textFieldProvince.getText())) {
-					showMessageDialog("La provincia no existe");
-				} else {
-					City newCity = createCity();
-
-					if (selectedCities.contains(newCity)) {
-						showMessageDialog("Ya agrego esta ciudad, agregue otra");
-					} else {
-						if (selectedCities.size() == 23) {
-							showMessageDialog("Ya agrego el limite de ciudades permitidas");
-						} else {
-							selectedCities.add(newCity);
-
-							if (selectedCities.size() != 0) {
-								addCityLbl();
-							}
-						}
-					}
-				}
+			    if (missingCityData()) {
+			        showMessageDialog("Faltan datos necesarios para agregar la ciudad");
+			    } else {
+			        try {
+			            City newCity = createCity();
+			            if (selectedCities.contains(newCity)) {
+			                showMessageDialog("Ya agrego esta ciudad, agregue otra");
+			            } else {
+			                if (selectedCities.size() == 23) {
+			                    showMessageDialog("Ya agrego el limite de ciudades permitidas");
+			                } else {
+			                    selectedCities.add(newCity);
+			                    if (selectedCities.size() != 0) {
+			                        addCityLbl();
+			                    }
+			                }
+			            }
+			        } catch (InvalidParameterException ex) {
+			            showMessageDialog("Alguno de los datos ingresados no es correcto");
+			        }
+			    }
 			}
 
 		});
@@ -218,8 +216,8 @@ public class HomeScreen extends JFrame {
 					mapScreen.setVisible(true);
 				}
 			}
-
 		});
+		
 		btnMST.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnMST.setBounds(394, 428, 126, 36);
 		contentPane.add(btnMST);
@@ -253,12 +251,8 @@ public class HomeScreen extends JFrame {
 	}
 
 	private City createCity() {
-		City newCity = new City();
-		newCity.setName(textFieldName.getText());
-		newCity.setProvince(textFieldProvince.getText());
-		newCity.setLatitude(Double.parseDouble(textFieldLatitude.getText()));
-		newCity.setLongitude(Double.parseDouble(textFieldLongitude.getText()));
-		return newCity;
+		 return  connectingCities.createCity(textFieldName.getText(), textFieldProvince.getText(),
+									Double.parseDouble(textFieldLatitude.getText()), Double.parseDouble(textFieldLongitude.getText()));
 	}
 
 	private boolean missingCityData() {
@@ -266,33 +260,6 @@ public class HomeScreen extends JFrame {
 				|| textFieldLatitude.getText().equals("") || textFieldLongitude.getText().equals("");
 	}
 
-	private boolean areValidCoordinates(String latitudeStr, String longitudeStr) {
-		boolean valid = true;
-		double latitude = Double.parseDouble(latitudeStr);
-		double longitude = Double.parseDouble(longitudeStr);
-
-		if (latitude < -54 || latitude > -22) {
-			valid = false;
-		}
-		if (longitude < -70 || longitude > -53) {
-			valid = false;
-		}
-		return valid;
-	}
-
-	private boolean isProvince(String input) {
-		String[] provinces = { "Buenos Aires", "Catamarca", "Chaco", "Chubut", "Cordoba", "Corrientes", "Entre Rios",
-				"Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquen", "Rio Negro", "Salta",
-				"San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego",
-				"Tucuman" };
-
-		for (String province : provinces) {
-			if (input.equalsIgnoreCase(province)) {
-				return true;
-			}
-		}
-		return false;
-	}
 
 	// validador de entradas en las casillas
 	private void entryValidation(JTextField jText) {

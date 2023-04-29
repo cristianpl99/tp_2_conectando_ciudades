@@ -36,5 +36,26 @@ public class Persistence {
 		}
 		return cities;
 	}
-
+	
+	public ArrayList<String> fetchProvinces(){
+        ArrayList<String> provinces = new ArrayList<>();
+        
+        try {
+        	FileReader reader = new FileReader(file);
+			BufferedReader buffer = new BufferedReader(reader);
+			String line;
+        
+            while ((line = buffer.readLine()) != null) {
+                String[] parts = line.split(",");
+                String province = parts[1].trim();
+                provinces.add(province);
+            }
+            reader.close();
+        }
+        catch (IOException e) {
+			e.printStackTrace();
+		}
+        return provinces;
+    }
+	
 }
