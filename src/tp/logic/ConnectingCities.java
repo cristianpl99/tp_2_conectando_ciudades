@@ -21,7 +21,7 @@ public class ConnectingCities {
 		persistence = new Persistence();
 		return persistence.fetchCities();
 	}
-
+	
 	public WeightedGraph minimumSpanningTree(List<City> selectedCities) throws Exception {
 		CompleteGraph completeGraph = new CompleteGraph();
 		WeightedGraph Gcomplete = completeGraph.createCompleteGraph(selectedCities);
@@ -40,7 +40,6 @@ public class ConnectingCities {
 		City city = new City(name, province, latitude, longitude);
 		return city;
 	}
-
 	
 	public boolean validateCityParams(String name, String province, double latitude, double longitude) {
 	    if (latitude < -54 || latitude > -22 || longitude < -70 || longitude > -53) {

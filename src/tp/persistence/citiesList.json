@@ -1,0 +1,588 @@
+[
+    {
+        "name": "Buenos Aires",
+        "province": "Buenos Aires",
+        "latitude": -34.603722,
+        "longitude": -58.381592
+    },
+    {
+        "name": "Córdoba",
+        "province": "Córdoba",
+        "latitude": -31.420083,
+        "longitude": -64.188776
+    },
+    {
+        "name": "Rosario",
+        "province": "Santa Fe",
+        "latitude": -32.942791,
+        "longitude": -60.639323
+    },
+    {
+        "name": "Mendoza",
+        "province": "Mendoza",
+        "latitude": -32.889458,
+        "longitude": -68.845839
+    },
+    {
+        "name": "San Miguel de Tucuman",
+        "province": "Tucuman",
+        "latitude": -26.83234,
+        "longitude": -65.222603
+    },
+    {
+        "name": "La Plata",
+        "province": "Buenos Aires",
+        "latitude": -34.921452,
+        "longitude": -57.954528
+    },
+    {
+        "name": "Mar del Plata",
+        "province": "Buenos Aires",
+        "latitude": -38.005477,
+        "longitude": -57.542611
+    },
+    {
+        "name": "Salta",
+        "province": "Salta",
+        "latitude": -24.785896,
+        "longitude": -65.411664
+    },
+    {
+        "name": "Santa Fe de la Vera Cruz",
+        "province": "Santa Fe",
+        "latitude": -31.634162,
+        "longitude": -60.701604
+    },
+    {
+        "name": "San Juan",
+        "province": "San Juan",
+        "latitude": -31.5375,
+        "longitude": -68.536389
+    },
+    {
+        "name": "Resistencia",
+        "province": "Chaco",
+        "latitude": -27.46056,
+        "longitude": -58.983891
+    },
+    {
+        "name": "Santiago del Estero",
+        "province": "Santiago del Estero",
+        "latitude": -27.79511,
+        "longitude": -64.26149
+    },
+    {
+        "name": "Corrientes",
+        "province": "Corrientes",
+        "latitude": -27.471011,
+        "longitude": -58.839528
+    },
+    {
+        "name": "Neuquén",
+        "province": "Neuquén",
+        "latitude": -38.95161,
+        "longitude": -68.059096
+    },
+    {
+        "name": "Posadas",
+        "province": "Misiones",
+        "latitude": -27.36708,
+        "longitude": -55.89608
+    },
+    {
+        "name": "Bahía Blanca",
+        "province": "Buenos Aires",
+        "latitude": -38.71959,
+        "longitude": -62.272428
+    },
+    {
+        "name": "Paraná",
+        "province": "Entre Ríos",
+        "latitude": -31.74132,
+        "longitude": -60.511547
+    },
+    {
+    	"name": "Formosa",
+    	"province": "Formosa",
+   	 	"latitude": -26.18441,
+    	"longitude": -58.173491
+	},
+    
+    {
+        "name": "San Salvador de Jujuy",
+        "province": "Jujuy",
+        "latitude": -24.185786,
+        "longitude": -65.299476
+    },
+    {
+        "name": "La Rioja",
+        "province": "La Rioja",
+        "latitude": -29.41309,
+        "longitude": -66.854451
+    },
+    {
+        "name": "Río Cuarto",
+        "province": "Cordoba",
+        "latitude": -33.123242,
+        "longitude": -64.349358
+    },
+    {
+        "name": "Concordia",
+        "province": "Entre Ríos",
+        "latitude": -31.39143,
+        "longitude": -58.02089
+    },
+    {
+        "name": "San Nicolas de los Arroyos",
+        "province": "Buenos Aires",
+        "latitude": -33.335078,
+        "longitude": -60.220276
+    },
+    {
+        "name": "San Rafael",
+        "province": "Mendoza",
+        "latitude": -34.6179,
+        "longitude": -68.330539
+    },
+    {
+        "name": "San Luis",
+        "province": "San Luis",
+        "latitude": -33.29501,
+        "longitude": -66.335632
+    },
+    {
+        "name": "Tandil",
+        "province": "Buenos Aires",
+        "latitude": -37.32167,
+        "longitude": -59.13316
+    },
+    {
+        "name": "San Carlos de Bariloche",
+        "province": "Río Negro",
+        "latitude": -41.133472,
+        "longitude": -71.310864
+    },
+    {
+        "name": "Trelew",
+        "province": "Chubut",
+        "latitude": -43.24802,
+        "longitude": -65.30574
+    },
+    {
+        "name": "Venado Tuerto",
+        "province": "Santa Fe",
+        "latitude": -33.749008,
+        "longitude": -61.96662
+    },
+    {
+        "name": "Junín",
+        "province": "Buenos Aires",
+        "latitude": -34.58495,
+        "longitude": -60.958519
+    },
+    {
+        "name": "Villa María",
+        "province": "Córdoba",
+        "latitude": -32.40995,
+        "longitude": -63.240471
+    },
+    {
+        "name": "Olavarría",
+        "province": "Buenos Aires",
+        "latitude": -36.892788,
+        "longitude": -60.322466
+    },
+    {
+        "name": "San Francisco",
+        "province": "Córdoba",
+        "latitude": -31.42788,
+        "longitude": -62.082481
+    },
+    {
+        "name": "Alta Gracia",
+        "province": "Cordoba",
+        "latitude": -31.66048,
+        "longitude": -64.429962
+    },
+    {
+        "name": "Bell Ville",
+        "province": "Cordoba",
+        "latitude": -32.62492,
+        "longitude": -62.688301
+    },
+    {
+        "name": "Puerto Madryn",
+        "province": "Chubut",
+        "latitude": -42.769200,
+        "longitude": -65.038910
+    },
+    {
+        "name": "General Pico",
+        "province": "La Pampa",
+        "latitude": -35.656361,
+        "longitude": -63.756294
+    },
+    {
+        "name": "Río Tercero",
+        "province": "Cordoba",
+        "latitude": -32.181469,
+        "longitude": -64.104187
+    },
+    {
+        "name": "Villa Carlos Paz",
+        "province": "Cordoba",
+        "latitude": -31.423290,
+        "longitude": -64.497620
+    },
+    {
+        "name": "Caleta Olivia",
+        "province": "Santa Cruz",
+        "latitude": -46.448818,
+        "longitude": -67.513104
+    },
+    {
+        "name": "San Pedro",
+        "province": "Buenos Aires",
+        "latitude": -33.676842,
+        "longitude": -59.659821
+    },
+    {
+        "name": "Goya",
+        "province": "Corrientes",
+        "latitude": -29.142380,
+        "longitude": -59.263069
+    },
+    {
+        "name": "Cutral-Co",
+        "province": "Neuquén",
+        "latitude": -38.933762,
+        "longitude": -69.240799
+    },
+    {
+        "name": "Gualeguaychu",
+        "province": "Entre Ríos",
+        "latitude": -33.013230,
+        "longitude": -58.516209
+    },
+    {
+        "name": "Zapala",
+        "province": "Neuquen",
+        "latitude": -38.901211,
+        "longitude": -70.067909
+    },
+    {
+        "name": "Mercedes",
+        "province": "Buenos Aires",
+        "latitude": -34.654072,
+        "longitude": -59.436500
+    },
+    {
+        "name": "Azul",
+        "province": "Buenos Aires",
+        "latitude": -36.779579,
+        "longitude": -59.858261
+    },
+    {
+        "name": "La Calera",
+        "province": "Cordoba",
+        "latitude": -31.294722,
+        "longitude": -64.357500
+    },
+    {
+        "name": "Bell Ville",
+        "province": "Cordoba",
+        "latitude": -32.625556,
+        "longitude": -62.688611
+    },
+    {
+        "name": "Cutral Co",
+        "province": "Neuquen",
+        "latitude": -38.942778,
+        "longitude": -69.236389
+    },
+    {
+        "name": "Tres Arroyos",
+        "province": "Buenos Aires",
+        "latitude": -38.374167,
+        "longitude": -60.273611
+    },
+    {
+        "name": "Villa Regina",
+        "province": "Río Negro",
+        "latitude": -39.094167,
+        "longitude": -67.062222
+    },
+  {
+    "name": "Jesus Maria",
+    "province": "Cordoba",
+    "latitude": -30.976667,
+    "longitude": -64.090833
+  },
+  {
+    "name": "San Jose de Jachal",
+    "province": "San Juan",
+    "latitude": -30.236111,
+    "longitude": -68.741667
+  },
+  {
+    "name": "Gualeguaychu",
+    "province": "Entre Rios",
+    "latitude": -33.014444,
+    "longitude": -58.514722
+  },
+  {
+    "name": "El Calafate",
+    "province": "Santa Cruz",
+    "latitude": -50.340833,
+    "longitude": -72.276944
+  },
+  {
+    "name": "San Lorenzo",
+    "province": "Santa Fe",
+    "latitude": -32.758056,
+    "longitude": -60.717222
+  },
+  {
+    "name": "San Ramon de la Nueva Oran",
+    "province": "Salta",
+    "latitude": -23.134167,
+    "longitude": -64.325833
+  },
+  {
+    "name": "Puerto Iguazu",
+    "province": "Misiones",
+    "latitude": -25.6,
+    "longitude": -54.566667
+  },
+  {
+    "name": "Presidencia Roque Saenz Pena",
+    "province": "Chaco",
+    "latitude": -26.785833,
+    "longitude": -60.444167
+  },
+  {
+    "name": "General Pico",
+    "province": "La Pampa",
+    "latitude": -35.659167,
+    "longitude": -63.756389
+  },
+  {
+    "name": "Villa Constitucion",
+    "province": "Santa Fe",
+    "latitude": -33.227222,
+    "longitude": -60.329444
+  },
+  {
+    "name": "Cipolletti",
+    "province": "Rio Negro",
+    "latitude": -38.935833,
+    "longitude": -68.056389
+  },
+  {
+    "name": "San Luis del Palmar",
+    "province": "Corrientes",
+    "latitude": -27.507222,
+    "longitude": -58.523611
+  },
+  {
+    "name": "Avellaneda",
+    "province": "Buenos Aires",
+    "latitude": -34.674444,
+    "longitude": -58.365278
+  },
+  {
+    "name": "Gobernador Galvez",
+    "province": "Santa Fe",
+    "latitude": -33.023889,
+    "longitude": -60.625833
+  },
+  {
+    "name": "Comodoro Rivadavia",
+    "province": "Chubut",
+    "latitude": -45.863056,
+    "longitude": -67.486389
+  },
+  {
+    "name": "San Justo",
+    "province": "Santa Fe",
+    "latitude": -30.785833,
+    "longitude": -60.583611
+  },
+  {
+    "name": "Villa Maria",
+    "province": "Cordoba",
+    "latitude": -32.408333,
+    "longitude": -63.240556
+  },
+    {
+        "name": "Puerto Rico",
+        "province": "Misiones",
+        "latitude": -26.792778,
+        "longitude": -55.024444
+    },
+    {
+        "name": "San Vicente",
+        "province": "Buenos Aires",
+        "latitude": -35.066667,
+        "longitude": -58.433333
+    },
+    {
+        "name": "Villa Allende",
+        "province": "Cordoba",
+        "latitude": -31.294722,
+        "longitude": -64.296389
+    },
+    {
+        "name": "Caleta Olivia",
+        "province": "Santa Cruz",
+        "latitude": -46.438889,
+        "longitude": -67.525278
+    },
+    {
+        "name": "Perez",
+        "province": "Santa Fe",
+        "latitude": -32.998611,
+        "longitude": -60.814167
+    },
+    {
+        "name": "Villa Mercedes",
+        "province": "San Luis",
+        "latitude": -33.666667,
+        "longitude": -65.466667
+    },
+    {
+        "name": "Tartagal",
+        "province": "Salta",
+        "latitude": -22.525833,
+        "longitude": -63.801389
+    },
+    {
+        "name": "General Jose de San Martin",
+        "province": "Chaco",
+        "latitude": -26.537778,
+        "longitude": -59.336667
+    },
+    {
+        "name": "Villa Angela",
+        "province": "Chaco",
+        "latitude": -27.583333,
+        "longitude": -60.716667
+    },
+    {
+        "name": "Olavarría",
+        "province": "Buenos Aires",
+        "latitude": -36.890556,
+        "longitude": -60.322222
+    },
+    {
+        "name": "San Jorge",
+        "province": "Santa Fe",
+        "latitude": -31.896111,
+        "longitude": -61.864167
+    },
+    {
+        "name": "General Guemes",
+        "province": "Salta",
+        "latitude": -24.666667,
+        "longitude": -65.05
+    },
+    {
+        "name": "San Antonio Oeste",
+        "province": "Río Negro",
+        "latitude": -40.733333,
+        "longitude": -64.933333
+    },
+    {
+        "name": "Federal",
+        "province": "Entre Ríos",
+        "latitude": -30.954722,
+        "longitude": -58.783056
+    },
+    {
+        "name": "Chajari",
+        "province": "Entre Rios",
+        "latitude": -30.750929,
+        "longitude": -57.982441
+    },
+    {
+        "name": "Plottier",
+        "province": "Neuquen",
+        "latitude": -38.950278,
+        "longitude": -68.233611
+    },
+    {
+        "name": "Morteros",
+        "province": "Cordoba",
+        "latitude": -30.711389,
+        "longitude": -62.009722
+    },
+  {
+    "name": "Villa Dolores",
+    "province": "Cordoba",
+    "latitude": -31.944722,
+    "longitude": -65.193611
+  },
+  {
+    "name": "Charata",
+    "province": "Chaco",
+    "latitude": -27.216667,
+    "longitude": -61.166667
+  },
+  {
+    "name": "San Luis",
+    "province": "San Luis",
+    "latitude": -33.3,
+    "longitude": -66.35
+  },
+  {
+    "name": "Cruz del Eje",
+    "province": "Cordoba",
+    "latitude": -30.7,
+    "longitude": -64.433333
+  },
+  {
+    "name": "Las Heras",
+    "province": "Mendoza",
+    "latitude": -32.825278,
+    "longitude": -68.864444
+  },
+  {
+    "name": "Tanti",
+    "province": "Cordoba",
+    "latitude": -31.315833,
+    "longitude": -64.502222
+  },
+  {
+    "name": "Chilecito",
+    "province": "La Rioja",
+    "latitude": -29.161944,
+    "longitude": -67.499444
+  },
+  {
+    "name": "General Cabrera",
+    "province": "Cordoba",
+    "latitude": -32.816667,
+    "longitude": -63.983333
+  },
+  {
+    "name": "General Ramirez",
+    "province": "Entre Rios",
+    "latitude": -32.166667,
+    "longitude": -59.666667
+  },
+  {
+    "name": "Hernando",
+    "province": "Cordoba",
+    "latitude": -32.4275,
+    "longitude": -63.684444
+  }
+]
+    
+  
+    
+       
+    
+    
+    
+
+  
