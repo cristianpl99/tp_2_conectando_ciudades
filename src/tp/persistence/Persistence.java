@@ -13,7 +13,7 @@ import tp.logic.City;
 public class Persistence {
     String fileLocation = "src" + java.io.File.separator + "tp" + java.io.File.separator + "persistence"
             + java.io.File.separator + "citiesList.json";
-    java.io.File file = new java.io.File(fileLocation);
+    		java.io.File file = new java.io.File(fileLocation);
 
     public List<City> fetchCities() {
         List<City> cities = new ArrayList<>();

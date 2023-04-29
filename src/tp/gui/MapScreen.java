@@ -15,6 +15,8 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
 
 import org.openstreetmap.gui.jmapviewer.*;
 
@@ -22,16 +24,19 @@ import tp.logic.City;
 import tp.logic.Edge;
 import tp.logic.MyTableModel;
 import tp.logic.WeightedGraph;
+import java.awt.Font;
 
 public class MapScreen extends JFrame {
 
 	private JPanel contentPane;
 	private JMapViewer map;
 	private MyTableModel modelTable;
+	private JLabel lblNewLabel;
+	private JLabel lblTotalCost;
 
 	public MapScreen(WeightedGraph mst) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(200, 200, 650, 800);
+		setBounds(200, 200, 650, 751);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -41,13 +46,14 @@ public class MapScreen extends JFrame {
 		map = new JMapViewer();
 		contentPane.add(map);
 		map.setZoomControlsVisible(false);
+		map.setLayout(null);
 
 		Coordinate coordinate = new Coordinate(-38, -66);
 		map.setDisplayPosition(coordinate, 4);
 
 		String[] columnNames = { "Ciudad Origen", "Provincia Origen", "Ciudad Destino", "Provincia Destino",
 				"Costo del trayecto" };
-		Object[][] rowData = new Object[mst.getAristas().size() + 1][5];
+		Object[][] rowData = new Object[mst.getAristas().size()][5];
 		int i = 0;
 		int mstCost = 0;
 		for (Edge edge : mst.getAristas()) {
@@ -61,20 +67,32 @@ public class MapScreen extends JFrame {
 			mstCost += edge.getPeso();
 			i++;
 		}
-
-		rowData[i][0] = "COSTO DEL TENDIDO";
-		rowData[i][4] = "$ " + mstCost;
-
+		
+		
 		modelTable = new MyTableModel(rowData, columnNames);
 
 		JTable table = new JTable(modelTable);
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 		table.setDefaultRenderer(Object.class, centerRenderer);
+		JTableHeader header = table.getTableHeader();
+		header.setFont(new Font("Tahoma", Font.BOLD, 12));
+		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+		table.setDefaultRenderer(Object.class, centerRenderer);
+		
+		lblNewLabel = new JLabel("New label");
+		contentPane.add(lblNewLabel);
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(200, 700, 250, 200);
+		scrollPane.setBounds(0, 700, 250, 200);
 		scrollPane.setPreferredSize(new Dimension(650, 200));
 		contentPane.add(scrollPane);
+		
+		lblTotalCost = new JLabel("COSTO RECORRIDO TOTAL: $" + mstCost);
+		lblTotalCost.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblTotalCost.setBounds(10, 705, 400, 20);
+		contentPane.add(lblTotalCost);
+
+
 
 		for (Edge edge : mst.getAristas()) {
 			City origin = edge.getCity1();

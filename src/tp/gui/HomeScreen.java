@@ -1,6 +1,9 @@
 package tp.gui;
 
 import java.awt.Color;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.Font;
 
 import java.util.ArrayList;
@@ -25,6 +28,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.security.InvalidParameterException;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
+
+import javax.swing.table.DefaultTableCellRenderer;
+
+
+
 
 public class HomeScreen extends JFrame {
 
@@ -36,10 +45,10 @@ public class HomeScreen extends JFrame {
 
 	private List<City> cities;
 	private List<City> selectedCities;
+	
+	private DefaultTableModel tableModel;
+	
 
-	private List<JLabel> cityLabels;
-	private int dropValue;
-	private int positionInTheSelected;
 
 	private ConnectingCities connectingCities;
 
@@ -47,7 +56,7 @@ public class HomeScreen extends JFrame {
 
 		setTitle("Programacion III - Conectando Ciudades");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 582, 530);
+		setBounds(100, 100, 661, 559);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -55,12 +64,21 @@ public class HomeScreen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		selectedCities = new ArrayList<>();
+		selectedCities = new ArrayList<City>();
 
 		connectingCities = new ConnectingCities();
+		
+		JTable table = new JTable();
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(299, 49, 336, 400);
+        contentPane.add(scrollPane);
 
-		positionInTheSelected = 0;
-		dropValue = 45;
+        tableModel = new DefaultTableModel(new Object[]{"Ciudad", "Provincia"}, 0);
+        table.setModel(tableModel);
+        
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        table.setDefaultRenderer(Object.class, centerRenderer);
 
 		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setBounds(32, 52, 220, 22);
@@ -69,12 +87,6 @@ public class HomeScreen extends JFrame {
 		cities = connectingCities.fetchCities();
 		for (City city : cities) {
 			comboBox.addItem(city.getName() + " , " + city.getProvince());
-		}
-
-		cityLabels = new ArrayList<JLabel>();
-		for (int i = 0; i < cities.size() - 1; i++) {
-			cityLabels.add(new JLabel(""));
-			contentPane.add(cityLabels.get(i));
 		}
 
 		JLabel lblTitle1 = new JLabel("Seleccione una ciudad de la lista");
@@ -118,7 +130,6 @@ public class HomeScreen extends JFrame {
 		lblLat.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblLat.setBounds(-14, 338, 126, 22);
 		contentPane.add(lblLat);
-
 		textFieldLatitude = new JTextField();
 		textFieldLatitude.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldLatitude.setColumns(10);
@@ -131,7 +142,6 @@ public class HomeScreen extends JFrame {
 		lblLong.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblLong.setBounds(-26, 371, 159, 22);
 		contentPane.add(lblLong);
-
 		textFieldLongitude = new JTextField();
 		textFieldLongitude.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldLongitude.setColumns(10);
@@ -142,30 +152,54 @@ public class HomeScreen extends JFrame {
 		JLabel lblTitle = new JLabel("Lista de ciudades seleccionadas");
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblTitle.setBounds(299, 28, 257, 14);
+		lblTitle.setBounds(343, 26, 257, 14);
 		contentPane.add(lblTitle);
 
 		JButton btnAddListedCity = new JButton("Agregar Ciudad");
 		btnAddListedCity.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        if (selectedCities.size() >= 20) {
+		            JOptionPane.showMessageDialog(contentPane, "Solo se permiten hasta 20 ciudades.");
+		            return;
+		        }
+		        if (comboBox.getSelectedIndex() != -1) {
+		            City city = cities.get(comboBox.getSelectedIndex());
+		            if (!selectedCities.contains(city)) {
+		                selectedCities.add(city);
+		                addCityInTable(city.getName(), city.getProvince());
+		            } else {
+		                JOptionPane.showMessageDialog(contentPane, "La ciudad ya ha sido agregada.");
+		            }
+		        }
+		    }
+		});
+
+		btnAddListedCity.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAddListedCity.setBounds(10, 110, 126, 36);
+		contentPane.add(btnAddListedCity);
+		
+		JButton btnDeleteCity = new JButton("Eliminar Ciudad");
+		btnDeleteCity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int indexCity = comboBox.getSelectedIndex();
-				if (selectedCities.contains(cities.get(indexCity))) {
-					showMessageDialog("Ya agrego esta ciudad, agregue otra");
-				} else {
-					if (selectedCities.size() == 23) {
-						showMessageDialog("Ya agrego el limite de ciudades permitidas");
-					} else {
-						selectedCities.add(cities.get(indexCity));
-						if (selectedCities.size() != 0) {
-							addCityLbl();
+				if (comboBox.getSelectedIndex() != -1) {
+					City city = cities.get(comboBox.getSelectedIndex());
+					if (selectedCities.contains(city)) {
+						JOptionPane.showMessageDialog(contentPane, "La ciudad fue eliminada con exito.");
+						selectedCities.remove(city);
+						for (int i = 0; i < tableModel.getRowCount(); i++) {
+							if (tableModel.getValueAt(i, 0).equals(city.getName())
+									&& tableModel.getValueAt(i, 1).equals(city.getProvince())) {
+								tableModel.removeRow(i);
+								break;
+							}
 						}
 					}
 				}
 			}
 		});
-		btnAddListedCity.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAddListedCity.setBounds(74, 107, 126, 36);
-		contentPane.add(btnAddListedCity);
+		btnDeleteCity.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnDeleteCity.setBounds(146, 110, 126, 36);
+		contentPane.add(btnDeleteCity);
 
 		JButton btnAddUnlistedCity = new JButton("Agregar Ciudad");
 		btnAddUnlistedCity.addActionListener(new ActionListener() {
@@ -183,7 +217,7 @@ public class HomeScreen extends JFrame {
 			                } else {
 			                    selectedCities.add(newCity);
 			                    if (selectedCities.size() != 0) {
-			                        addCityLbl();
+			                        addCityInTable(textFieldName.getText(), textFieldProvince.getText());
 			                    }
 			                }
 			            }
@@ -192,7 +226,6 @@ public class HomeScreen extends JFrame {
 			        }
 			    }
 			}
-
 		});
 		btnAddUnlistedCity.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAddUnlistedCity.setBounds(74, 428, 126, 36);
@@ -210,7 +243,6 @@ public class HomeScreen extends JFrame {
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
-					// pasa como parametro el AGM
 					MapScreen mapScreen = new MapScreen(mst);
 					mapScreen.setResizable(false);
 					mapScreen.setVisible(true);
@@ -219,7 +251,7 @@ public class HomeScreen extends JFrame {
 		});
 		
 		btnMST.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnMST.setBounds(394, 428, 126, 36);
+		btnMST.setBounds(409, 473, 126, 36);
 		contentPane.add(btnMST);
 
 		JLabel limLatitude = new JLabel("-54 < x < -22");
@@ -233,22 +265,17 @@ public class HomeScreen extends JFrame {
 		limLongitude.setFont(new Font("Tahoma", Font.BOLD, 11));
 		limLongitude.setBounds(92, 370, 96, 26);
 		contentPane.add(limLongitude);
-
 	}
+		
 
 	private void showMessageDialog(String message) {
 		JOptionPane.showMessageDialog(null, message, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 	}
 
-	private void addCityLbl() {
-		cityLabels.get(positionInTheSelected).setText(selectedCities.get(positionInTheSelected).getName());
-		cityLabels.get(positionInTheSelected).setHorizontalAlignment(SwingConstants.CENTER);
-		cityLabels.get(positionInTheSelected).setFont(new Font("Tahoma", Font.BOLD, 12));
-		cityLabels.get(positionInTheSelected).setBounds(336, dropValue, 196, 14);
-		dropValue += 16;
-		positionInTheSelected += 1;
-
-	}
+	private void addCityInTable(String city, String province) {
+		    Object[] row = {city, province};
+		    tableModel.addRow(row);
+		}
 
 	private City createCity() {
 		 return  connectingCities.createCity(textFieldName.getText(), textFieldProvince.getText(),
@@ -260,8 +287,6 @@ public class HomeScreen extends JFrame {
 				|| textFieldLatitude.getText().equals("") || textFieldLongitude.getText().equals("");
 	}
 
-
-	// validador de entradas en las casillas
 	private void entryValidation(JTextField jText) {
 		jText.addKeyListener(new KeyAdapter() {
 			@Override
