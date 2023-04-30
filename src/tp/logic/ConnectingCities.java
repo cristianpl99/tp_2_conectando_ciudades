@@ -25,7 +25,8 @@ public class ConnectingCities {
 	public WeightedGraph minimumSpanningTree(List<City> selectedCities) throws Exception {
 		CompleteGraph completeGraph = new CompleteGraph();
 		WeightedGraph Gcomplete = completeGraph.createCompleteGraph(selectedCities);
-		return Prim.primTraversal(Gcomplete);
+		Prim prim = new Prim();
+		return prim.primTraversal(Gcomplete);
 	}
 
 	public double costPerKilometer() {
@@ -36,7 +37,6 @@ public class ConnectingCities {
 		if (!validateCityParams(name, province, latitude, longitude)) {
 			throw new InvalidParameterException("Los parámetros ingresados para la ciudad no son válidos.");
 		}
-		
 		City city = new City(name, province, latitude, longitude);
 		return city;
 	}

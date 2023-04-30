@@ -16,36 +16,37 @@ public class PrimmTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void grafoNoConexoTest() {
 		WeightedGraph g = crearGrafoInconexo();
-		Prim.primTraversal(g);
+		Prim prim = new Prim();
+		prim.primTraversal(g);
 	}
 
 	@Test
 	public void happyTest() {
 		WeightedGraph g = crearGrafoConexo();
-		WeightedGraph agm = Prim.primTraversal(g);
-		System.out.println(agm);
+		Prim prim = new Prim();
+		WeightedGraph agm = prim.primTraversal(g);
 		boolean acum = true;
 		acum = acum && agm.existsEdge(agm.getVertex(0), agm.getVertex(1));
 		acum = acum && agm.existsEdge(agm.getVertex(1), agm.getVertex(2));
 		acum = acum && agm.existsEdge(agm.getVertex(2), agm.getVertex(4));
 		acum = acum && agm.existsEdge(agm.getVertex(4), agm.getVertex(3));
 		acum = acum && agm.existsEdge(agm.getVertex(4), agm.getVertex(5));
-		assertEquals(true, acum);
+		assertTrue(acum);
 	}
 
 	@Test
 	public void noAGMTest() {
-		WeightedGraph g = crearGrafoConexo();
-		WeightedGraph agm = Prim.primTraversal(g);
-		System.out.println(agm);
-		boolean acum = true;
-		acum = acum && agm.existsEdge(agm.getVertex(0), agm.getVertex(1));
-		acum = acum && agm.existsEdge(agm.getVertex(1), agm.getVertex(2));
-		acum = acum && agm.existsEdge(agm.getVertex(1), agm.getVertex(3));
-		assertEquals(false, acum);
+	    WeightedGraph g = crearGrafoConexo();
+	    Prim prim = new Prim();
+	    WeightedGraph agm = prim.primTraversal(g);
+	    boolean acum = true;
+	    acum = acum && agm.existsEdge(agm.getVertex(0), agm.getVertex(1));
+	    acum = acum && agm.existsEdge(agm.getVertex(1), agm.getVertex(2));
+	    acum = acum && agm.existsEdge(agm.getVertex(1), agm.getVertex(3));
+	    assertFalse(acum);
 	}
 
-	private static List<City> crearListaDeCiudades() {
+	private List<City> crearListaDeCiudades() {
 		List<City> cities = new ArrayList<>();
 		cities.add(new City("a", "a", 23, 34));
 		cities.add(new City("b", "b", 24, 33));
@@ -56,7 +57,7 @@ public class PrimmTest {
 		return cities;
 	}
 
-	private static WeightedGraph crearGrafoConexo() {
+	private WeightedGraph crearGrafoConexo() {
 		WeightedGraph ret = new WeightedGraph(6, crearListaDeCiudades());
 		ret.addEdge(ret.getVertex(0), ret.getVertex(1), 1);
 		ret.addEdge(ret.getVertex(0), ret.getVertex(2), 100);
@@ -69,7 +70,7 @@ public class PrimmTest {
 		return ret;
 	}
 
-	private static WeightedGraph crearGrafoInconexo() {
+	private WeightedGraph crearGrafoInconexo() {
 		WeightedGraph ret = new WeightedGraph(6, crearListaDeCiudades());
 		ret.addEdge(ret.getVertex(0), ret.getVertex(1), 23);
 		ret.addEdge(ret.getVertex(0), ret.getVertex(2), 100);

@@ -1,6 +1,8 @@
 package tp.gui;
 
 import java.awt.Color;
+
+
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,8 +35,6 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableCellRenderer;
 
 
-
-
 public class HomeScreen extends JFrame {
 
 	private JPanel contentPane;
@@ -42,14 +42,9 @@ public class HomeScreen extends JFrame {
 	private JTextField textFieldProvince;
 	private JTextField textFieldLatitude;
 	private JTextField textFieldLongitude;
-
 	private List<City> cities;
 	private List<City> selectedCities;
-	
 	private DefaultTableModel tableModel;
-	
-
-
 	private ConnectingCities connectingCities;
 
 	public HomeScreen() throws Exception {
@@ -89,77 +84,28 @@ public class HomeScreen extends JFrame {
 			comboBox.addItem(city.getName() + " , " + city.getProvince());
 		}
 
-		JLabel lblTitle1 = new JLabel("Seleccione una ciudad de la lista");
-		lblTitle1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblTitle1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle1.setBounds(44, 27, 196, 14);
-		contentPane.add(lblTitle1);
+		createLabel("Seleccione una ciudad de la lista", 12, 44, 27, 196, 14);
+		createLabel("Agregar ciudad no listada", 14, 55, 168, 253, 22);
+		createLabel("Ciudad", 12, 32, 201, 220, 22);
+		createLabel("Provincia", 12, 32, 266, 220, 22);
+		createLabel("Latitud", 12, 25, 338, 126, 22);
+		createLabel("Longitud", 12, 25, 371, 159, 22);
+		createLabel("Lista de ciudades seleccionadas", 15, 343, 26, 257, 14);
 
-		JLabel lblTitle2 = new JLabel("Agregar ciudad no listada");
-		lblTitle2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle2.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblTitle2.setBounds(10, 168, 253, 22);
-		contentPane.add(lblTitle2);
 
-		JLabel lblCityName = new JLabel("Ciudad");
-		lblCityName.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCityName.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblCityName.setBounds(32, 201, 220, 22);
-		contentPane.add(lblCityName);
-
-		textFieldName = new JTextField();
-		textFieldName.setHorizontalAlignment(SwingConstants.CENTER);
-		textFieldName.setBounds(32, 234, 220, 20);
-		contentPane.add(textFieldName);
-		textFieldName.setColumns(10);
-
-		JLabel lblProvinceName = new JLabel("Provincia");
-		lblProvinceName.setHorizontalAlignment(SwingConstants.CENTER);
-		lblProvinceName.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblProvinceName.setBounds(32, 266, 220, 22);
-		contentPane.add(lblProvinceName);
-
-		textFieldProvince = new JTextField();
-		textFieldProvince.setHorizontalAlignment(SwingConstants.CENTER);
-		textFieldProvince.setColumns(10);
-		textFieldProvince.setBounds(32, 299, 220, 20);
-		contentPane.add(textFieldProvince);
-
-		JLabel lblLat = new JLabel("Latitud");
-		lblLat.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLat.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblLat.setBounds(-14, 338, 126, 22);
-		contentPane.add(lblLat);
-		textFieldLatitude = new JTextField();
-		textFieldLatitude.setHorizontalAlignment(SwingConstants.CENTER);
-		textFieldLatitude.setColumns(10);
-		textFieldLatitude.setBounds(195, 340, 57, 20);
-		contentPane.add(textFieldLatitude);
+		JTextField textFieldName = createTextField(32, 234, 220, 20, 10, JTextField.CENTER);
+		JTextField textFieldProvince = createTextField(32, 299, 220, 20, 10, JTextField.CENTER);
+		JTextField textFieldLatitude = createTextField(195, 340, 57, 20, 10, JTextField.CENTER);
+		JTextField textFieldLongitude = createTextField(195, 373, 57, 20, 10, JTextField.CENTER);
+		
 		entryValidation(textFieldLatitude);
-
-		JLabel lblLong = new JLabel("Longitud");
-		lblLong.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLong.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblLong.setBounds(-26, 371, 159, 22);
-		contentPane.add(lblLong);
-		textFieldLongitude = new JTextField();
-		textFieldLongitude.setHorizontalAlignment(SwingConstants.CENTER);
-		textFieldLongitude.setColumns(10);
-		textFieldLongitude.setBounds(195, 373, 57, 20);
-		contentPane.add(textFieldLongitude);
 		entryValidation(textFieldLongitude);
-
-		JLabel lblTitle = new JLabel("Lista de ciudades seleccionadas");
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblTitle.setBounds(343, 26, 257, 14);
-		contentPane.add(lblTitle);
 
 		JButton btnAddListedCity = new JButton("Agregar Ciudad");
 		btnAddListedCity.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        if (selectedCities.size() >= 20) {
-		            JOptionPane.showMessageDialog(contentPane, "Solo se permiten hasta 20 ciudades.");
+		            showMessageDialog("Solo se permiten hasta 20 ciudades.");
 		            return;
 		        }
 		        if (comboBox.getSelectedIndex() != -1) {
@@ -168,12 +114,11 @@ public class HomeScreen extends JFrame {
 		                selectedCities.add(city);
 		                addCityInTable(city.getName(), city.getProvince());
 		            } else {
-		                JOptionPane.showMessageDialog(contentPane, "La ciudad ya ha sido agregada.");
+		                showMessageDialog("La ciudad ya ha sido agregada.");
 		            }
 		        }
 		    }
 		});
-
 		btnAddListedCity.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAddListedCity.setBounds(10, 110, 126, 36);
 		contentPane.add(btnAddListedCity);
@@ -184,7 +129,7 @@ public class HomeScreen extends JFrame {
 				if (comboBox.getSelectedIndex() != -1) {
 					City city = cities.get(comboBox.getSelectedIndex());
 					if (selectedCities.contains(city)) {
-						JOptionPane.showMessageDialog(contentPane, "La ciudad fue eliminada con exito.");
+						showMessageDialog("La ciudad fue eliminada con exito.");
 						selectedCities.remove(city);
 						for (int i = 0; i < tableModel.getRowCount(); i++) {
 							if (tableModel.getValueAt(i, 0).equals(city.getName())
@@ -248,39 +193,48 @@ public class HomeScreen extends JFrame {
 					mapScreen.setVisible(true);
 				}
 			}
-		});
-		
+		});	
 		btnMST.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnMST.setBounds(409, 473, 126, 36);
 		contentPane.add(btnMST);
 
-		JLabel limLatitude = new JLabel("-54 < x < -22");
-		limLatitude.setHorizontalAlignment(SwingConstants.CENTER);
-		limLatitude.setFont(new Font("Tahoma", Font.BOLD, 11));
-		limLatitude.setBounds(92, 336, 96, 26);
-		contentPane.add(limLatitude);
+		createLabel("-54 < x < -22", 11, 92, 336, 96, 26);
+		createLabel("-70 < x < -53", 11, 92, 370, 96, 26);
 
-		JLabel limLongitude = new JLabel("-70 < x < -53");
-		limLongitude.setHorizontalAlignment(SwingConstants.CENTER);
-		limLongitude.setFont(new Font("Tahoma", Font.BOLD, 11));
-		limLongitude.setBounds(92, 370, 96, 26);
-		contentPane.add(limLongitude);
 	}
-		
-
+	
+	// Metodos Auxiliares
+	
+	private void createLabel(String text, int fontSize, int x, int y, int width, int height) {
+	    JLabel label = new JLabel(text);
+	    Font font = new Font("Tahoma", Font.BOLD, fontSize);
+	    label.setFont(font);
+	    label.setBounds(x, y, width, height);
+	    contentPane.add(label);
+	}
+	
+	private JTextField createTextField(int x, int y, int width, int height, int columns, int horizontalAlignment) {
+	    JTextField textField = new JTextField();
+	    textField.setHorizontalAlignment(horizontalAlignment);
+	    textField.setColumns(columns);
+	    textField.setBounds(x, y, width, height);
+	    contentPane.add(textField);
+	    return textField;
+	}
+	
 	private void showMessageDialog(String message) {
 		JOptionPane.showMessageDialog(null, message, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	private City createCity() {
+		 return  connectingCities.createCity(textFieldName.getText(), textFieldProvince.getText(),
+									Double.parseDouble(textFieldLatitude.getText()), Double.parseDouble(textFieldLongitude.getText()));
 	}
 
 	private void addCityInTable(String city, String province) {
 		    Object[] row = {city, province};
 		    tableModel.addRow(row);
 		}
-
-	private City createCity() {
-		 return  connectingCities.createCity(textFieldName.getText(), textFieldProvince.getText(),
-									Double.parseDouble(textFieldLatitude.getText()), Double.parseDouble(textFieldLongitude.getText()));
-	}
 
 	private boolean missingCityData() {
 		return textFieldName.getText().equals("") || textFieldProvince.getText().equals("")

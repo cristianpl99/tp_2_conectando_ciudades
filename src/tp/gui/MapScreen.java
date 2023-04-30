@@ -93,7 +93,6 @@ public class MapScreen extends JFrame {
 		contentPane.add(lblTotalCost);
 
 
-
 		for (Edge edge : mst.getAristas()) {
 			City origin = edge.getCity1();
 			City destination = edge.getCity2();

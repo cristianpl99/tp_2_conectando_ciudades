@@ -7,9 +7,9 @@ import java.util.Set;
 
 public class Prim {
 
-	private static List<City> markedVertexes;
+	private List<City> markedVertexes;
 
-	public static WeightedGraph primTraversal(WeightedGraph completeGraph) {
+	public WeightedGraph primTraversal(WeightedGraph completeGraph) {
 		if (!BFS.isConnected(completeGraph)) {
 			throw new IllegalArgumentException("el grafo es invalido por que no es conexo");
 		}
@@ -25,7 +25,7 @@ public class Prim {
 		return mstGraph;
 	}
 
-	private static Edge selectMinimumEdge(WeightedGraph completeGraph, WeightedGraph mstGraph) {
+	private Edge selectMinimumEdge(WeightedGraph completeGraph, WeightedGraph mstGraph) {
 		City nonMarkedminimumVertex = completeGraph.getVertex(0);
 		Edge minimumEdge = null;
 
