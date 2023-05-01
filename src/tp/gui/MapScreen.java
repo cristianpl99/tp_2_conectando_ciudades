@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,7 +21,6 @@ import org.openstreetmap.gui.jmapviewer.*;
 
 import tp.logic.City;
 import tp.logic.Edge;
-import tp.logic.MyTableModel;
 import tp.logic.WeightedGraph;
 import java.awt.Font;
 
@@ -43,11 +43,14 @@ public class MapScreen extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
-		setTitle("Map Viewer");
+		setTitle("Trayecto Arbol Generador Minimo");
 		map = new JMapViewer();
 		contentPane.add(map);
 		map.setZoomControlsVisible(false);
 		map.setLayout(null);
+		
+		ImageIcon icono = new ImageIcon(getClass().getResource("/tp/images/earth_icon.png"));
+		setIconImage(icono.getImage());
 
 		Coordinate coordinate = new Coordinate(-38, -66);
 		map.setDisplayPosition(coordinate, 4);
