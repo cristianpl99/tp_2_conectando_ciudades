@@ -36,14 +36,14 @@ public class PrimmTest {
 
 	@Test
 	public void noAGMTest() {
-	    WeightedGraph g = crearGrafoConexo();
-	    Prim prim = new Prim();
-	    WeightedGraph agm = prim.primTraversal(g);
-	    boolean acum = true;
-	    acum = acum && agm.existsEdge(agm.getVertex(0), agm.getVertex(1));
-	    acum = acum && agm.existsEdge(agm.getVertex(1), agm.getVertex(2));
-	    acum = acum && agm.existsEdge(agm.getVertex(1), agm.getVertex(3));
-	    assertFalse(acum);
+		WeightedGraph g = crearGrafoConexo();
+		Prim prim = new Prim();
+		WeightedGraph agm = prim.primTraversal(g);
+		boolean acum = true;
+		acum = acum && agm.existsEdge(agm.getVertex(0), agm.getVertex(1));
+		acum = acum && agm.existsEdge(agm.getVertex(1), agm.getVertex(2));
+		acum = acum && agm.existsEdge(agm.getVertex(1), agm.getVertex(3));
+		assertFalse(acum);
 	}
 
 	private List<City> crearListaDeCiudades() {

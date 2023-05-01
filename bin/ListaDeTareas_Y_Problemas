@@ -2,9 +2,7 @@ LISTA DE TAREAS:
 
 -Mejorar complejidad de generar el agm
 
--Ver como hacer para sacar ciudades de la lista seleccionada
-
--Mover chequeos a conecting cities
+-Ver como hacer para sacar ciudades no listadas de la lista seleccionada
 
 PROBLEMAS PARA INFORME:
 
@@ -13,3 +11,4 @@ PROBLEMAS PARA INFORME:
 -No muestra la lista de ciudades seleccionadas = SOLUCIONADO CREANDO UN ARRAY DE LABELS Y LUEGO SETEANDO EL TEXO CON EL NOMBRE DE LA CIUDAD
 -Redondeo del monto de las conexiones = SOLUCIONADO USANDO UN VALOR DE DOLAR, UN COSTE EN DOLARES POR KILOMETRO, Y MULTIPLICANDOLO POR LOS KILOMETROS PARA LUEGO REDONDEAR
 -Al agregarse la lat y long de una ciudad nueva, si no se pone . algo en el numero, el calculo de plata falla = SOLUCIONADO ???
+-Complejidad de prim = SIN SOLUCION AUN

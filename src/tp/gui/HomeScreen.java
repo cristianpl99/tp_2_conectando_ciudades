@@ -2,9 +2,7 @@ package tp.gui;
 
 import java.awt.Color;
 
-
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 import java.awt.Font;
 
@@ -23,6 +21,7 @@ import javax.swing.JButton;
 
 import tp.logic.City;
 import tp.logic.ConnectingCities;
+import tp.logic.MyTableModel;
 import tp.logic.WeightedGraph;
 
 import java.awt.event.ActionListener;
@@ -34,9 +33,12 @@ import javax.swing.JScrollPane;
 
 import javax.swing.table.DefaultTableCellRenderer;
 
-
 public class HomeScreen extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldName;
 	private JTextField textFieldProvince;
@@ -44,8 +46,8 @@ public class HomeScreen extends JFrame {
 	private JTextField textFieldLongitude;
 	private List<City> cities;
 	private List<City> selectedCities;
-	private DefaultTableModel tableModel;
 	private ConnectingCities connectingCities;
+	private MyTableModel modelTable;
 
 	public HomeScreen() throws Exception {
 
@@ -62,18 +64,19 @@ public class HomeScreen extends JFrame {
 		selectedCities = new ArrayList<City>();
 
 		connectingCities = new ConnectingCities();
-		
-		JTable table = new JTable();
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(299, 49, 336, 400);
-        contentPane.add(scrollPane);
 
-        tableModel = new DefaultTableModel(new Object[]{"Ciudad", "Provincia"}, 0);
-        table.setModel(tableModel);
-        
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        table.setDefaultRenderer(Object.class, centerRenderer);
+		modelTable = new MyTableModel(new Object[] { "Ciudad", "Provincia" }, 0);
+
+		JTable table = new JTable();
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(299, 49, 336, 400);
+		contentPane.add(scrollPane);
+
+		table.setModel(modelTable);
+
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+		table.setDefaultRenderer(Object.class, centerRenderer);
 
 		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setBounds(32, 52, 220, 22);
@@ -92,37 +95,36 @@ public class HomeScreen extends JFrame {
 		createLabel("Longitud", 12, 25, 371, 159, 22);
 		createLabel("Lista de ciudades seleccionadas", 15, 343, 26, 257, 14);
 
+		textFieldName = createTextField(32, 234, 220, 20, 10, JTextField.CENTER);
+		textFieldProvince = createTextField(32, 299, 220, 20, 10, JTextField.CENTER);
+		textFieldLatitude = createTextField(195, 340, 57, 20, 10, JTextField.CENTER);
+		textFieldLongitude = createTextField(195, 373, 57, 20, 10, JTextField.CENTER);
 
-		JTextField textFieldName = createTextField(32, 234, 220, 20, 10, JTextField.CENTER);
-		JTextField textFieldProvince = createTextField(32, 299, 220, 20, 10, JTextField.CENTER);
-		JTextField textFieldLatitude = createTextField(195, 340, 57, 20, 10, JTextField.CENTER);
-		JTextField textFieldLongitude = createTextField(195, 373, 57, 20, 10, JTextField.CENTER);
-		
 		entryValidation(textFieldLatitude);
 		entryValidation(textFieldLongitude);
 
 		JButton btnAddListedCity = new JButton("Agregar Ciudad");
 		btnAddListedCity.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        if (selectedCities.size() >= 20) {
-		            showMessageDialog("Solo se permiten hasta 20 ciudades.");
-		            return;
-		        }
-		        if (comboBox.getSelectedIndex() != -1) {
-		            City city = cities.get(comboBox.getSelectedIndex());
-		            if (!selectedCities.contains(city)) {
-		                selectedCities.add(city);
-		                addCityInTable(city.getName(), city.getProvince());
-		            } else {
-		                showMessageDialog("La ciudad ya ha sido agregada.");
-		            }
-		        }
-		    }
+			public void actionPerformed(ActionEvent e) {
+				if (selectedCities.size() >= 20) {
+					showMessageDialog("Solo se permiten hasta 20 ciudades.");
+					return;
+				}
+				if (comboBox.getSelectedIndex() != -1) {
+					City city = cities.get(comboBox.getSelectedIndex());
+					if (!selectedCities.contains(city)) {
+						selectedCities.add(city);
+						addCityInTable(city.getName(), city.getProvince());
+					} else {
+						showMessageDialog("La ciudad ya ha sido agregada.");
+					}
+				}
+			}
 		});
 		btnAddListedCity.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAddListedCity.setBounds(10, 110, 126, 36);
 		contentPane.add(btnAddListedCity);
-		
+
 		JButton btnDeleteCity = new JButton("Eliminar Ciudad");
 		btnDeleteCity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -131,10 +133,10 @@ public class HomeScreen extends JFrame {
 					if (selectedCities.contains(city)) {
 						showMessageDialog("La ciudad fue eliminada con exito.");
 						selectedCities.remove(city);
-						for (int i = 0; i < tableModel.getRowCount(); i++) {
-							if (tableModel.getValueAt(i, 0).equals(city.getName())
-									&& tableModel.getValueAt(i, 1).equals(city.getProvince())) {
-								tableModel.removeRow(i);
+						for (int i = 0; i < modelTable.getRowCount(); i++) {
+							if (modelTable.getValueAt(i, 0).equals(city.getName())
+									&& modelTable.getValueAt(i, 1).equals(city.getProvince())) {
+								modelTable.removeRow(i);
 								break;
 							}
 						}
@@ -149,27 +151,27 @@ public class HomeScreen extends JFrame {
 		JButton btnAddUnlistedCity = new JButton("Agregar Ciudad");
 		btnAddUnlistedCity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			    if (missingCityData()) {
-			        showMessageDialog("Faltan datos necesarios para agregar la ciudad");
-			    } else {
-			        try {
-			            City newCity = createCity();
-			            if (selectedCities.contains(newCity)) {
-			                showMessageDialog("Ya agrego esta ciudad, agregue otra");
-			            } else {
-			                if (selectedCities.size() == 23) {
-			                    showMessageDialog("Ya agrego el limite de ciudades permitidas");
-			                } else {
-			                    selectedCities.add(newCity);
-			                    if (selectedCities.size() != 0) {
-			                        addCityInTable(textFieldName.getText(), textFieldProvince.getText());
-			                    }
-			                }
-			            }
-			        } catch (InvalidParameterException ex) {
-			            showMessageDialog("Alguno de los datos ingresados no es correcto");
-			        }
-			    }
+				if (missingCityData()) {
+					showMessageDialog("Faltan datos necesarios para agregar la ciudad");
+				} else {
+					try {
+						City newCity = createCity();
+						if (selectedCities.contains(newCity)) {
+							showMessageDialog("Ya agrego esta ciudad, agregue otra");
+						} else {
+							if (selectedCities.size() == 23) {
+								showMessageDialog("Ya agrego el limite de ciudades permitidas");
+							} else {
+								selectedCities.add(newCity);
+								if (selectedCities.size() != 0) {
+									addCityInTable(textFieldName.getText(), textFieldProvince.getText());
+								}
+							}
+						}
+					} catch (InvalidParameterException ex) {
+						showMessageDialog("Alguno de los datos ingresados no es correcto");
+					}
+				}
 			}
 		});
 		btnAddUnlistedCity.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -193,7 +195,7 @@ public class HomeScreen extends JFrame {
 					mapScreen.setVisible(true);
 				}
 			}
-		});	
+		});
 		btnMST.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnMST.setBounds(409, 473, 126, 36);
 		contentPane.add(btnMST);
@@ -202,39 +204,39 @@ public class HomeScreen extends JFrame {
 		createLabel("-70 < x < -53", 11, 92, 370, 96, 26);
 
 	}
-	
+
 	// Metodos Auxiliares
-	
+
 	private void createLabel(String text, int fontSize, int x, int y, int width, int height) {
-	    JLabel label = new JLabel(text);
-	    Font font = new Font("Tahoma", Font.BOLD, fontSize);
-	    label.setFont(font);
-	    label.setBounds(x, y, width, height);
-	    contentPane.add(label);
+		JLabel label = new JLabel(text);
+		Font font = new Font("Tahoma", Font.BOLD, fontSize);
+		label.setFont(font);
+		label.setBounds(x, y, width, height);
+		contentPane.add(label);
 	}
-	
+
 	private JTextField createTextField(int x, int y, int width, int height, int columns, int horizontalAlignment) {
-	    JTextField textField = new JTextField();
-	    textField.setHorizontalAlignment(horizontalAlignment);
-	    textField.setColumns(columns);
-	    textField.setBounds(x, y, width, height);
-	    contentPane.add(textField);
-	    return textField;
+		JTextField textField = new JTextField();
+		textField.setHorizontalAlignment(horizontalAlignment);
+		textField.setColumns(columns);
+		textField.setBounds(x, y, width, height);
+		contentPane.add(textField);
+		return textField;
 	}
-	
+
 	private void showMessageDialog(String message) {
 		JOptionPane.showMessageDialog(null, message, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 	}
-	
+
 	private City createCity() {
-		 return  connectingCities.createCity(textFieldName.getText(), textFieldProvince.getText(),
-									Double.parseDouble(textFieldLatitude.getText()), Double.parseDouble(textFieldLongitude.getText()));
+		return connectingCities.createCity(textFieldName.getText(), textFieldProvince.getText(),
+				Double.parseDouble(textFieldLatitude.getText()), Double.parseDouble(textFieldLongitude.getText()));
 	}
 
 	private void addCityInTable(String city, String province) {
-		    Object[] row = {city, province};
-		    tableModel.addRow(row);
-		}
+		Object[] row = { city, province };
+		modelTable.addRow(row);
+	}
 
 	private boolean missingCityData() {
 		return textFieldName.getText().equals("") || textFieldProvince.getText().equals("")

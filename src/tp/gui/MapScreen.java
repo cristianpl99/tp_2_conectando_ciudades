@@ -14,9 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-
 
 import org.openstreetmap.gui.jmapviewer.*;
 
@@ -28,10 +26,13 @@ import java.awt.Font;
 
 public class MapScreen extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JMapViewer map;
 	private MyTableModel modelTable;
-	private JLabel lblNewLabel;
 	private JLabel lblTotalCost;
 
 	public MapScreen(WeightedGraph mst) {
@@ -67,8 +68,7 @@ public class MapScreen extends JFrame {
 			mstCost += edge.getPeso();
 			i++;
 		}
-		
-		
+
 		modelTable = new MyTableModel(rowData, columnNames);
 
 		JTable table = new JTable(modelTable);
@@ -79,19 +79,16 @@ public class MapScreen extends JFrame {
 		header.setFont(new Font("Tahoma", Font.BOLD, 12));
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 		table.setDefaultRenderer(Object.class, centerRenderer);
-		
-		lblNewLabel = new JLabel("New label");
-		contentPane.add(lblNewLabel);
+
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(0, 700, 250, 200);
 		scrollPane.setPreferredSize(new Dimension(650, 200));
 		contentPane.add(scrollPane);
-		
+
 		lblTotalCost = new JLabel("COSTO RECORRIDO TOTAL: $" + mstCost);
 		lblTotalCost.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblTotalCost.setBounds(10, 705, 400, 20);
 		contentPane.add(lblTotalCost);
-
 
 		for (Edge edge : mst.getAristas()) {
 			City origin = edge.getCity1();
