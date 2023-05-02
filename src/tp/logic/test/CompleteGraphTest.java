@@ -14,13 +14,13 @@ public class CompleteGraphTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testCreateCompleteGraphException() throws Exception {
 		List<City> cities = new ArrayList<City>();
-		CompleteGraph completeGraph = new CompleteGraph();
-		completeGraph.createCompleteGraph(cities);
+		CompleteGraph completeGraph = new CompleteGraph(500.0);
+		completeGraph.createCompleteWeightedGraph(cities);
 	}
 
 	@Test
 	public void testCalculateWeight() throws Exception {
-		CompleteGraph completeGraph = new CompleteGraph();
+		CompleteGraph completeGraph = new CompleteGraph(500.0);
 
 		// Testeamos que el costo de la arista es correcto según la distancia y la
 		// provincia
@@ -49,7 +49,7 @@ public class CompleteGraphTest {
 		double lon2 = 2.3522;
 		double expectedDistance = 639.56;
 
-		CompleteGraph cg = new CompleteGraph();
+		CompleteGraph cg = new CompleteGraph(500.0);
 		double actualDistance = cg.distanceInKilometers(lat1, lon1, lat2, lon2);
 		assertEquals(expectedDistance, actualDistance, 0.1);
 	}

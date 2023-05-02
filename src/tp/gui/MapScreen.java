@@ -37,7 +37,7 @@ public class MapScreen extends JFrame {
 
 	public MapScreen(WeightedGraph mst) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(200, 200, 650, 751);
+		setBounds(300, 200, 750, 750);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -84,7 +84,7 @@ public class MapScreen extends JFrame {
 		table.setDefaultRenderer(Object.class, centerRenderer);
 
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(0, 700, 250, 200);
+		scrollPane.setBounds(0, 900, 250, 200);
 		scrollPane.setPreferredSize(new Dimension(650, 200));
 		contentPane.add(scrollPane);
 

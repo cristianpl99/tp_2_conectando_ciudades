@@ -38,11 +38,6 @@ public class ConnectingCitiesTest {
 		assertFalse(cities.isEmpty());
 	}
 
-	@Test
-	public void testCostPerKilometer() {
-		double costPerKilometer = connectingCities.costPerKilometer();
-		assertTrue(costPerKilometer > 0);
-	}
 
 	@Test
 	public void testValidateCityParams() throws Exception {

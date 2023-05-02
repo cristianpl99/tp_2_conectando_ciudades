@@ -3,8 +3,14 @@ package tp.logic;
 import java.util.List;
 
 public class CompleteGraph {
+	private Double costPerKilometer;
 
-	public WeightedGraph createCompleteGraph(List<City> selectedCities) throws Exception {
+	public CompleteGraph(Double costPerKilometer) {
+		this.costPerKilometer = costPerKilometer;
+	
+	}
+
+	public WeightedGraph createCompleteWeightedGraph(List<City> selectedCities) throws Exception {
 		if (selectedCities.isEmpty()) {
 			throw new IllegalArgumentException("La lista de ciudades no puede ser vacía");
 		}
@@ -25,11 +31,9 @@ public class CompleteGraph {
 	}
 
 	public double calculateWeight(City city1, City city2) throws Exception {
-		ConnectingCities connectingCities = new ConnectingCities();
-		double costPerKilometer = connectingCities.costPerKilometer();
 		double distance = distanceInKilometers(city1.getLatitude(), city1.getLongitude(), city2.getLatitude(),
 				city2.getLongitude());
-		double edgeCost = distance * costPerKilometer;
+		double edgeCost = distance * this.costPerKilometer;
 
 		if (distance > 300) {
 			edgeCost = edgeCost * 1.1;

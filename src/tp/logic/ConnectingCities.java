@@ -11,26 +11,26 @@ public class ConnectingCities {
 	private Persistence persistence;
 	private Double dolarBlueValue;
 	private Double costPerKilometerInUSD;
+	private Double costPerKilometer;
 
 	public ConnectingCities() throws Exception {
 		this.dolarBlueValue = DolarAPI.getDolarBlueValue();
 		this.costPerKilometerInUSD = 8.0;
+		this.costPerKilometer = this.dolarBlueValue * this.costPerKilometerInUSD;
 	}
 
 	public List<City> fetchCities() {
 		persistence = new Persistence();
+		 
+				
 		return persistence.fetchCities();
 	}
 
 	public WeightedGraph minimumSpanningTree(List<City> selectedCities) throws Exception {
-		CompleteGraph completeGraph = new CompleteGraph();
-		WeightedGraph Gcomplete = completeGraph.createCompleteGraph(selectedCities);
+		CompleteGraph completeGraph = new CompleteGraph(costPerKilometer);
+		WeightedGraph completeWeightedGraph = completeGraph.createCompleteWeightedGraph(selectedCities);
 		Prim prim = new Prim();
-		return prim.primTraversal(Gcomplete);
-	}
-
-	public double costPerKilometer() {
-		return costPerKilometerInUSD * dolarBlueValue;
+		return prim.primTraversal(completeWeightedGraph);
 	}
 
 	public City createCity(String name, String province, double latitude, double longitude)
