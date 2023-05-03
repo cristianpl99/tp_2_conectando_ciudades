@@ -43,12 +43,12 @@ public class MapScreen extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
-		setTitle("Trayecto Arbol Generador Minimo");
+		setTitle("Trayecto De La Conexion");
 		map = new JMapViewer();
 		contentPane.add(map);
 		map.setZoomControlsVisible(false);
 		map.setLayout(null);
-		
+
 		ImageIcon icono = new ImageIcon(getClass().getResource("/tp/images/earth_icon.png"));
 		setIconImage(icono.getImage());
 

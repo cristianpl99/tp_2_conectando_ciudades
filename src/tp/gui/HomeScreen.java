@@ -1,4 +1,5 @@
 package tp.gui;
+
 import java.awt.Color;
 
 import javax.swing.JTable;
@@ -57,17 +58,16 @@ public class HomeScreen extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-	
+
 		Icon backgroundIcon = new ImageIcon(getClass().getResource("/tp/images/background.png"));
 		JLabel backgroundLabel = new JLabel(backgroundIcon);
 		backgroundLabel.setBounds(0, 0, 772, 531);
-		
+
 		ImageIcon icono = new ImageIcon(getClass().getResource("/tp/images/earth_icon.png"));
 		setIconImage(icono.getImage());
-		
+
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
 
 		selectedCities = new ArrayList<City>();
 
@@ -114,10 +114,6 @@ public class HomeScreen extends JFrame {
 		JButton btnAddListedCity = new JButton("Agregar Ciudad");
 		btnAddListedCity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (selectedCities.size() >= 20) {
-					showMessageDialog("Solo se permiten hasta 20 ciudades.");
-					return;
-				}
 				if (comboBox.getSelectedIndex() != -1) {
 					City city = cities.get(comboBox.getSelectedIndex());
 					if (!selectedCities.contains(city)) {
@@ -137,13 +133,13 @@ public class HomeScreen extends JFrame {
 		btnDeleteCity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (table.getSelectedRow() != -1) {
-						showMessageDialog("La ciudad fue eliminada con exito.");
-						selectedCities.remove(table.getSelectedRow());
-						modelTable.removeRow(table.getSelectedRow());
-							}
-						}
+					showMessageDialog("La ciudad fue eliminada con exito.");
+					selectedCities.remove(table.getSelectedRow());
+					modelTable.removeRow(table.getSelectedRow());
+				}
+			}
 		});
-		
+
 		btnDeleteCity.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnDeleteCity.setBounds(405, 432, 126, 36);
 		contentPane.add(btnDeleteCity);
@@ -159,14 +155,11 @@ public class HomeScreen extends JFrame {
 						if (selectedCities.contains(newCity)) {
 							showMessageDialog("Ya agrego esta ciudad, agregue otra");
 						} else {
-							if (selectedCities.size() == 23) {
-								showMessageDialog("Ya agrego el limite de ciudades permitidas");
-							} else {
-								selectedCities.add(newCity);
-								if (selectedCities.size() != 0) {
-									addCityInTable(textFieldName.getText(), textFieldProvince.getText());
-								}
+							selectedCities.add(newCity);
+							if (selectedCities.size() != 0) {
+								addCityInTable(textFieldName.getText(), textFieldProvince.getText());
 							}
+
 						}
 					} catch (InvalidParameterException ex) {
 						showMessageDialog("Alguno de los datos ingresados no es correcto");
@@ -178,7 +171,7 @@ public class HomeScreen extends JFrame {
 		btnAddUnlistedCity.setBounds(74, 428, 126, 36);
 		contentPane.add(btnAddUnlistedCity);
 
-		JButton btnMST = new JButton("Generar AGM");
+		JButton btnMST = new JButton("Generar Conexion");
 		btnMST.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (selectedCities.size() == 0) {
@@ -196,13 +189,12 @@ public class HomeScreen extends JFrame {
 				}
 			}
 		});
-		btnMST.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnMST.setFont(new Font("Tahoma", Font.BOLD, 10));
 		btnMST.setBounds(635, 167, 126, 63);
 		contentPane.add(btnMST);
-	
+
 		contentPane.add(backgroundLabel);
 	}
-	
 
 	// Metodos Auxiliares
 
@@ -226,8 +218,6 @@ public class HomeScreen extends JFrame {
 	private void showMessageDialog(String message) {
 		JOptionPane.showMessageDialog(null, message, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 	}
-	
-
 
 	private City createCity() {
 		return connectingCities.createCity(textFieldName.getText(), textFieldProvince.getText(),
