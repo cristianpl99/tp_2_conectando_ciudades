@@ -96,7 +96,7 @@ public class MapScreen extends JFrame {
 		lblTotalCost.setBounds(10, 735, 700, 25);
 		contentPane.add(lblTotalCost);
 		
-		lblTotalCost = new JLabel("AL VALOR ACTUAL SON: $ " + formatInteger(mstCost * ConnectingCities.dolarValue) + " PESOS");
+		lblTotalCost = new JLabel("AL DOLAR OFICIAL ACTUAL SON: $ " + formatInteger(mstCost * ConnectingCities.dolarValue) + " PESOS");
 		lblTotalCost.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblTotalCost.setBounds(10, 735, 700, 25);
 		contentPane.add(lblTotalCost);

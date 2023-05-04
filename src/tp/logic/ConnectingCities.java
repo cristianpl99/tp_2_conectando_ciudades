@@ -65,8 +65,4 @@ public class ConnectingCities {
 		return Normalizer.normalize(text, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
 				.toLowerCase();
 	}
-
-	public Double getDolarValue() {
-		return dolarValue;
-	}
 }
