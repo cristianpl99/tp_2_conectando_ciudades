@@ -66,10 +66,6 @@ public class ConnectingCities {
 				.toLowerCase();
 	}
 
-	public Double getCostPerKilometerInUSD() {
-		return costPerKilometerInUSD;
-	}
-
 	public Double getDolarValue() {
 		return dolarValue;
 	}

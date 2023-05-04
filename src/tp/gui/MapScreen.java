@@ -29,12 +29,8 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import java.awt.Point;
 
+@SuppressWarnings("serial")
 public class MapScreen extends JFrame {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JMapViewer map;
 	private MyTableModel modelTable;
@@ -95,7 +91,7 @@ public class MapScreen extends JFrame {
 		scrollPane.setPreferredSize(new Dimension(700, 200));
 		contentPane.add(scrollPane);
 
-		lblTotalCost = new JLabel("COSTO RECORRIDO TOTAL: $ " + formatInteger(mstCost) + "USD");
+		lblTotalCost = new JLabel("COSTO RECORRIDO TOTAL: $ " + formatInteger(mstCost) + " USD");
 		lblTotalCost.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblTotalCost.setBounds(10, 735, 700, 25);
 		contentPane.add(lblTotalCost);
@@ -106,51 +102,46 @@ public class MapScreen extends JFrame {
 		contentPane.add(lblTotalCost);
 
 		for (Edge edge : mst.getAristas()) {
-			City origin = edge.getCity1();
-			City destination = edge.getCity2();
+		    City origin = edge.getCity1();
+		    City destination = edge.getCity2();
 
-			double originLat = origin.getLatitude();
-			double originLon = origin.getLongitude();
-			double destLat = destination.getLatitude();
-			double destLon = destination.getLongitude();
-
-			String originName = origin.getName();
-			String destName = destination.getName();
-
-			MapMarkerDot originMarker = new MapMarkerDot(new Coordinate(originLat, originLon));
-			originMarker.setName(originName);
-			originMarker.getStyle().setBackColor(Color.blue);
-			originMarker.getStyle().setColor(Color.blue);
-			map.addMapMarker(originMarker);
-
-			MapMarkerDot destMarker = new MapMarkerDot(new Coordinate(destLat, destLon));
-			destMarker.setName(destName);
-			destMarker.getStyle().setBackColor(Color.blue);
-			destMarker.getStyle().setColor(Color.blue);
-			map.addMapMarker(destMarker);
-
-			Coordinate c1 = new Coordinate(originLat, originLon);
-			Coordinate c2 = new Coordinate(destLat, destLon);
-			List<Coordinate> coords = new ArrayList<Coordinate>(Arrays.asList(c1, c2, c2));
-			MapPolygonImpl line = new MapPolygonImpl(coords);
-			line.setColor(Color.red);
-			map.addMapPolygon(line);
+		    addMarker(origin, Color.blue);
+		    addMarker(destination, Color.blue);
+		    addLine(origin, destination, Color.red);
 		}
 	}
-	
-	
-	private String formatInteger(double number) {
-	    long integerPart = (long) number; 
-	    String strIntegerPart = Long.toString(integerPart); 
-	    int length = strIntegerPart.length();
-	    StringBuilder sb = new StringBuilder(strIntegerPart);
-	    for (int i = length - 3; i > 0; i -= 3) { 
-	        sb.insert(i, ','); 
-	    }
-	    return sb.toString();
+
+	private void addMarker(City city, Color color) {
+		double lat = city.getLatitude();
+		double lon = city.getLongitude();
+		String name = city.getName();
+		MapMarkerDot marker = new MapMarkerDot(new Coordinate(lat, lon));
+		marker.setName(name);
+		marker.getStyle().setBackColor(color);
+		marker.getStyle().setColor(color);
+		map.addMapMarker(marker);
 	}
 
+	private void addLine(City origin, City destination, Color color) {
+		double lat1 = origin.getLatitude();
+		double lon1 = origin.getLongitude();
+		double lat2 = destination.getLatitude();
+		double lon2 = destination.getLongitude();
+		List<Coordinate> coords = Arrays.asList(new Coordinate(lat1, lon1), new Coordinate(lat2, lon2),
+				new Coordinate(lat2, lon2));
+		MapPolygonImpl line = new MapPolygonImpl(coords);
+		line.setColor(color);
+		map.addMapPolygon(line);
+	}
 
-
-	
+	private String formatInteger(double number) {
+		long integerPart = (long) number;
+		String strIntegerPart = Long.toString(integerPart);
+		int length = strIntegerPart.length();
+		StringBuilder sb = new StringBuilder(strIntegerPart);
+		for (int i = length - 3; i > 0; i -= 3) {
+			sb.insert(i, ',');
+		}
+		return sb.toString();
+	}
 }
