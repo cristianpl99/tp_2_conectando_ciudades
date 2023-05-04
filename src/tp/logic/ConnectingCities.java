@@ -10,9 +10,8 @@ import tp.dal.Persistence;
 
 public class ConnectingCities {
 	private Persistence persistence;
-	private Double dolarBlueValue;
+	public static Double dolarValue;
 	private Double costPerKilometerInUSD;
-	private Double costPerKilometer;
 	private Double increaseLongDistanceCost;
 	private Double fixedCrossProvincialCost;
 
@@ -20,18 +19,16 @@ public class ConnectingCities {
 		this.costPerKilometerInUSD = costPerKilometerInUSD;
 		this.increaseLongDistanceCost = increaseLongDistanceCost;
 		this.fixedCrossProvincialCost = fixedCrossProvincialCost;
-		this.dolarBlueValue = DolarAPI.getDolarValue();
-		
-		this.costPerKilometer = this.dolarBlueValue * this.costPerKilometerInUSD;
+		ConnectingCities.dolarValue = DolarAPI.getDolarValue();
 	}
 
 	public List<City> fetchCities() {
-		persistence = new Persistence();			
+		persistence = new Persistence();	
 		return persistence.fetchCities();
 	}
 
 	public WeightedGraph minimumSpanningTree(List<City> selectedCities) throws Exception {
-		CompleteGraph completeGraph = new CompleteGraph(costPerKilometer, increaseLongDistanceCost, fixedCrossProvincialCost);
+		CompleteGraph completeGraph = new CompleteGraph(costPerKilometerInUSD, increaseLongDistanceCost, fixedCrossProvincialCost);
 		WeightedGraph completeWeightedGraph = completeGraph.createCompleteWeightedGraph(selectedCities);
 		Prim prim = new Prim();
 		return prim.primTraversal(completeWeightedGraph);
@@ -69,8 +66,11 @@ public class ConnectingCities {
 				.toLowerCase();
 	}
 
-	public Double getCostPerKilometer() {
-		return costPerKilometer;
+	public Double getCostPerKilometerInUSD() {
+		return costPerKilometerInUSD;
 	}
 
+	public Double getDolarValue() {
+		return dolarValue;
+	}
 }

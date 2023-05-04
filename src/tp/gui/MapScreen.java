@@ -20,6 +20,7 @@ import javax.swing.table.JTableHeader;
 import org.openstreetmap.gui.jmapviewer.*;
 
 import tp.logic.City;
+import tp.logic.ConnectingCities;
 import tp.logic.Edge;
 import tp.logic.WeightedGraph;
 import java.awt.Font;
@@ -73,7 +74,7 @@ public class MapScreen extends JFrame {
 			rowData[i][1] = origin.getProvince();
 			rowData[i][2] = destination.getName();
 			rowData[i][3] = destination.getProvince();
-			rowData[i][4] = "$" + formatInteger(edge.getPeso());
+			rowData[i][4] = formatInteger(edge.getPeso()) + " USD";
 			mstCost += edge.getPeso();
 			i++;
 		}
@@ -94,7 +95,12 @@ public class MapScreen extends JFrame {
 		scrollPane.setPreferredSize(new Dimension(700, 200));
 		contentPane.add(scrollPane);
 
-		lblTotalCost = new JLabel("COSTO RECORRIDO TOTAL: $" + formatInteger(mstCost));
+		lblTotalCost = new JLabel("COSTO RECORRIDO TOTAL: $ " + formatInteger(mstCost) + "USD");
+		lblTotalCost.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblTotalCost.setBounds(10, 735, 700, 25);
+		contentPane.add(lblTotalCost);
+		
+		lblTotalCost = new JLabel("AL VALOR ACTUAL SON: $ " + formatInteger(mstCost * ConnectingCities.dolarValue) + " PESOS");
 		lblTotalCost.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblTotalCost.setBounds(10, 735, 700, 25);
 		contentPane.add(lblTotalCost);
