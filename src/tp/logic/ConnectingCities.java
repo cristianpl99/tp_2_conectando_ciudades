@@ -5,7 +5,8 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
-import tp.persistence.Persistence;
+import tp.dal.DolarAPI;
+import tp.dal.Persistence;
 
 public class ConnectingCities {
 	private Persistence persistence;
@@ -13,9 +14,9 @@ public class ConnectingCities {
 	private Double costPerKilometerInUSD;
 	private Double costPerKilometer;
 
-	public ConnectingCities() throws Exception {
-		this.dolarBlueValue = DolarAPI.getDolarBlueValue();
-		this.costPerKilometerInUSD = 8.0;
+	public ConnectingCities(double costPerKilometerInUSD) throws Exception {
+		this.dolarBlueValue = DolarAPI.getDolarValue();
+		this.costPerKilometerInUSD = costPerKilometerInUSD;
 		this.costPerKilometer = this.dolarBlueValue * this.costPerKilometerInUSD;
 	}
 
@@ -36,7 +37,7 @@ public class ConnectingCities {
 	public City createCity(String name, String province, double latitude, double longitude)
 			throws InvalidParameterException {
 		if (!validateCityParams(name, province, latitude, longitude)) {
-			throw new InvalidParameterException("Los parámetros ingresados para la ciudad no son válidos.");
+			throw new InvalidParameterException("Los parï¿½metros ingresados para la ciudad no son vï¿½lidos.");
 		}
 		City city = new City(name, province, latitude, longitude);
 		return city;
@@ -64,4 +65,9 @@ public class ConnectingCities {
 		return Normalizer.normalize(text, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
 				.toLowerCase();
 	}
+
+	public Double getCostPerKilometer() {
+		return costPerKilometer;
+	}
+
 }

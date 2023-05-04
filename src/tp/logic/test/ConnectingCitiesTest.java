@@ -17,7 +17,7 @@ public class ConnectingCitiesTest {
 
 	@Before
 	public void setUp() throws Exception {
-		connectingCities = new ConnectingCities();
+		connectingCities = new ConnectingCities(440);
 	}
 
 	@Test
@@ -41,7 +41,7 @@ public class ConnectingCitiesTest {
 
 	@Test
 	public void testValidateCityParams() throws Exception {
-		ConnectingCities connectingCities = new ConnectingCities();
+		ConnectingCities connectingCities = new ConnectingCities(440);
 
 		assertTrue(connectingCities.validateCityParams("Buenos Aires", "Buenos Aires", -34.603722, -58.381592));
 		assertTrue(connectingCities.validateCityParams("San Salvador de Jujuy", "Jujuy", -24.185786, -65.299476));

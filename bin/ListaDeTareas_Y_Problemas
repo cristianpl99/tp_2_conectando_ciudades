@@ -8,3 +8,4 @@ PROBLEMAS PARA INFORME:
 -Redondeo del monto de las conexiones = SOLUCIONADO USANDO UN VALOR DE DOLAR, UN COSTE EN DOLARES POR KILOMETRO, Y MULTIPLICANDOLO POR LOS KILOMETROS PARA LUEGO REDONDEAR
 -Al agregarse la lat y long de una ciudad nueva, si no se pone . algo en el numero, el calculo de plata falla = SOLUCIONADO ???
 -Complejidad de prim = SOLUCIONADO NO CREANDO MUCHAS VECES CONECTING CITY EN LA CREACION DE GRAFOCOMPLETO
+-Data Access Layer - Dolar API

@@ -1,4 +1,4 @@
-package tp.persistence;
+package tp.dal;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import com.google.gson.reflect.TypeToken;
 import tp.logic.City;
 
 public class Persistence {
-	String fileLocation = "src" + java.io.File.separator + "tp" + java.io.File.separator + "persistence"
+	String fileLocation = "src" + java.io.File.separator + "tp" + java.io.File.separator + "dal"
 			+ java.io.File.separator + "citiesList.json";
 	java.io.File file = new java.io.File(fileLocation);
 
