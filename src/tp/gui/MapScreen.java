@@ -23,6 +23,10 @@ import tp.logic.City;
 import tp.logic.Edge;
 import tp.logic.WeightedGraph;
 import java.awt.Font;
+import java.awt.BorderLayout;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import java.awt.Point;
 
 public class MapScreen extends JFrame {
 
@@ -43,8 +47,10 @@ public class MapScreen extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
-		setTitle("Trayecto De La Conexion");
+		setTitle("Programacion III - Conectando Ciudades");
 		map = new JMapViewer();
+		map.setCenter(new Point(1075, 745));
+		map.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		contentPane.add(map);
 		map.setZoomControlsVisible(false);
 		map.setLayout(null);
@@ -67,7 +73,7 @@ public class MapScreen extends JFrame {
 			rowData[i][1] = origin.getProvince();
 			rowData[i][2] = destination.getName();
 			rowData[i][3] = destination.getProvince();
-			rowData[i][4] = "$ " + edge.getPeso();
+			rowData[i][4] = "$" + formatInteger(edge.getPeso());
 			mstCost += edge.getPeso();
 			i++;
 		}
@@ -85,12 +91,12 @@ public class MapScreen extends JFrame {
 
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(0, 900, 250, 200);
-		scrollPane.setPreferredSize(new Dimension(650, 200));
+		scrollPane.setPreferredSize(new Dimension(700, 200));
 		contentPane.add(scrollPane);
 
-		lblTotalCost = new JLabel("COSTO RECORRIDO TOTAL: $" + mstCost);
+		lblTotalCost = new JLabel("COSTO RECORRIDO TOTAL: $" + formatInteger(mstCost));
 		lblTotalCost.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblTotalCost.setBounds(10, 705, 400, 20);
+		lblTotalCost.setBounds(10, 735, 700, 25);
 		contentPane.add(lblTotalCost);
 
 		for (Edge edge : mst.getAristas()) {
@@ -107,13 +113,13 @@ public class MapScreen extends JFrame {
 
 			MapMarkerDot originMarker = new MapMarkerDot(new Coordinate(originLat, originLon));
 			originMarker.setName(originName);
-			originMarker.getStyle().setBackColor(Color.red);
+			originMarker.getStyle().setBackColor(Color.blue);
 			originMarker.getStyle().setColor(Color.blue);
 			map.addMapMarker(originMarker);
 
 			MapMarkerDot destMarker = new MapMarkerDot(new Coordinate(destLat, destLon));
 			destMarker.setName(destName);
-			destMarker.getStyle().setBackColor(Color.red);
+			destMarker.getStyle().setBackColor(Color.blue);
 			destMarker.getStyle().setColor(Color.blue);
 			map.addMapMarker(destMarker);
 
@@ -125,4 +131,20 @@ public class MapScreen extends JFrame {
 			map.addMapPolygon(line);
 		}
 	}
+	
+	
+	private String formatInteger(double number) {
+	    long integerPart = (long) number; 
+	    String strIntegerPart = Long.toString(integerPart); 
+	    int length = strIntegerPart.length();
+	    StringBuilder sb = new StringBuilder(strIntegerPart);
+	    for (int i = length - 3; i > 0; i -= 3) { 
+	        sb.insert(i, ','); 
+	    }
+	    return sb.toString();
+	}
+
+
+
+	
 }

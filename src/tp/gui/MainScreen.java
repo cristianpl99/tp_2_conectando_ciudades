@@ -171,7 +171,7 @@ public class MainScreen extends JFrame {
 		btnAddUnlistedCity.setBounds(74, 428, 126, 36);
 		contentPane.add(btnAddUnlistedCity);
 
-		JButton btnMST = new JButton("Generar Conexion");
+		JButton btnMST = new JButton("Generar \r\nConexion");
 		btnMST.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (selectedCities.size() == 0) {
@@ -190,7 +190,7 @@ public class MainScreen extends JFrame {
 			}
 		});
 		btnMST.setFont(new Font("Tahoma", Font.BOLD, 10));
-		btnMST.setBounds(635, 167, 126, 63);
+		btnMST.setBounds(635, 167, 126, 53);
 		contentPane.add(btnMST);
 
 		contentPane.add(backgroundLabel);

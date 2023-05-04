@@ -7,7 +7,6 @@ public class CompleteGraph {
 
 	public CompleteGraph(Double costPerKilometer) {
 		this.costPerKilometer = costPerKilometer;
-	
 	}
 
 	public WeightedGraph createCompleteWeightedGraph(List<City> selectedCities) throws Exception {

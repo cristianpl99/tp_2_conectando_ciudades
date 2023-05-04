@@ -43,7 +43,7 @@ public class HomeScreen extends JFrame {
         JSlider slider = new JSlider();
         slider.setBounds(133, 214, 307, 26);
         slider.setMinimum(1);
-        slider.setMaximum(1000);
+        slider.setMaximum(500);
         slider.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 sliderValue = slider.getValue();
@@ -52,7 +52,7 @@ public class HomeScreen extends JFrame {
         });
         contentPane.add(slider);
         
-        valueLabel = new JLabel("USD ");
+        valueLabel = new JLabel("USD 1");
         valueLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
         valueLabel.setHorizontalAlignment(SwingConstants.CENTER);
         valueLabel.setBounds(184, 248, 200, 26);

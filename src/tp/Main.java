@@ -16,7 +16,6 @@ public class Main {
 		HomeScreen launch = new HomeScreen();
 		launch.setResizable(false);
 		launch.setVisible(true);
-		launch.setLocationRelativeTo(null);
+		launch.setLocationRelativeTo(null);	
 	}
-
 }

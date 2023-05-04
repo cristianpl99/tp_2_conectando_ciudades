@@ -21,9 +21,7 @@ public class ConnectingCities {
 	}
 
 	public List<City> fetchCities() {
-		persistence = new Persistence();
-		 
-				
+		persistence = new Persistence();			
 		return persistence.fetchCities();
 	}
 
