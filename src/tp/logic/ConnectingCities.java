@@ -13,10 +13,15 @@ public class ConnectingCities {
 	private Double dolarBlueValue;
 	private Double costPerKilometerInUSD;
 	private Double costPerKilometer;
+	private Double increaseLongDistanceCost;
+	private Double fixedCrossProvincialCost;
 
-	public ConnectingCities(double costPerKilometerInUSD) throws Exception {
-		this.dolarBlueValue = DolarAPI.getDolarValue();
+	public ConnectingCities(double costPerKilometerInUSD, double increaseLongDistanceCost, double fixedCrossProvincialCost) throws Exception {
 		this.costPerKilometerInUSD = costPerKilometerInUSD;
+		this.increaseLongDistanceCost = increaseLongDistanceCost;
+		this.fixedCrossProvincialCost = fixedCrossProvincialCost;
+		this.dolarBlueValue = DolarAPI.getDolarValue();
+		
 		this.costPerKilometer = this.dolarBlueValue * this.costPerKilometerInUSD;
 	}
 
@@ -26,7 +31,7 @@ public class ConnectingCities {
 	}
 
 	public WeightedGraph minimumSpanningTree(List<City> selectedCities) throws Exception {
-		CompleteGraph completeGraph = new CompleteGraph(costPerKilometer);
+		CompleteGraph completeGraph = new CompleteGraph(costPerKilometer, increaseLongDistanceCost, fixedCrossProvincialCost);
 		WeightedGraph completeWeightedGraph = completeGraph.createCompleteWeightedGraph(selectedCities);
 		Prim prim = new Prim();
 		return prim.primTraversal(completeWeightedGraph);

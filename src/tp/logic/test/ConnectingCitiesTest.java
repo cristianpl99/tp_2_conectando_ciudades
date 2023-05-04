@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.security.InvalidParameterException;
 import java.util.List;
+import java.util.Random;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +18,12 @@ public class ConnectingCitiesTest {
 
 	@Before
 	public void setUp() throws Exception {
-		connectingCities = new ConnectingCities(440);
+		
+		Random rand = new Random();
+		int costPerKilometerRandom = rand.nextInt(500) + 1; //genera un número aleatorio del 1 al 500
+		int increaseLongDistanceRandom = rand.nextInt(101); //genera un número aleatorio de tipo int del 0 al 100
+		int fixedCrossProvincialCostRandom = rand.nextInt(501); //genera un número aleatorio de tipo int del 0 al 500
+		connectingCities = new ConnectingCities(costPerKilometerRandom, increaseLongDistanceRandom, fixedCrossProvincialCostRandom);
 	}
 
 	@Test
@@ -41,7 +47,6 @@ public class ConnectingCitiesTest {
 
 	@Test
 	public void testValidateCityParams() throws Exception {
-		ConnectingCities connectingCities = new ConnectingCities(440);
 
 		assertTrue(connectingCities.validateCityParams("Buenos Aires", "Buenos Aires", -34.603722, -58.381592));
 		assertTrue(connectingCities.validateCityParams("San Salvador de Jujuy", "Jujuy", -24.185786, -65.299476));

@@ -50,7 +50,7 @@ public class MainScreen extends JFrame {
 	private ConnectingCities connectingCities;
 	private MyTableModel modelTable;
 	
-	public MainScreen(double costPerKilometer) throws Exception {
+	public MainScreen(double costPerKilometer, double increaseLongDistanceCost, double fixedCrossProvincialCost) throws Exception {
 		
 		setTitle("Programacion III - Conectando Ciudades");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,7 +71,7 @@ public class MainScreen extends JFrame {
 
 		selectedCities = new ArrayList<City>();
 
-		connectingCities = new ConnectingCities(costPerKilometer);
+		connectingCities = new ConnectingCities(costPerKilometer, increaseLongDistanceCost, fixedCrossProvincialCost);
 
 		modelTable = new MyTableModel(new Object[] { "Ciudad", "Provincia" }, 0);
 

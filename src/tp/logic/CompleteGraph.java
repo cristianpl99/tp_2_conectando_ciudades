@@ -4,9 +4,13 @@ import java.util.List;
 
 public class CompleteGraph {
 	private Double costPerKilometer;
+	private Double increaseLongDistanceCost;
+	private Double fixedCrossProvincialCost;
 
-	public CompleteGraph(Double costPerKilometer) {
+	public CompleteGraph(Double costPerKilometer, Double increaseLongDistanceCost, Double fixedCrossProvincialCost) {
 		this.costPerKilometer = costPerKilometer;
+		this.increaseLongDistanceCost = increaseLongDistanceCost;
+		this.fixedCrossProvincialCost = fixedCrossProvincialCost;
 	}
 
 	public WeightedGraph createCompleteWeightedGraph(List<City> selectedCities) throws Exception {
@@ -35,11 +39,13 @@ public class CompleteGraph {
 		double edgeCost = distance * this.costPerKilometer;
 
 		if (distance > 300) {
-			edgeCost = edgeCost * 1.1;
+		    double increaseFactor = 1 + (increaseLongDistanceCost / 100.0); 
+		    edgeCost = edgeCost * increaseFactor;
 		}
 
+
 		if (!city1.getProvince().equals(city2.getProvince())) {
-			edgeCost += 300;
+			edgeCost += fixedCrossProvincialCost;
 		}
 
 		edgeCost = Math.floor(edgeCost);
