@@ -59,8 +59,7 @@ public class CompleteGraphTest {
 		double lat2 = 48.8566;
 		double lon2 = 2.3522;
 		double expectedDistance = 639.56;
-
-		
+	
 		double actualDistance = completeGraph.distanceInKilometers(lat1, lon1, lat2, lon2);
 		assertEquals(expectedDistance, actualDistance, 0.01);
 	}

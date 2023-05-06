@@ -51,7 +51,7 @@ public class WeightedGraph extends NeighborListGraph {
 		return st.toString();
 	}
 
-	public ArrayList<Edge> getAristas() {
+	public ArrayList<Edge> getEdges() {
 		return edges;
 	}
 

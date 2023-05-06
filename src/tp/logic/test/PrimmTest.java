@@ -14,15 +14,15 @@ import tp.logic.WeightedGraph;
 public class PrimmTest {
 
 	@Test(expected = IllegalArgumentException.class)
-	public void grafoNoConexoTest() {
-		WeightedGraph g = crearGrafoInconexo();
+	public void nonConnectedGraphTest() {
+		WeightedGraph graph = createNonConnectedGraph();
 		Prim prim = new Prim();
-		prim.primTraversal(g);
+		prim.primTraversal(graph);
 	}
 
 	@Test
 	public void happyTest() {
-		WeightedGraph g = crearGrafoConexo();
+		WeightedGraph g = createConnectedGraph();
 		Prim prim = new Prim();
 		WeightedGraph agm = prim.primTraversal(g);
 		boolean acum = true;
@@ -36,7 +36,7 @@ public class PrimmTest {
 
 	@Test
 	public void noAGMTest() {
-		WeightedGraph g = crearGrafoConexo();
+		WeightedGraph g = createConnectedGraph();
 		Prim prim = new Prim();
 		WeightedGraph agm = prim.primTraversal(g);
 		boolean acum = true;
@@ -46,7 +46,7 @@ public class PrimmTest {
 		assertFalse(acum);
 	}
 
-	private List<City> crearListaDeCiudades() {
+	private List<City> createCityList() {
 		List<City> cities = new ArrayList<>();
 		cities.add(new City("a", "a", 23, 34));
 		cities.add(new City("b", "b", 24, 33));
@@ -57,8 +57,8 @@ public class PrimmTest {
 		return cities;
 	}
 
-	private WeightedGraph crearGrafoConexo() {
-		WeightedGraph ret = new WeightedGraph(6, crearListaDeCiudades());
+	private WeightedGraph createConnectedGraph() {
+		WeightedGraph ret = new WeightedGraph(6, createCityList());
 		ret.addEdge(ret.getVertex(0), ret.getVertex(1), 1);
 		ret.addEdge(ret.getVertex(0), ret.getVertex(2), 100);
 		ret.addEdge(ret.getVertex(1), ret.getVertex(2), 3);
@@ -70,8 +70,8 @@ public class PrimmTest {
 		return ret;
 	}
 
-	private WeightedGraph crearGrafoInconexo() {
-		WeightedGraph ret = new WeightedGraph(6, crearListaDeCiudades());
+	private WeightedGraph createNonConnectedGraph() {
+		WeightedGraph ret = new WeightedGraph(6, createCityList());
 		ret.addEdge(ret.getVertex(0), ret.getVertex(1), 23);
 		ret.addEdge(ret.getVertex(0), ret.getVertex(2), 100);
 		ret.addEdge(ret.getVertex(1), ret.getVertex(2), 93);

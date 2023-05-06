@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tp.dal.DolarAPI;
+import tp.dal.Saveable;
 import tp.dal.Persistence;
 
 public class ConnectingCities {
-	private Persistence persistence;
+	private Saveable persistence;
 	public static Double dolarValue;
 	private Double costPerKilometerInUSD;
 	private Double increaseLongDistanceCost;
@@ -24,7 +25,7 @@ public class ConnectingCities {
 
 	public List<City> fetchCities() {
 		persistence = new Persistence();	
-		return persistence.fetchCities();
+		return persistence.getCities();
 	}
 
 	public WeightedGraph minimumSpanningTree(List<City> selectedCities) throws Exception {
@@ -48,7 +49,7 @@ public class ConnectingCities {
 			return false;
 		}
 		persistence = new Persistence();
-		ArrayList<String> validProvinces = persistence.fetchProvinces();
+		ArrayList<String> validProvinces = persistence.getProvinces();
 
 		boolean isValidProvince = false;
 		for (String p : validProvinces) {

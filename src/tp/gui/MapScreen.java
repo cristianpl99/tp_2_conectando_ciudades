@@ -60,10 +60,10 @@ public class MapScreen extends JFrame {
 
 		String[] columnNames = { "Ciudad Origen", "Provincia Origen", "Ciudad Destino", "Provincia Destino",
 				"Costo del trayecto" };
-		Object[][] rowData = new Object[mst.getAristas().size()][5];
+		Object[][] rowData = new Object[mst.getEdges().size()][5];
 		int i = 0;
 		int mstCost = 0;
-		for (Edge edge : mst.getAristas()) {
+		for (Edge edge : mst.getEdges()) {
 			City origin = edge.getCity1();
 			City destination = edge.getCity2();
 			rowData[i][0] = origin.getName();
@@ -101,7 +101,7 @@ public class MapScreen extends JFrame {
 		lblTotalCost.setBounds(10, 735, 700, 25);
 		contentPane.add(lblTotalCost);
 
-		for (Edge edge : mst.getAristas()) {
+		for (Edge edge : mst.getEdges()) {
 		    City origin = edge.getCity1();
 		    City destination = edge.getCity2();
 

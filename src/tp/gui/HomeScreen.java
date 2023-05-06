@@ -72,6 +72,7 @@ public class HomeScreen extends JFrame {
 						for (int i = 0; i < sliderValuesDouble.length; i++) {
 							sliderValuesDouble[i] = (double) sliderValues[i];
 						}
+						dispose();
 						launch = new MainScreen(sliderValuesDouble[0], sliderValuesDouble[1], sliderValuesDouble[2]);
 						launch.setResizable(false);
 						launch.setVisible(true);

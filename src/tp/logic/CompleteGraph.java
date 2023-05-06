@@ -25,7 +25,6 @@ public class CompleteGraph {
 				City city1 = selectedCities.get(i);
 				City city2 = selectedCities.get(j);
 				double weight = calculateWeight(city1, city2);
-
 				Edge edge = new Edge(city1, city2, weight);
 				graph.addEdge(edge.city1, edge.city2, edge.peso);
 			}
@@ -34,20 +33,16 @@ public class CompleteGraph {
 	}
 
 	public double calculateWeight(City city1, City city2) throws Exception {
-		double distance = distanceInKilometers(city1.getLatitude(), city1.getLongitude(), city2.getLatitude(),
-				city2.getLongitude());
+		double distance = distanceInKilometers(city1.getLatitude(), city1.getLongitude(), city2.getLatitude(), city2.getLongitude());
 		double edgeCost = distance * this.costPerKilometer;
 
 		if (distance > 300) {
 		    double increaseFactor = 1 + (increaseLongDistanceCost / 100.0); 
 		    edgeCost = edgeCost * increaseFactor;
 		}
-
-
 		if (!city1.getProvince().equals(city2.getProvince())) {
 			edgeCost += fixedCrossProvincialCost;
 		}
-
 		edgeCost = Math.floor(edgeCost);
 		return edgeCost;
 	}

@@ -48,9 +48,8 @@ public class Prim {
 				}
 			}
 		}
-
 		markedVertexes.add(nonMarkedminimumVertex);
 		return minimumEdge;
 	}
-
 }
+

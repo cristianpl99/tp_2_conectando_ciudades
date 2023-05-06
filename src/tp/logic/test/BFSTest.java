@@ -14,19 +14,19 @@ import tp.logic.NeighborListGraph;
 public class BFSTest {
 
 	@Test(expected = IllegalArgumentException.class)
-	public void grafoNullTest() {
+	public void NullGraphTest() {
 		NeighborListGraph g = null;
 		assertTrue(BFS.isConnected(g));
 	}
 
-	public void grafoVacioTest() {
+	public void EmptyGraphTest() {
 		List<City> c = new ArrayList<>();
 		NeighborListGraph g = new NeighborListGraph(0, c);
 		assertTrue(BFS.isConnected(g));
 	}
 
 	@Test
-	public void grafoUnVerticeTest() {
+	public void OneVertexFraphTest() {
 		List<City> c = new ArrayList<>();
 		c.add(new City("a", "a", 23, 34));
 		NeighborListGraph g = new NeighborListGraph(1, c);
@@ -34,7 +34,7 @@ public class BFSTest {
 	}
 
 	@Test
-	public void grafoDosVerticesAisladosTest() {
+	public void IsolatedVertexesGraphTest() {
 		List<City> c = new ArrayList<>();
 		c.add(new City("a", "a", 23, 34));
 		c.add(new City("b", "b", 24, 33));
@@ -43,59 +43,60 @@ public class BFSTest {
 	}
 
 	@Test
-	public void grafoDosVerticesConexosTest() {
-		List<City> c = new ArrayList<>();
-		c.add(new City("a", "a", 23, 34));
-		c.add(new City("b", "b", 24, 33));
-		NeighborListGraph g = new NeighborListGraph(2, c);
-		g.addEdge(g.getVertex(0), g.getVertex(1));
-		assertTrue(BFS.isConnected(g));
+	public void connectedVertexesGraphTest() {
+	    List<City> cities = new ArrayList<>();
+	    cities.add(new City("a", "a", 23, 34));
+	    cities.add(new City("b", "b", 24, 33));
+	    NeighborListGraph graph = new NeighborListGraph(2, cities);
+	    graph.addEdge(graph.getVertex(0), graph.getVertex(1));
+	    assertTrue(BFS.isConnected(graph));
 	}
 
 	@Test
-	public void grafoInconexoTest() {
-		NeighborListGraph g = crearGrafoInconexo();
-		assertFalse(BFS.isConnected(g));
+	public void disconnectedGraphTest() {
+	    NeighborListGraph graph = createDisconnectedGraph();
+	    assertFalse(BFS.isConnected(graph));
 	}
 
-	@Test
-	public void grafoConexoTest() {
-		NeighborListGraph g = crearGrafoConexo();
-		assertTrue(BFS.isConnected(g));
-	}
 
-	private static List<City> crearListaDeCiudades() {
-		List<City> cities = new ArrayList<>();
-		cities.add(new City("a", "a", 23, 34));
-		cities.add(new City("b", "b", 24, 33));
-		cities.add(new City("c", "c", 25, 32));
-		cities.add(new City("d", "d", 26, 31));
-		cities.add(new City("e", "e", 27, 30));
-		cities.add(new City("f", "f", 28, 39));
-		return cities;
-	}
+		@Test
+		public void connectedGraphTest() {
+		    NeighborListGraph graph = createConnectedGraph();
+		    assertTrue(BFS.isConnected(graph));
+		}
 
-	private static NeighborListGraph crearGrafoInconexo() {
-		NeighborListGraph ret = new NeighborListGraph(6, crearListaDeCiudades());
-		ret.addEdge(ret.getVertex(0), ret.getVertex(1));
-		ret.addEdge(ret.getVertex(0), ret.getVertex(2));
-		ret.addEdge(ret.getVertex(1), ret.getVertex(2));
-		ret.addEdge(ret.getVertex(1), ret.getVertex(3));
-		ret.addEdge(ret.getVertex(2), ret.getVertex(4));
-		ret.addEdge(ret.getVertex(3), ret.getVertex(4));
-		return ret;
-	}
+		private static List<City> createCityList() {
+		    List<City> cities = new ArrayList<>();
+		    cities.add(new City("a", "a", 23, 34));
+		    cities.add(new City("b", "b", 24, 33));
+		    cities.add(new City("c", "c", 25, 32));
+		    cities.add(new City("d", "d", 26, 31));
+		    cities.add(new City("e", "e", 27, 30));
+		    cities.add(new City("f", "f", 28, 39));
+		    return cities;
+		}
 
-	private static NeighborListGraph crearGrafoConexo() {
-		NeighborListGraph ret = new NeighborListGraph(6, crearListaDeCiudades());
-		ret.addEdge(ret.getVertex(0), ret.getVertex(1));
-		ret.addEdge(ret.getVertex(0), ret.getVertex(2));
-		ret.addEdge(ret.getVertex(1), ret.getVertex(2));
-		ret.addEdge(ret.getVertex(1), ret.getVertex(3));
-		ret.addEdge(ret.getVertex(2), ret.getVertex(4));
-		ret.addEdge(ret.getVertex(3), ret.getVertex(4));
-		ret.addEdge(ret.getVertex(4), ret.getVertex(5));
-		return ret;
-	}
+		private static NeighborListGraph createDisconnectedGraph() {
+		    NeighborListGraph graph = new NeighborListGraph(6, createCityList());
+		    graph.addEdge(graph.getVertex(0), graph.getVertex(1));
+		    graph.addEdge(graph.getVertex(0), graph.getVertex(2));
+		    graph.addEdge(graph.getVertex(1), graph.getVertex(2));
+		    graph.addEdge(graph.getVertex(1), graph.getVertex(3));
+		    graph.addEdge(graph.getVertex(2), graph.getVertex(4));
+		    graph.addEdge(graph.getVertex(3), graph.getVertex(4));
+		    return graph;
+		}
+
+		private static NeighborListGraph createConnectedGraph() {
+		    NeighborListGraph graph = new NeighborListGraph(6, createCityList());
+		    graph.addEdge(graph.getVertex(0), graph.getVertex(1));
+		    graph.addEdge(graph.getVertex(0), graph.getVertex(2));
+		    graph.addEdge(graph.getVertex(1), graph.getVertex(2));
+		    graph.addEdge(graph.getVertex(1), graph.getVertex(3));
+		    graph.addEdge(graph.getVertex(2), graph.getVertex(4));
+		    graph.addEdge(graph.getVertex(3), graph.getVertex(4));
+		    graph.addEdge(graph.getVertex(4), graph.getVertex(5));
+		    return graph;
+		}
 
 }

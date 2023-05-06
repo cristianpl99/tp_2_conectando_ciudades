@@ -180,6 +180,7 @@ public class MainScreen extends JFrame {
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
+					dispose();
 					MapScreen mapScreen = new MapScreen(mst);
 					mapScreen.setResizable(false);
 					mapScreen.setVisible(true);

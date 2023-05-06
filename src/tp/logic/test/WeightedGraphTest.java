@@ -29,23 +29,20 @@ public class WeightedGraphTest {
 	public void testAddEdge() {
 		City city1 = cities.get(0);
 		City city2 = cities.get(1);
-		double peso = 10.0;
-		weightedGraph.addEdge(city1, city2, peso);
+		double weight = 10.0;
+		weightedGraph.addEdge(city1, city2, weight);
 
-		assertEquals(peso, weightedGraph.getEdgeWeight(city1, city2), 0.001);
+		assertEquals(weight, weightedGraph.getEdgeWeight(city1, city2), 0.001);
 	}
 
 	@Test
 	public void testDeleteEdge() {
 		City city1 = cities.get(0);
 		City city2 = cities.get(1);
-		double peso = 10.0;
-		weightedGraph.addEdge(city1, city2, peso);
-
-		assertEquals(peso, weightedGraph.getEdgeWeight(city1, city2), 0.001);
-
+		double weight = 10.0;
+		weightedGraph.addEdge(city1, city2, weight);
+		assertEquals(weight, weightedGraph.getEdgeWeight(city1, city2), 0.001);
 		weightedGraph.deleteEdge(city1, city2);
-
 		try {
 			weightedGraph.getEdgeWeight(city1, city2);
 			fail("Se esperaba una excepción.");
@@ -58,10 +55,9 @@ public class WeightedGraphTest {
 	public void testGetEdgeWeight() {
 		City city1 = cities.get(0);
 		City city2 = cities.get(1);
-		double peso = 10.0;
-		weightedGraph.addEdge(city1, city2, peso);
-
-		assertEquals(peso, weightedGraph.getEdgeWeight(city1, city2), 0.001);
-		assertEquals(peso, weightedGraph.getEdgeWeight(city2, city1), 0.001);
+		double weight = 10.0;
+		weightedGraph.addEdge(city1, city2, weight);
+		assertEquals(weight, weightedGraph.getEdgeWeight(city1, city2), 0.001);
+		assertEquals(weight, weightedGraph.getEdgeWeight(city2, city1), 0.001);
 	}
 }
