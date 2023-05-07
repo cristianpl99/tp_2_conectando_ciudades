@@ -3,7 +3,7 @@ package tp.gui;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +15,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.openstreetmap.gui.jmapviewer.*;
 
@@ -24,7 +27,6 @@ import tp.logic.ConnectingCities;
 import tp.logic.Edge;
 import tp.logic.WeightedGraph;
 import java.awt.Font;
-import java.awt.BorderLayout;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import java.awt.Point;
@@ -33,8 +35,7 @@ import java.awt.Point;
 public class MapScreen extends JFrame {
 	private JPanel contentPane;
 	private JMapViewer map;
-	private MyTableModel modelTable;
-	private JLabel lblTotalCost;
+	private DefaultTableModel tableModel;
 
 	public MapScreen(WeightedGraph mst) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,25 +60,31 @@ public class MapScreen extends JFrame {
 		map.setDisplayPosition(coordinate, 4);
 
 		String[] columnNames = { "Ciudad Origen", "Provincia Origen", "Ciudad Destino", "Provincia Destino",
-				"Costo del trayecto" };
+		        "Costo del trayecto" };
 		Object[][] rowData = new Object[mst.getEdges().size()][5];
 		int i = 0;
 		int mstCost = 0;
 		for (Edge edge : mst.getEdges()) {
-			City origin = edge.getCity1();
-			City destination = edge.getCity2();
-			rowData[i][0] = origin.getName();
-			rowData[i][1] = origin.getProvince();
-			rowData[i][2] = destination.getName();
-			rowData[i][3] = destination.getProvince();
-			rowData[i][4] = formatInteger(edge.getPeso()) + " USD";
-			mstCost += edge.getPeso();
-			i++;
+		    City origin = edge.getCity1();
+		    City destination = edge.getCity2();
+		    rowData[i][0] = origin.getName();
+		    rowData[i][1] = origin.getProvince();
+		    rowData[i][2] = destination.getName();
+		    rowData[i][3] = destination.getProvince();
+		    rowData[i][4] = formatInteger(edge.getPeso()) + " USD";
+		    mstCost += edge.getPeso();
+		    i++;
 		}
 
-		modelTable = new MyTableModel(rowData, columnNames);
+		tableModel = new DefaultTableModel(rowData, columnNames) {
+		    @Override
+		    public boolean isCellEditable(int row, int column) {
+		        return false;
+		    }
+		};
 
-		JTable table = new JTable(modelTable);
+		JTable table = new JTable(tableModel);
+
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 		table.setDefaultRenderer(Object.class, centerRenderer);
@@ -90,16 +97,16 @@ public class MapScreen extends JFrame {
 		scrollPane.setBounds(0, 900, 250, 200);
 		scrollPane.setPreferredSize(new Dimension(700, 200));
 		contentPane.add(scrollPane);
-
-		lblTotalCost = new JLabel("COSTO RECORRIDO TOTAL: $ " + formatInteger(mstCost) + " USD");
-		lblTotalCost.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblTotalCost.setBounds(10, 735, 700, 25);
-		contentPane.add(lblTotalCost);
 		
-		lblTotalCost = new JLabel("AL DOLAR OFICIAL ACTUAL SON: $ " + formatInteger(mstCost * ConnectingCities.dolarValue) + " PESOS");
-		lblTotalCost.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblTotalCost.setBounds(10, 735, 700, 25);
-		contentPane.add(lblTotalCost);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        
+
+        addLabel("COSTO RECORRIDO TOTAL: $ " + formatInteger(mstCost) + " USD", 10, 735);
+        
+        String currentDate = dateFormat.format(new Date());
+        addLabel("COTIZACION DOLAR " + currentDate + " : $ " + ConnectingCities.dolarValue + " PESOS", 10, 760);
+        
+        addLabel("COSTO RECORRIDO TOTAL: $ " + formatInteger(mstCost * ConnectingCities.dolarValue) + " PESOS", 10, 785);
 
 		for (Edge edge : mst.getEdges()) {
 		    City origin = edge.getCity1();
@@ -132,6 +139,13 @@ public class MapScreen extends JFrame {
 		MapPolygonImpl line = new MapPolygonImpl(coords);
 		line.setColor(color);
 		map.addMapPolygon(line);
+	}
+	
+	private void addLabel(String text, int x, int y) {
+	    JLabel label = new JLabel(text);
+	    label.setFont(new Font("Tahoma", Font.BOLD, 20));
+	    label.setBounds(x, y, 700, 25);
+	    contentPane.add(label);
 	}
 
 	private String formatInteger(double number) {

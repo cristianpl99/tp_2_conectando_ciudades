@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import tp.logic.BFS;
@@ -12,17 +13,23 @@ import tp.logic.City;
 import tp.logic.NeighborListGraph;
 
 public class BFSTest {
+	private BFS bfs;
+
+    @Before
+    public void setUp() {
+        bfs = new BFS();
+    }
 
 	@Test(expected = IllegalArgumentException.class)
 	public void NullGraphTest() {
 		NeighborListGraph g = null;
-		assertTrue(BFS.isConnected(g));
+		assertTrue(bfs.isConnected(g));
 	}
 
 	public void EmptyGraphTest() {
 		List<City> c = new ArrayList<>();
 		NeighborListGraph g = new NeighborListGraph(0, c);
-		assertTrue(BFS.isConnected(g));
+		assertTrue(bfs.isConnected(g));
 	}
 
 	@Test
@@ -30,7 +37,7 @@ public class BFSTest {
 		List<City> c = new ArrayList<>();
 		c.add(new City("a", "a", 23, 34));
 		NeighborListGraph g = new NeighborListGraph(1, c);
-		assertTrue(BFS.isConnected(g));
+		assertTrue(bfs.isConnected(g));
 	}
 
 	@Test
@@ -39,7 +46,7 @@ public class BFSTest {
 		c.add(new City("a", "a", 23, 34));
 		c.add(new City("b", "b", 24, 33));
 		NeighborListGraph g = new NeighborListGraph(2, c);
-		assertFalse(BFS.isConnected(g));
+		assertFalse(bfs.isConnected(g));
 	}
 
 	@Test
@@ -49,20 +56,20 @@ public class BFSTest {
 	    cities.add(new City("b", "b", 24, 33));
 	    NeighborListGraph graph = new NeighborListGraph(2, cities);
 	    graph.addEdge(graph.getVertex(0), graph.getVertex(1));
-	    assertTrue(BFS.isConnected(graph));
+	    assertTrue(bfs.isConnected(graph));
 	}
 
 	@Test
 	public void disconnectedGraphTest() {
 	    NeighborListGraph graph = createDisconnectedGraph();
-	    assertFalse(BFS.isConnected(graph));
+	    assertFalse(bfs.isConnected(graph));
 	}
 
 
 		@Test
 		public void connectedGraphTest() {
 		    NeighborListGraph graph = createConnectedGraph();
-		    assertTrue(BFS.isConnected(graph));
+		    assertTrue(bfs.isConnected(graph));
 		}
 
 		private static List<City> createCityList() {

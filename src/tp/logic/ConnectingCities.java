@@ -7,11 +7,12 @@ import java.util.List;
 
 import tp.dal.DolarAPI;
 import tp.dal.IdataLoader;
+import tp.dal.IvalueLoader;
 import tp.dal.Persistence;
 
 public class ConnectingCities {
 	private IdataLoader persistence;
-	public static Double dolarValue;
+	public static double dolarValue;
 	private Double costPerKilometerInUSD;
 	private Double increaseLongDistanceCost;
 	private Double fixedCrossProvincialCost;
@@ -20,7 +21,12 @@ public class ConnectingCities {
 		this.costPerKilometerInUSD = costPerKilometerInUSD;
 		this.increaseLongDistanceCost = increaseLongDistanceCost;
 		this.fixedCrossProvincialCost = fixedCrossProvincialCost;
-		ConnectingCities.dolarValue = DolarAPI.getDolarValue();
+		IvalueLoader valueLoader = new DolarAPI();
+		ConnectingCities.dolarValue = valueLoader.getDolarValue(); 
+	}
+
+	public double getDolarValue() {
+		return dolarValue;
 	}
 
 	public List<City> fetchCities() {

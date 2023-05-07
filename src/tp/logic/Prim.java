@@ -66,7 +66,8 @@ public class Prim {
     private Set<City> markedVertexes;
 
     public WeightedGraph primTraversal(WeightedGraph completeGraph) {
-        if (!BFS.isConnected(completeGraph)) {
+    	BFS bfs = new BFS();
+        if (!bfs.isConnected(completeGraph)) {
             throw new IllegalArgumentException("El grafo no es conexo.");
         }
 

@@ -33,6 +33,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 public class MainScreen extends JFrame {
 
@@ -45,7 +46,8 @@ public class MainScreen extends JFrame {
 	private List<City> cities;
 	private List<City> selectedCities;
 	private ConnectingCities connectingCities;
-	private MyTableModel modelTable;
+	private DefaultTableModel modelTable;
+
 	
 	public MainScreen(double costPerKilometer, double increaseLongDistanceCost, double fixedCrossProvincialCost) throws Exception {
 		
@@ -67,18 +69,15 @@ public class MainScreen extends JFrame {
 		contentPane.setLayout(null);
 
 		selectedCities = new ArrayList<City>();
-
 		connectingCities = new ConnectingCities(costPerKilometer, increaseLongDistanceCost, fixedCrossProvincialCost);
-
-		modelTable = new MyTableModel(new Object[] { "Ciudad", "Provincia" }, 0);
+		modelTable = new DefaultTableModel(new Object[] { "Ciudad", "Provincia" }, 0);
 
 		JTable table = new JTable();
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(299, 21, 326, 400);
 		contentPane.add(scrollPane);
-
 		table.setModel(modelTable);
-
+		table.setDefaultEditor(Object.class, null);
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 		table.setDefaultRenderer(Object.class, centerRenderer);

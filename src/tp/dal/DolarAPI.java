@@ -9,11 +9,11 @@ import java.net.URL;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class DolarAPI {
-	public static String API_URL = "https://api.bluelytics.com.ar/v2/latest";
-	public static double defaultValue = 250;
+public class DolarAPI implements IvalueLoader {
+	private String API_URL = "https://api.bluelytics.com.ar/v2/latest";
+	private double defaultValue = 250;
 
-	public static double getDolarValue() {
+	public double getDolarValue() {
 		double dolarValue = 0;
 		try {
 			URL url = new URL(getApiUrl());
@@ -39,7 +39,7 @@ public class DolarAPI {
 		return dolarValue;
 	}
 
-	private static double parseDolarValueFromJson(String json) {
+	private double parseDolarValueFromJson(String json) {
 		double dolarValue = 0;
 		try {
 			JSONObject jsonObject = new JSONObject(json);
@@ -51,11 +51,15 @@ public class DolarAPI {
 		return dolarValue;
 	}
 
-	public static double getDefaultValue() {
+	public double getDefaultValue() {
 		return defaultValue;
 	}
 
-	public static String getApiUrl() {
+	public String getApiUrl() {
 		return API_URL;
+	}
+
+	public void setAPI_URL(String aPI_URL) {
+		API_URL = aPI_URL;
 	}
 }
