@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tp.dal.DolarAPI;
-import tp.dal.Saveable;
+import tp.dal.IdataLoader;
 import tp.dal.Persistence;
 
 public class ConnectingCities {
-	private Saveable persistence;
+	private IdataLoader persistence;
 	public static Double dolarValue;
 	private Double costPerKilometerInUSD;
 	private Double increaseLongDistanceCost;
@@ -24,7 +24,7 @@ public class ConnectingCities {
 	}
 
 	public List<City> fetchCities() {
-		persistence = new Persistence();	
+		persistence = new Persistence();
 		return persistence.getCities();
 	}
 
