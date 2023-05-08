@@ -33,12 +33,13 @@ public class CompleteGraph {
 	}
 
 	public double calculateWeight(City city1, City city2) throws Exception {
-		double distance = distanceInKilometers(city1.getLatitude(), city1.getLongitude(), city2.getLatitude(), city2.getLongitude());
+		double distance = distanceInKilometers(city1.getLatitude(), city1.getLongitude(), city2.getLatitude(),
+				city2.getLongitude());
 		double edgeCost = distance * this.costPerKilometer;
 
 		if (distance > 300) {
-		    double increaseFactor = 1 + (increaseLongDistanceCost / 100.0); 
-		    edgeCost = edgeCost * increaseFactor;
+			double increaseFactor = 1 + (increaseLongDistanceCost / 100.0);
+			edgeCost = edgeCost * increaseFactor;
 		}
 		if (!city1.getProvince().equals(city2.getProvince())) {
 			edgeCost += fixedCrossProvincialCost;

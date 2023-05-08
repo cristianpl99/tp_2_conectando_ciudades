@@ -9,21 +9,21 @@ import org.junit.Test;
 import tp.dal.DolarAPI;
 
 public class DolarAPITest {
-    private DolarAPI dolarAPI;
+	private DolarAPI dolarAPI;
 
-    @Before
-    public void setUp() {
-        dolarAPI = new DolarAPI();
-    }
+	@Before
+	public void setUp() {
+		dolarAPI = new DolarAPI();
+	}
 
-    @Test
-    public void testGetDolarBlueValidValue() {
-        double dolarValue = dolarAPI.getDolarValue();
-        assertTrue(dolarValue > 0);
-    }
+	@Test
+	public void testGetDolarBlueValidValue() {
+		double dolarValue = dolarAPI.getDolarValue();
+		assertTrue(dolarValue > 0);
+	}
 
-    @Test
-    public void testGetDolarValueDefault() {
+	@Test
+	public void testGetDolarValueDefault() {
 
 		// Hacemos fallar la API cambiando el URL por uno que no existe
 		String originalUrl = dolarAPI.getApiUrl();
@@ -34,4 +34,3 @@ public class DolarAPITest {
 		dolarAPI.setAPI_URL(originalUrl);
 	}
 }
-

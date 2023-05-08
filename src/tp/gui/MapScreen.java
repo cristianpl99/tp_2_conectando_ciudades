@@ -3,7 +3,6 @@ package tp.gui;
 import java.awt.Color;
 import java.awt.Dimension;
 
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,8 +30,11 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import java.awt.Point;
 
-@SuppressWarnings("serial")
 public class MapScreen extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JMapViewer map;
 	private DefaultTableModel tableModel;
@@ -60,27 +62,32 @@ public class MapScreen extends JFrame {
 		map.setDisplayPosition(coordinate, 4);
 
 		String[] columnNames = { "Ciudad Origen", "Provincia Origen", "Ciudad Destino", "Provincia Destino",
-		        "Costo del trayecto" };
+				"Costo del trayecto" };
 		Object[][] rowData = new Object[mst.getEdges().size()][5];
 		int i = 0;
 		int mstCost = 0;
 		for (Edge edge : mst.getEdges()) {
-		    City origin = edge.getCity1();
-		    City destination = edge.getCity2();
-		    rowData[i][0] = origin.getName();
-		    rowData[i][1] = origin.getProvince();
-		    rowData[i][2] = destination.getName();
-		    rowData[i][3] = destination.getProvince();
-		    rowData[i][4] = formatInteger(edge.getPeso()) + " USD";
-		    mstCost += edge.getPeso();
-		    i++;
+			City origin = edge.getCity1();
+			City destination = edge.getCity2();
+			rowData[i][0] = origin.getName();
+			rowData[i][1] = origin.getProvince();
+			rowData[i][2] = destination.getName();
+			rowData[i][3] = destination.getProvince();
+			rowData[i][4] = formatInteger(edge.getPeso()) + " USD";
+			mstCost += edge.getPeso();
+			i++;
 		}
 
 		tableModel = new DefaultTableModel(rowData, columnNames) {
-		    @Override
-		    public boolean isCellEditable(int row, int column) {
-		        return false;
-		    }
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
 		};
 
 		JTable table = new JTable(tableModel);
@@ -97,24 +104,24 @@ public class MapScreen extends JFrame {
 		scrollPane.setBounds(0, 900, 250, 200);
 		scrollPane.setPreferredSize(new Dimension(700, 200));
 		contentPane.add(scrollPane);
-		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        
 
-        addLabel("COSTO RECORRIDO TOTAL: $ " + formatInteger(mstCost) + " USD", 10, 735);
-        
-        String currentDate = dateFormat.format(new Date());
-        addLabel("COTIZACION DOLAR " + currentDate + " : $ " + ConnectingCities.dolarValue + " PESOS", 10, 760);
-        
-        addLabel("COSTO RECORRIDO TOTAL: $ " + formatInteger(mstCost * ConnectingCities.dolarValue) + " PESOS", 10, 785);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+		addLabel("COSTO RECORRIDO TOTAL: $ " + formatInteger(mstCost) + " USD", 10, 735);
+
+		String currentDate = dateFormat.format(new Date());
+		addLabel("COTIZACION DOLAR " + currentDate + " : $ " + ConnectingCities.dolarValue + " PESOS", 10, 760);
+
+		addLabel("COSTO RECORRIDO TOTAL: $ " + formatInteger(mstCost * ConnectingCities.dolarValue) + " PESOS", 10,
+				785);
 
 		for (Edge edge : mst.getEdges()) {
-		    City origin = edge.getCity1();
-		    City destination = edge.getCity2();
+			City origin = edge.getCity1();
+			City destination = edge.getCity2();
 
-		    addMarker(origin, Color.blue);
-		    addMarker(destination, Color.blue);
-		    addLine(origin, destination, Color.red);
+			addMarker(origin, Color.blue);
+			addMarker(destination, Color.blue);
+			addLine(origin, destination, Color.red);
 		}
 	}
 
@@ -140,12 +147,12 @@ public class MapScreen extends JFrame {
 		line.setColor(color);
 		map.addMapPolygon(line);
 	}
-	
+
 	private void addLabel(String text, int x, int y) {
-	    JLabel label = new JLabel(text);
-	    label.setFont(new Font("Tahoma", Font.BOLD, 20));
-	    label.setBounds(x, y, 700, 25);
-	    contentPane.add(label);
+		JLabel label = new JLabel(text);
+		label.setFont(new Font("Tahoma", Font.BOLD, 20));
+		label.setBounds(x, y, 700, 25);
+		contentPane.add(label);
 	}
 
 	private String formatInteger(double number) {

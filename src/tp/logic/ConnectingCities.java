@@ -3,7 +3,6 @@ package tp.logic;
 import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.text.Normalizer;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONException;
@@ -11,8 +10,6 @@ import org.json.JSONException;
 import tp.dal.DolarAPI;
 import tp.dal.Data;
 import tp.dal.IvalueLoader;
-import tp.dal.Persistence;
-import tp.dal.CitiesAPI;
 
 public class ConnectingCities {
 	private Data dataLoader;
@@ -21,26 +18,27 @@ public class ConnectingCities {
 	private Double increaseLongDistanceCost;
 	private Double fixedCrossProvincialCost;
 
-	public ConnectingCities(double costPerKilometerInUSD, double increaseLongDistanceCost, double fixedCrossProvincialCost) throws Exception {
+	public ConnectingCities(double costPerKilometerInUSD, double increaseLongDistanceCost,
+			double fixedCrossProvincialCost) throws Exception {
 		this.costPerKilometerInUSD = costPerKilometerInUSD;
 		this.increaseLongDistanceCost = increaseLongDistanceCost;
 		this.fixedCrossProvincialCost = fixedCrossProvincialCost;
 		IvalueLoader valueLoader = new DolarAPI();
-		ConnectingCities.dolarValue = valueLoader.getDolarValue(); 
+		ConnectingCities.dolarValue = valueLoader.getDolarValue();
 	}
 
 	public double getDolarValue() {
 		return dolarValue;
 	}
 
-	public List<City> fetchCities() throws JSONException, IOException { 
-	    Data dataLoader = new Data();
+	public List<City> fetchCities() throws JSONException, IOException {
+		dataLoader = new Data();
 		return dataLoader.getCities();
 	}
 
-
 	public WeightedGraph minimumSpanningTree(List<City> selectedCities) throws Exception {
-		CompleteGraph completeGraph = new CompleteGraph(costPerKilometerInUSD, increaseLongDistanceCost, fixedCrossProvincialCost);
+		CompleteGraph completeGraph = new CompleteGraph(costPerKilometerInUSD, increaseLongDistanceCost,
+				fixedCrossProvincialCost);
 		WeightedGraph completeWeightedGraph = completeGraph.createCompleteWeightedGraph(selectedCities);
 		Prim prim = new Prim();
 		return prim.primTraversal(completeWeightedGraph);
@@ -55,7 +53,8 @@ public class ConnectingCities {
 		return city;
 	}
 
-	public boolean validateCityParams(String name, String province, double latitude, double longitude) throws JSONException, IOException {
+	public boolean validateCityParams(String name, String province, double latitude, double longitude)
+			throws JSONException, IOException {
 		if (latitude < -54 || latitude > -22 || longitude < -70 || longitude > -53) {
 			return false;
 		}

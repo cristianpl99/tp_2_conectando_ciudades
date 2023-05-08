@@ -1,6 +1,5 @@
 package tp.gui;
 
-
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -11,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
@@ -72,11 +72,17 @@ public class HomeScreen extends JFrame {
 						for (int i = 0; i < sliderValuesDouble.length; i++) {
 							sliderValuesDouble[i] = (double) sliderValues[i];
 						}
-						dispose();
-						launch = new MainScreen(sliderValuesDouble[0], sliderValuesDouble[1], sliderValuesDouble[2]);
-						launch.setResizable(false);
-						launch.setVisible(true);
-						launch.setLocationRelativeTo(null);
+						if (sliderValuesDouble[0] == 0) {
+							JOptionPane.showMessageDialog(null, "elija un costo por kilometro", "Mensaje",
+									JOptionPane.INFORMATION_MESSAGE);
+						} else {
+							dispose();
+							launch = new MainScreen(sliderValuesDouble[0], sliderValuesDouble[1],
+									sliderValuesDouble[2]);
+							launch.setResizable(false);
+							launch.setVisible(true);
+							launch.setLocationRelativeTo(null);
+						}
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
@@ -95,7 +101,8 @@ public class HomeScreen extends JFrame {
 
 		}
 
-		JLabel lblExtraCost = createLabel("Costo extra si las localidades son de distintas provincias", 14, 77, 292, 420, 26);
+		JLabel lblExtraCost = createLabel("Costo extra si las localidades son de distintas provincias", 14, 77, 292,
+				420, 26);
 		contentPane.add(lblExtraCost);
 
 		contentPane.add(backgroundLabel);

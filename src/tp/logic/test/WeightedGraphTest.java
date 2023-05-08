@@ -35,6 +35,7 @@ public class WeightedGraphTest {
 		assertEquals(weight, weightedGraph.getEdgeWeight(city1, city2), 0.001);
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	@Test
 	public void testDeleteEdge() {
 		City city1 = cities.get(0);

@@ -51,9 +51,9 @@ public class MainScreen extends JFrame {
 	private ConnectingCities connectingCities;
 	private DefaultTableModel modelTable;
 
-	
-	public MainScreen(double costPerKilometer, double increaseLongDistanceCost, double fixedCrossProvincialCost) throws Exception {
-		
+	public MainScreen(double costPerKilometer, double increaseLongDistanceCost, double fixedCrossProvincialCost)
+			throws Exception {
+
 		setTitle("Programacion III - Conectando Ciudades");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 788, 559);

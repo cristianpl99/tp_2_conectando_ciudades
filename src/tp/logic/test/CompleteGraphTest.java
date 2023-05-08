@@ -4,22 +4,20 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import tp.logic.City;
 import tp.logic.CompleteGraph;
-import tp.logic.ConnectingCities;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class CompleteGraphTest {
-	
+
 	private CompleteGraph completeGraph;
 
 	@Before
 	public void setUp() throws Exception {
-		
+
 		completeGraph = new CompleteGraph(200.0, 10.0, 300.0);
 
 	}
@@ -32,7 +30,7 @@ public class CompleteGraphTest {
 
 	@Test
 	public void testCalculateWeight() throws Exception {
-		
+
 		// Testeamos que el costo de la arista es correcto según la distancia y la
 		// provincia
 		City city1 = new City("Buenos Aires", "Buenos Aires", -58.381592, -34.603722);
@@ -59,7 +57,7 @@ public class CompleteGraphTest {
 		double lat2 = 48.8566;
 		double lon2 = 2.3522;
 		double expectedDistance = 639.56;
-	
+
 		double actualDistance = completeGraph.distanceInKilometers(lat1, lon1, lat2, lon2);
 		assertEquals(expectedDistance, actualDistance, 0.01);
 	}
