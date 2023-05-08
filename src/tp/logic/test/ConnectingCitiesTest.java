@@ -2,10 +2,12 @@ package tp.logic.test;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.Random;
 
+import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,18 +28,18 @@ public class ConnectingCitiesTest {
 	}
 
 	@Test
-	public void testCreateValidCity() throws InvalidParameterException {
+	public void testCreateValidCity() throws InvalidParameterException, JSONException, IOException {
 		City city = connectingCities.createCity("Buenos Aires", "Buenos Aires", -34.603722, -58.381592);
 		assertNotNull(city);
 	}
 
 	@Test(expected = InvalidParameterException.class)
-	public void testCreateInvalidCity() throws InvalidParameterException {
-		connectingCities.createCity("La Plata", "xxxxx", 0, 0);
+	public void testCreateInvalidCity() throws InvalidParameterException, JSONException, IOException {
+			connectingCities.createCity("La Plata", "xxxxx", 0, 0);	
 	}
 
 	@Test
-	public void testFetchCities() {
+	public void testFetchCities() throws JSONException, IOException {
 		List<City> cities = connectingCities.fetchCities();
 		assertNotNull(cities);
 		assertFalse(cities.isEmpty());

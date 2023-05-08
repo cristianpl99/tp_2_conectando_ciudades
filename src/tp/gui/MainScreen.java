@@ -28,12 +28,15 @@ import tp.logic.WeightedGraph;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
+import org.json.JSONException;
 
 public class MainScreen extends JFrame {
 
@@ -155,10 +158,15 @@ public class MainScreen extends JFrame {
 							if (selectedCities.size() != 0) {
 								addCityInTable(textFieldName.getText(), textFieldProvince.getText());
 							}
-
 						}
 					} catch (InvalidParameterException ex) {
 						showMessageDialog("Alguno de los datos ingresados no es correcto");
+					} catch (IllegalArgumentException e1) {
+						e1.printStackTrace();
+					} catch (JSONException e1) {
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						e1.printStackTrace();
 					}
 				}
 			}
@@ -216,7 +224,7 @@ public class MainScreen extends JFrame {
 		JOptionPane.showMessageDialog(null, message, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 	}
 
-	private City createCity() {
+	private City createCity() throws InvalidParameterException, NumberFormatException, JSONException, IOException {
 		return connectingCities.createCity(textFieldName.getText(), textFieldProvince.getText(),
 				Double.parseDouble(textFieldLatitude.getText()), Double.parseDouble(textFieldLongitude.getText()));
 	}

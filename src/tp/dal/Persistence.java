@@ -10,7 +10,7 @@ import com.google.gson.reflect.TypeToken;
 
 import tp.logic.City;
 
-public class Persistence implements IdataLoader {
+public class Persistence implements Idata {
     private String fileLocation = "src" + java.io.File.separator + "tp" + java.io.File.separator + "dal"
             + java.io.File.separator + "citiesList.json";
     private java.io.File file = new java.io.File(fileLocation);

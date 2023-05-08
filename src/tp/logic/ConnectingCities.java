@@ -1,17 +1,21 @@
 package tp.logic;
 
+import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
+
 import tp.dal.DolarAPI;
-import tp.dal.IdataLoader;
+import tp.dal.Data;
 import tp.dal.IvalueLoader;
 import tp.dal.Persistence;
+import tp.dal.CitiesAPI;
 
 public class ConnectingCities {
-	private IdataLoader persistence;
+	private Data dataLoader;
 	public static double dolarValue;
 	private Double costPerKilometerInUSD;
 	private Double increaseLongDistanceCost;
@@ -29,10 +33,11 @@ public class ConnectingCities {
 		return dolarValue;
 	}
 
-	public List<City> fetchCities() {
-		persistence = new Persistence();
-		return persistence.getCities();
+	public List<City> fetchCities() throws JSONException, IOException { 
+	    Data dataLoader = new Data();
+		return dataLoader.getCities();
 	}
+
 
 	public WeightedGraph minimumSpanningTree(List<City> selectedCities) throws Exception {
 		CompleteGraph completeGraph = new CompleteGraph(costPerKilometerInUSD, increaseLongDistanceCost, fixedCrossProvincialCost);
@@ -42,20 +47,20 @@ public class ConnectingCities {
 	}
 
 	public City createCity(String name, String province, double latitude, double longitude)
-			throws InvalidParameterException {
+			throws InvalidParameterException, JSONException, IOException {
 		if (!validateCityParams(name, province, latitude, longitude)) {
-			throw new InvalidParameterException("Los par�metros ingresados para la ciudad no son v�lidos.");
+			throw new InvalidParameterException("Los parametros ingresados para la ciudad no son v�lidos.");
 		}
 		City city = new City(name, province, latitude, longitude);
 		return city;
 	}
 
-	public boolean validateCityParams(String name, String province, double latitude, double longitude) {
+	public boolean validateCityParams(String name, String province, double latitude, double longitude) throws JSONException, IOException {
 		if (latitude < -54 || latitude > -22 || longitude < -70 || longitude > -53) {
 			return false;
 		}
-		persistence = new Persistence();
-		ArrayList<String> validProvinces = persistence.getProvinces();
+		Data dataLoader = new Data();
+		List<String> validProvinces = dataLoader.getProvinces();
 
 		boolean isValidProvince = false;
 		for (String p : validProvinces) {
