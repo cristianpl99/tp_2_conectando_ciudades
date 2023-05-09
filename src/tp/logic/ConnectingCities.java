@@ -27,6 +27,7 @@ public class ConnectingCities {
 		dataLoader = new Data();
 		IvalueLoader valueLoader = new DolarAPI();	
 		ConnectingCities.dolarValue = valueLoader.getDolarValue();
+		this.validProvinces = dataLoader.getProvinces();
 	}
 
 	public ConnectingCities() {
@@ -36,8 +37,7 @@ public class ConnectingCities {
 		return dolarValue;
 	}
 
-	public List<City> fetchCities() throws JSONException, IOException {
-		this.validProvinces = dataLoader.getProvinces();
+	public List<City> fetchCities() throws JSONException, IOException {	
 		return dataLoader.getCities();
 	}
 

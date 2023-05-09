@@ -236,7 +236,6 @@ public class MainScreen extends JFrame {
 	private void addCityInTable(String city, String province) {
 		Object[] row = { city, province };
 		modelTable.addRow(row);
-		System.out.println("Ciudad: " + city + ", Provincia: " + province);
 	}
 	
 	private boolean missingCityData() {

@@ -8,7 +8,7 @@ import java.util.Set;
 public class BFS {
 
 	private boolean[] marked;
-	private List<City> L;
+	private List<City> citiesList;
 
 	public boolean isConnected(NeighborListGraph graph) {
 		if (graph == null) {
@@ -25,7 +25,7 @@ public class BFS {
 
 		initializeSearch(g, vertice);
 
-		while (L.size() > 0) {
+		while (citiesList.size() > 0) {
 			City seleccionado = selectAndMark(g);
 			ret.add(seleccionado);
 
@@ -38,27 +38,26 @@ public class BFS {
 	}
 
 	private void removeMarked() {
-		L.remove(0);
+		citiesList.remove(0);
 	}
 
-	private City selectAndMark(NeighborListGraph g) {
-		City selected = L.get(0);
-		marked[g.getVertexes().indexOf(selected)] = true;
+	private City selectAndMark(NeighborListGraph graph) {
+		City selected = citiesList.get(0);
+		marked[graph.getVertexes().indexOf(selected)] = true;
 		return selected;
 	}
 
-	private void addNonMarkedNeighbors(NeighborListGraph g, City seleccionado) {
-		for (City neighbor : g.neighbors(seleccionado)) {
-			if (!marked[g.getVertexes().indexOf(neighbor)] && !L.contains(neighbor)) {
-				L.add(neighbor);
+	private void addNonMarkedNeighbors(NeighborListGraph graph, City selected) {
+		for (City neighbor : graph.neighbors(selected)) {
+			if (!marked[graph.getVertexes().indexOf(neighbor)] && !citiesList.contains(neighbor)) {
+				citiesList.add(neighbor);
 			}
 		}
 	}
 
-	private void initializeSearch(NeighborListGraph g, City city) {
-		L = new LinkedList<City>();
-		L.add(city);
-		marked = new boolean[g.size()];
+	private void initializeSearch(NeighborListGraph graph, City city) {
+		citiesList = new LinkedList<City>();
+		citiesList.add(city);
+		marked = new boolean[graph.size()];
 	}
-
 }
