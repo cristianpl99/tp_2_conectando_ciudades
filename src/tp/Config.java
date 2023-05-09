@@ -6,9 +6,14 @@ public class Config {
     private static double defaultUSDValue = 250;
     private static int maximumCostPerKilometer = 500;
     private static int crossProvinceCablingCost = 500;
+    private static int timerConnection = 3000;
     
 	public static int getMaximumCostPerKilometer() {
 		return maximumCostPerKilometer;
+	}
+
+	public static int getTimerConnection() {
+		return timerConnection;
 	}
 
 	public static int getCrossProvinceCablingCost() {
