@@ -46,16 +46,16 @@ public class CitiesAPI {
 		return cities;
 	}
 
-	public List<String> getUniqueProvinces() throws IOException, JSONException {
-	    Set<String> uniqueProvinces = new HashSet<>();
+	public List<String> getProvinces() throws IOException, JSONException {
+	    Set<String> Provinces = new HashSet<>();
 	    JSONArray municipios = readJsonDataFromUrl(apiUrlCities).getJSONArray("municipios");
 
 	    for (int i = 0; i < municipios.length(); i++) {
 	        JSONObject municipio = municipios.getJSONObject(i);
 	        String province = municipio.getJSONObject("provincia").getString("nombre");
-	        uniqueProvinces.add(province);
+	        Provinces.add(province);
 	    }
-	    return new ArrayList<>(uniqueProvinces);
+	    return new ArrayList<>(Provinces);
 	}
 
 	private JSONObject readJsonDataFromUrl(String apiUrl) throws IOException, JSONException {

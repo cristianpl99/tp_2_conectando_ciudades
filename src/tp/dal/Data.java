@@ -13,7 +13,7 @@ public class Data implements Idata {
 		try {
 			CitiesAPI citiesAPI = new CitiesAPI();
 			cities = citiesAPI.getCities();
-			provinces = citiesAPI.getUniqueProvinces();
+			provinces = citiesAPI.getProvinces();
 		} catch (IOException | JSONException e) {
 			System.out.println("Error al obtener los datos desde API. Obteniendo desde Persistence. API utilizada: " + e.getMessage());
 			Persistence persistence = new Persistence();
