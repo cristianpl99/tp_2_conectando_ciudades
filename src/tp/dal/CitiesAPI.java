@@ -16,12 +16,14 @@ import java.net.URL;
 
 import tp.Config;
 import tp.logic.City;
+import tp.logic.ConnectingCities;
 
 public class CitiesAPI {
 	private String apiUrlCities = Config.getApiUrlCities();
 
 	public List<City> getCities() throws IOException, JSONException {
 		List<City> cities = new ArrayList<>();
+		ConnectingCities connecting = new ConnectingCities();
 
 		JSONArray municipios = readJsonDataFromUrl(apiUrlCities).getJSONArray("municipios");
 		
@@ -32,7 +34,7 @@ public class CitiesAPI {
 			double latitude = municipio.getJSONObject("centroide").getDouble("lat");
 			double longitude = municipio.getJSONObject("centroide").getDouble("lon");
 
-			City city = new City(name, province, latitude, longitude);
+			City city = connecting.createCityFromAPI(name, province, latitude, longitude);
 			cities.add(city);
 		}
 
@@ -49,13 +51,16 @@ public class CitiesAPI {
 	public List<String> getProvinces() throws IOException, JSONException {
 	    Set<String> Provinces = new HashSet<>();
 	    JSONArray municipios = readJsonDataFromUrl(apiUrlCities).getJSONArray("municipios");
+	    jsonToStringArray(Provinces, municipios);
+	    return new ArrayList<>(Provinces);
+	}
 
-	    for (int i = 0; i < municipios.length(); i++) {
+	private void jsonToStringArray(Set<String> Provinces, JSONArray municipios) {
+		for (int i = 0; i < municipios.length(); i++) {
 	        JSONObject municipio = municipios.getJSONObject(i);
 	        String province = municipio.getJSONObject("provincia").getString("nombre");
 	        Provinces.add(province);
 	    }
-	    return new ArrayList<>(Provinces);
 	}
 
 	private JSONObject readJsonDataFromUrl(String apiUrl) throws IOException, JSONException {

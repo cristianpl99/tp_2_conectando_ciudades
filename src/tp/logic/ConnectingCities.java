@@ -14,6 +14,7 @@ import tp.dal.IvalueLoader;
 public class ConnectingCities {
 	private Data dataLoader;
 	public static double dolarValue;
+	List<String> validProvinces;
 	private Double costPerKilometerInUSD;
 	private Double increaseLongDistanceCost;
 	private Double fixedCrossProvincialCost;
@@ -23,7 +24,8 @@ public class ConnectingCities {
 		this.costPerKilometerInUSD = costPerKilometerInUSD;
 		this.increaseLongDistanceCost = increaseLongDistanceCost;
 		this.fixedCrossProvincialCost = fixedCrossProvincialCost;
-		IvalueLoader valueLoader = new DolarAPI();
+		dataLoader = new Data();
+		IvalueLoader valueLoader = new DolarAPI();	
 		ConnectingCities.dolarValue = valueLoader.getDolarValue();
 	}
 
@@ -35,7 +37,7 @@ public class ConnectingCities {
 	}
 
 	public List<City> fetchCities() throws JSONException, IOException {
-		dataLoader = new Data();
+		this.validProvinces = dataLoader.getProvinces();
 		return dataLoader.getCities();
 	}
 
@@ -55,17 +57,21 @@ public class ConnectingCities {
 		City city = new City(name, province, latitude, longitude);
 		return city;
 	}
+	
+	public City createCityFromAPI(String name, String province, double latitude, double longitude)
+			throws InvalidParameterException, JSONException, IOException {
+		City city = new City(name, province, latitude, longitude);
+		return city;
+	}
 
 	public boolean validateCityParams(String name, String province, double latitude, double longitude)
 			throws JSONException, IOException {
 		if (latitude < -54 || latitude > -22 || longitude < -70 || longitude > -53) {
 			return false;
 		}
-		Data dataLoader = new Data();
-		List<String> validProvinces = dataLoader.getProvinces();
 
 		boolean isValidProvince = false;
-		for (String p : validProvinces) {
+		for (String p : this.validProvinces) {
 			if (removeAccents(p).equalsIgnoreCase(removeAccents(province))) {
 				isValidProvince = true;
 				break;
