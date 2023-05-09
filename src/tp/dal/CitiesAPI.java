@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,16 +14,17 @@ import org.json.JSONObject;
 
 import java.net.URL;
 
+import tp.Config;
 import tp.logic.City;
 
 public class CitiesAPI {
-	private String apiUrl = "https://infra.datos.gob.ar/catalog/modernizacion/dataset/7/distribution/7.4/download/municipios.json";
+	private String apiUrlCities = Config.getApiUrlCities();
 
 	public List<City> getCities() throws IOException, JSONException {
 		List<City> cities = new ArrayList<>();
 
-		JSONArray municipios = readJsonDataFromUrl(apiUrl).getJSONArray("municipios");
-
+		JSONArray municipios = readJsonDataFromUrl(apiUrlCities).getJSONArray("municipios");
+		
 		for (int i = 0; i < municipios.length(); i++) {
 			JSONObject municipio = municipios.getJSONObject(i);
 			String name = municipio.getString("nombre");
@@ -44,17 +47,15 @@ public class CitiesAPI {
 	}
 
 	public List<String> getUniqueProvinces() throws IOException, JSONException {
-		List<String> provinces = new ArrayList<>();
+	    Set<String> uniqueProvinces = new HashSet<>();
+	    JSONArray municipios = readJsonDataFromUrl(apiUrlCities).getJSONArray("municipios");
 
-		JSONArray municipios = readJsonDataFromUrl(apiUrl).getJSONArray("municipios");
-
-		for (int i = 0; i < municipios.length(); i++) {
-			JSONObject municipio = municipios.getJSONObject(i);
-			String province = municipio.getJSONObject("provincia").getString("nombre");
-			provinces.add(province);
-		}
-
-		return new ArrayList<>(provinces);
+	    for (int i = 0; i < municipios.length(); i++) {
+	        JSONObject municipio = municipios.getJSONObject(i);
+	        String province = municipio.getJSONObject("provincia").getString("nombre");
+	        uniqueProvinces.add(province);
+	    }
+	    return new ArrayList<>(uniqueProvinces);
 	}
 
 	private JSONObject readJsonDataFromUrl(String apiUrl) throws IOException, JSONException {

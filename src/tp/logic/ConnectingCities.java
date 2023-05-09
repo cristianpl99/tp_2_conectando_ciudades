@@ -27,6 +27,9 @@ public class ConnectingCities {
 		ConnectingCities.dolarValue = valueLoader.getDolarValue();
 	}
 
+	public ConnectingCities() {
+	}
+
 	public double getDolarValue() {
 		return dolarValue;
 	}

@@ -11,7 +11,7 @@ import tp.logic.City;
 import tp.logic.Prim;
 import tp.logic.WeightedGraph;
 
-public class PrimmTest {
+public class PrimTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void nonConnectedGraphTest() {

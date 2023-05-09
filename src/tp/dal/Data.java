@@ -15,7 +15,7 @@ public class Data implements Idata {
 			cities = citiesAPI.getCities();
 			provinces = citiesAPI.getUniqueProvinces();
 		} catch (IOException | JSONException e) {
-			System.out.println("Error al obtener los datos desde CitiesAPI. Obteniendo desde Persistence...");
+			System.out.println("Error al obtener los datos desde API. Obteniendo desde Persistence. API utilizada: " + e.getMessage());
 			Persistence persistence = new Persistence();
 			cities = persistence.getCities();
 			provinces = persistence.getProvinces();

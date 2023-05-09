@@ -18,6 +18,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import tp.Config;
+
 public class HomeScreen extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -25,8 +27,8 @@ public class HomeScreen extends JFrame {
 	private int[] sliderValues = new int[3];
 	private JLabel[] valueLabels = new JLabel[3];
 	private final String[] sliderValueLabels = { "USD ", "% ", "USD " };
-	private final int[] sliderMinimums = { 1, 0, 0 };
-	private final int[] sliderMaximums = { 500, 100, 500 };
+	private final int[] sliderMinimums = { 0, 0, 0 };
+	private final int[] sliderMaximums = { Config.getMaximumCostPerKilometer(), 100, Config.getCrossProvinceCablingCost() };
 
 	public HomeScreen() {
 		setTitle("\"Programacion III - Conectando Ciudades\"");
@@ -73,7 +75,7 @@ public class HomeScreen extends JFrame {
 							sliderValuesDouble[i] = (double) sliderValues[i];
 						}
 						if (sliderValuesDouble[0] == 0) {
-							JOptionPane.showMessageDialog(null, "elija un costo por kilometro", "Mensaje",
+							JOptionPane.showMessageDialog(null, "Debe seleccionar el costo por kilometro", "Mensaje",
 									JOptionPane.INFORMATION_MESSAGE);
 						} else {
 							dispose();
@@ -89,7 +91,7 @@ public class HomeScreen extends JFrame {
 				}
 			});
 			btnSelectCities.setFont(new Font("Tahoma", Font.BOLD, 11));
-			btnSelectCities.setBounds(145, 438, 256, 48);
+			btnSelectCities.setBounds(175, 438, 256, 48);
 			contentPane.add(btnSelectCities);
 
 			JLabel lblTitle1 = createLabel("Bienvenidos al TP2 : Conectando Ciudades", 23, 41, 25, 500, 42);

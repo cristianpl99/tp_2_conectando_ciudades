@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.Icon;
@@ -28,6 +29,8 @@ import tp.logic.WeightedGraph;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.awt.event.ActionEvent;
@@ -197,6 +200,11 @@ public class MainScreen extends JFrame {
 		btnMST.setFont(new Font("Tahoma", Font.BOLD, 10));
 		btnMST.setBounds(635, 167, 126, 53);
 		contentPane.add(btnMST);
+		
+		addHoverEffect(btnMST, Color.GREEN);
+		addHoverEffect(btnDeleteCity, Color.RED);
+		
+		
 
 		contentPane.add(backgroundLabel);
 	}
@@ -219,24 +227,36 @@ public class MainScreen extends JFrame {
 		contentPane.add(textField);
 		return textField;
 	}
+	
+	private City createCity() throws InvalidParameterException, NumberFormatException, JSONException, IOException {
+		return connectingCities.createCity(textFieldName.getText(), textFieldProvince.getText(),
+				Double.parseDouble(textFieldLatitude.getText()), Double.parseDouble(textFieldLongitude.getText()));
+	}
+	
+	private void addCityInTable(String city, String province) {
+		Object[] row = { city, province };
+		modelTable.addRow(row);
+	}
+	
+	private boolean missingCityData() {
+		return textFieldName.getText().equals("") || textFieldProvince.getText().equals("")
+				|| textFieldLatitude.getText().equals("") || textFieldLongitude.getText().equals("");
+	}
 
 	private void showMessageDialog(String message) {
 		JOptionPane.showMessageDialog(null, message, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 	}
 
-	private City createCity() throws InvalidParameterException, NumberFormatException, JSONException, IOException {
-		return connectingCities.createCity(textFieldName.getText(), textFieldProvince.getText(),
-				Double.parseDouble(textFieldLatitude.getText()), Double.parseDouble(textFieldLongitude.getText()));
-	}
-
-	private void addCityInTable(String city, String province) {
-		Object[] row = { city, province };
-		modelTable.addRow(row);
-	}
-
-	private boolean missingCityData() {
-		return textFieldName.getText().equals("") || textFieldProvince.getText().equals("")
-				|| textFieldLatitude.getText().equals("") || textFieldLongitude.getText().equals("");
+	private void addHoverEffect(JButton button, Color hoverColor) {
+	    button.addMouseListener(new MouseAdapter() {
+	        public void mouseEntered(MouseEvent e) {
+	            button.setBackground(hoverColor);
+	        }
+	        
+	        public void mouseExited(MouseEvent e) {
+	            button.setBackground(UIManager.getColor("Button.background"));
+	        }
+	    });
 	}
 
 	private void entryValidation(JTextField jText) {

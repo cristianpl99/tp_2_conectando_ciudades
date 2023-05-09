@@ -9,9 +9,11 @@ import java.net.URL;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import tp.Config;
+
 public class DolarAPI implements IvalueLoader {
-	private String API_URL = "https://api.bluelytics.com.ar/v2/latest";
-	private double defaultValue = 250;
+	private String apiUrlUSD = Config.getApiUrlUSD();
+	private double defaultValue = Config.defaultUSDValue();
 
 	public double getDolarValue() {
 		double dolarValue = 0;
@@ -32,7 +34,7 @@ public class DolarAPI implements IvalueLoader {
 			dolarValue = parseDolarValueFromJson(json);
 		} catch (Exception e) {
 			System.err.println(
-					"Error al obtener el valor del dólar blue de la API, se utilizará un default de $250 como valor: "
+					"Error al obtener el valor del dólar desde API, se utilizará un default de $250 como valor. API utilizada: "
 							+ e.getMessage());
 			dolarValue = getDefaultValue();
 		}
@@ -56,10 +58,10 @@ public class DolarAPI implements IvalueLoader {
 	}
 
 	public String getApiUrl() {
-		return API_URL;
+		return apiUrlUSD;
 	}
 
 	public void setAPI_URL(String aPI_URL) {
-		API_URL = aPI_URL;
+		apiUrlUSD = aPI_URL;
 	}
 }
