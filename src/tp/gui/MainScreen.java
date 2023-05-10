@@ -6,7 +6,6 @@ import javax.swing.JTable;
 
 import java.awt.Font;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComboBox;
@@ -50,7 +49,6 @@ public class MainScreen extends JFrame {
 	private JTextField textFieldLatitude;
 	private JTextField textFieldLongitude;
 	private List<City> cities;
-	private List<City> selectedCities;
 	private ConnectingCities connectingCities;
 	private DefaultTableModel modelTable;
 
@@ -74,7 +72,6 @@ public class MainScreen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		selectedCities = new ArrayList<City>();
 		connectingCities = new ConnectingCities(costPerKilometer, increaseLongDistanceCost, fixedCrossProvincialCost);
 		modelTable = new DefaultTableModel(new Object[] { "Ciudad", "Provincia" }, 0);
 
@@ -118,13 +115,15 @@ public class MainScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (comboBox.getSelectedIndex() != -1) {
 					City city = cities.get(comboBox.getSelectedIndex());
-					if (!selectedCities.contains(city)) {
-						selectedCities.add(city);
+					if (!connectingCities.containsCity(city)) {
+						connectingCities.addCity(city);
 						addCityInTable(city.getName(), city.getProvince());
 					} else {
 						showMessageDialog("La ciudad ya ha sido agregada.");
 					}
 				}
+			
+		
 			}
 		});
 		btnAddListedCity.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -136,7 +135,7 @@ public class MainScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (table.getSelectedRow() != -1) {
 					showMessageDialog("La ciudad fue eliminada con exito.");
-					selectedCities.remove(table.getSelectedRow());
+					connectingCities.removeCity(table.getSelectedRow());
 					modelTable.removeRow(table.getSelectedRow());
 				}
 			}
@@ -154,11 +153,11 @@ public class MainScreen extends JFrame {
 				} else {
 					try {
 						City newCity = createCity();
-						if (selectedCities.contains(newCity)) {
+						if (connectingCities.containsCity(newCity)) {
 							showMessageDialog("Ya agrego esta ciudad, agregue otra");
 						} else {
-							selectedCities.add(newCity);
-							if (selectedCities.size() != 0) {
+							connectingCities.addCity(newCity);
+							if (connectingCities.getSize() != 0) {
 								addCityInTable(textFieldName.getText(), textFieldProvince.getText());
 							}
 						}
@@ -181,12 +180,12 @@ public class MainScreen extends JFrame {
 		JButton btnMST = new JButton("Generar \r\nConexion");
 		btnMST.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (selectedCities.size() == 0) {
+				if (connectingCities.getSize() == 0) {
 					showMessageDialog("Seleccione almenos una ciudad");
 				} else {
 					WeightedGraph mst = null;
 					try {
-						mst = connectingCities.minimumSpanningTree(selectedCities);
+						mst = connectingCities.minimumSpanningTree(connectingCities.getCitiesList());
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}

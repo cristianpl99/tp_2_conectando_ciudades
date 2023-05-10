@@ -38,6 +38,54 @@ public class ConnectingCitiesTest {
 	public void testCreateInvalidCity() throws InvalidParameterException, JSONException, IOException {
 		connectingCities.createCity("La Plata", "xxxxx", 0, 0);
 	}
+	
+	@Test
+	public void testAddCity() {
+	    City city = new City("Buenos Aires", "Buenos Aires", -34.603722, -58.381592);
+	    connectingCities.addCity(city);
+	    assertEquals(1, connectingCities.getSize());
+	    assertTrue(connectingCities.containsCity(city));
+	}
+
+	@Test
+	public void testContainsCity() {
+	    City city = new City("Buenos Aires", "Buenos Aires", -34.603722, -58.381592);
+	    assertFalse(connectingCities.containsCity(city));
+	    connectingCities.addCity(city);
+	    assertTrue(connectingCities.containsCity(city));
+	}
+
+	@Test
+	public void testRemoveCity() {
+	    City city = new City("Buenos Aires", "Buenos Aires", -34.603722, -58.381592);
+	    connectingCities.addCity(city);
+	    assertEquals(1, connectingCities.getSize());
+	    connectingCities.removeCity(0);
+	    assertEquals(0, connectingCities.getSize());
+	    assertFalse(connectingCities.containsCity(city));
+	}
+
+	@Test
+	public void testGetSize() {
+	    City city1 = new City("Buenos Aires", "Buenos Aires", -34.603722, -58.381592);
+	    City city2 = new City("Córdoba", "Córdoba", -31.420083, -64.188776);
+	    connectingCities.addCity(city1);
+	    connectingCities.addCity(city2);
+	    assertEquals(2, connectingCities.getSize());
+	}
+
+	@Test
+	public void testGetCitiesList() {
+	    City city1 = new City("Buenos Aires", "Buenos Aires", -34.603722, -58.381592);
+	    City city2 = new City("Córdoba", "Córdoba", -31.420083, -64.188776);
+	    connectingCities.addCity(city1);
+	    connectingCities.addCity(city2);
+	    List<City> cities = connectingCities.getCitiesList();
+	    assertNotNull(cities);
+	    assertEquals(2, cities.size());
+	    assertTrue(cities.contains(city1));
+	    assertTrue(cities.contains(city2));
+	}
 
 	@Test
 	public void testFetchCities() throws JSONException, IOException {

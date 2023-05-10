@@ -3,6 +3,7 @@ package tp.logic;
 import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONException;
@@ -15,6 +16,7 @@ public class ConnectingCities {
 	private Data dataLoader;
 	public static double dolarValue;
 	List<String> validProvinces;
+	private List<City> selectedCities;
 	private Double costPerKilometerInUSD;
 	private Double increaseLongDistanceCost;
 	private Double fixedCrossProvincialCost;
@@ -24,6 +26,7 @@ public class ConnectingCities {
 		this.costPerKilometerInUSD = costPerKilometerInUSD;
 		this.increaseLongDistanceCost = increaseLongDistanceCost;
 		this.fixedCrossProvincialCost = fixedCrossProvincialCost;
+		this.selectedCities = new ArrayList<City>();
 		dataLoader = new Data();
 		IvalueLoader valueLoader = new DolarAPI();	
 		ConnectingCities.dolarValue = valueLoader.getDolarValue();
@@ -62,6 +65,26 @@ public class ConnectingCities {
 			throws InvalidParameterException, JSONException, IOException {
 		City city = new City(name, province, latitude, longitude);
 		return city;
+	}
+	
+	public void addCity(City city) {
+		selectedCities.add(city);	
+	}
+	
+	public boolean containsCity(City city) {
+		return selectedCities.contains(city);	
+	}
+
+	public void removeCity(int selectedRow) {
+		selectedCities.remove(selectedRow);
+	}
+
+	public int getSize() {
+		return selectedCities.size();
+	}
+
+	public List<City> getCitiesList() {
+		return selectedCities;
 	}
 
 	public boolean validateCityParams(String name, String province, double latitude, double longitude)
